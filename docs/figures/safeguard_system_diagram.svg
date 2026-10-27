@@ -1,0 +1,205 @@
+<svg width="1600" height="1000" viewBox="0 0 1600 1000" xmlns="http://www.w3.org/2000/svg" role="img" font-family="Arial, Helvetica, sans-serif">
+<title>SafeGuard: Event-driven Cascading Wake-up System for In-vehicle Occupant Protection</title>
+<desc>Technical system diagram showing a car side cutaway with sensor and actuator placement, a six-step operating sequence, the SafeGuard state machine flowchart, and the data flow pipeline from hardware/virtual sensors through analysis to the web dashboard.</desc>
+<defs>
+<marker id="arrowGray" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#9CA3AF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrowBlue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#4A7FB8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrowOrange" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#E8863A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+</defs>
+
+<rect x="0" y="0" width="1600" height="1000" fill="#FFFFFF"/>
+
+<!-- Title -->
+<text x="800" y="40" font-size="28" font-weight="700" fill="#1F2937" text-anchor="middle">SafeGuard</text>
+<text x="800" y="63" font-size="16" font-weight="500" fill="#3E6FA5" text-anchor="middle">Event-driven Cascading Wake-up System for In-vehicle Occupant Protection</text>
+<text x="800" y="82" font-size="12" fill="#6B7280" text-anchor="middle">차량 내 잔류 탑승자 보호를 위한 이벤트 기반 단계적 웨이크업 시스템</text>
+<line x1="60" y1="95" x2="1540" y2="95" stroke="#E5E7EB" stroke-width="1.5"/>
+
+<!-- Step sequence banner -->
+<line x1="186" y1="140" x2="414" y2="140" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arrowGray)"/>
+<line x1="446" y1="140" x2="674" y2="140" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arrowGray)"/>
+<line x1="706" y1="140" x2="934" y2="140" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arrowGray)"/>
+<line x1="966" y1="140" x2="1194" y2="140" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arrowGray)"/>
+<line x1="1226" y1="140" x2="1454" y2="140" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arrowGray)"/>
+
+<g><circle cx="170" cy="140" r="16" fill="#E8863A"/><text x="170" y="140" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">1</text></g>
+<g><circle cx="430" cy="140" r="16" fill="#E8863A"/><text x="430" y="140" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">2</text></g>
+<g><circle cx="690" cy="140" r="16" fill="#E8863A"/><text x="690" y="140" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">3</text></g>
+<g><circle cx="950" cy="140" r="16" fill="#E8863A"/><text x="950" y="140" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">4</text></g>
+<g><circle cx="1210" cy="140" r="16" fill="#E8863A"/><text x="1210" y="140" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">5</text></g>
+<g><circle cx="1470" cy="140" r="16" fill="#E8863A"/><text x="1470" y="140" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">6</text></g>
+
+<text x="170" y="176" font-size="13" font-weight="700" fill="#1F2937" text-anchor="middle">Guardian departure</text>
+<text x="170" y="192" font-size="11" fill="#6B7280" text-anchor="middle">UWB/BLE &#8805; 5 m, 10 s</text>
+
+<text x="430" y="176" font-size="13" font-weight="700" fill="#1F2937" text-anchor="middle">PIR + camera</text>
+<text x="430" y="192" font-size="11" fill="#6B7280" text-anchor="middle">Motion or visual cue</text>
+
+<text x="690" y="176" font-size="13" font-weight="700" fill="#1F2937" text-anchor="middle">mmWave confirmation</text>
+<text x="690" y="192" font-size="11" fill="#6B7280" text-anchor="middle">Presence + distance + confidence</text>
+
+<text x="950" y="176" font-size="13" font-weight="700" fill="#1F2937" text-anchor="middle">Thermal prediction</text>
+<text x="950" y="192" font-size="11" fill="#6B7280" text-anchor="middle">Rise rate &#8594; time-to-35&#176;C</text>
+
+<text x="1210" y="176" font-size="13" font-weight="700" fill="#1F2937" text-anchor="middle">Actuator control</text>
+<text x="1210" y="192" font-size="11" fill="#6B7280" text-anchor="middle">Fan / LED / buzzer / motor</text>
+
+<text x="1470" y="176" font-size="13" font-weight="700" fill="#1F2937" text-anchor="middle">Dashboard output</text>
+<text x="1470" y="192" font-size="11" fill="#6B7280" text-anchor="middle">State log &#183; power &#183; comparison</text>
+
+<!-- ================= Guardian zone ================= -->
+<circle cx="105" cy="440" r="14" fill="#6B7280"/>
+<path d="M85,460 Q105,449 125,460 L120,506 Q105,514 90,506 Z" fill="#9CA3AF"/>
+<rect x="118" y="466" width="12" height="18" rx="2" fill="#4A7FB8"/>
+<line x1="80" y1="440" x2="26" y2="440" stroke="#E8863A" stroke-width="2" marker-end="url(#arrowOrange)"/>
+<line x1="140" y1="470" x2="245" y2="470" stroke="#9CA3AF" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arrowGray)"/>
+<text x="20" y="532" font-size="13" font-weight="700" fill="#1F2937">Guardian departure</text>
+<text x="20" y="549" font-size="13" font-weight="700" fill="#1F2937">trigger</text>
+<text x="20" y="567" font-size="11" fill="#6B7280">UWB/BLE distance</text>
+<text x="20" y="581" font-size="11" fill="#6B7280">&#8805; 5 m for 10 s</text>
+<text x="20" y="598" font-size="10" fill="#9CA3AF">보호자 이탈 감지</text>
+
+<!-- ================= Car cutaway body ================= -->
+<path d="M260,600 L270,545 L400,475 L470,395 L930,395 L1010,475 L1120,545 L1130,600 Z" fill="#F8FAFC" stroke="#6B7280" stroke-width="2.5"/>
+<path d="M400,475 L1010,475" stroke="#CBD5E1" stroke-width="1" stroke-dasharray="4 3"/>
+<circle cx="370" cy="605" r="42" fill="#E5E7EB" stroke="#6B7280" stroke-width="2"/>
+<circle cx="370" cy="605" r="15" fill="#9CA3AF"/>
+<circle cx="1000" cy="605" r="42" fill="#E5E7EB" stroke="#6B7280" stroke-width="2"/>
+<circle cx="1000" cy="605" r="15" fill="#9CA3AF"/>
+<rect x="270" y="500" width="90" height="90" rx="6" fill="#EEF1F4" stroke="#9CA3AF" stroke-width="1"/>
+
+<!-- mmWave sensing cone -->
+<path d="M720,412 L850,478 L780,522 Z" fill="#4A7FB8" opacity="0.10"/>
+
+<!-- Occupant silhouette (rear seat) -->
+<circle cx="850" cy="500" r="11" fill="#F0997B" opacity="0.55"/>
+<path d="M834,555 Q850,520 866,555 L866,575 Q850,586 834,575 Z" fill="#F0997B" opacity="0.4"/>
+<text x="850" y="596" font-size="11" fill="#9CA3AF" text-anchor="middle">occupant</text>
+
+<!-- Sensor / actuator icons inside cabin -->
+<circle cx="300" cy="485" r="7" fill="#4A7FB8"/>
+<circle cx="300" cy="540" r="7" fill="#6B7280"/>
+<circle cx="335" cy="540" r="7" fill="#6B7280"/>
+<circle cx="500" cy="405" r="7" fill="#4A7FB8"/>
+<circle cx="530" cy="405" r="7" fill="#4A7FB8"/>
+<circle cx="720" cy="412" r="8" fill="#4A7FB8"/>
+<circle cx="920" cy="428" r="7" fill="#4A7FB8"/>
+<circle cx="390" cy="495" r="7" fill="#E8863A"/>
+<line x1="383" y1="495" x2="397" y2="495" stroke="#FFFFFF" stroke-width="1"/>
+<line x1="390" y1="488" x2="390" y2="502" stroke="#FFFFFF" stroke-width="1"/>
+<circle cx="430" cy="430" r="6" fill="#E8863A"/>
+<circle cx="350" cy="535" r="6" fill="#E8863A"/>
+<circle cx="1070" cy="530" r="7" fill="#E8863A"/>
+
+<!-- ================= Top labels ================= -->
+<rect x="300" y="228" width="260" height="72" rx="6" fill="#FFFFFF" stroke="#4A7FB8" stroke-width="1"/>
+<text x="430" y="250" font-size="13" font-weight="700" fill="#0C447C" text-anchor="middle">PIR / Pi Camera</text>
+<text x="430" y="267" font-size="11" fill="#6B7280" text-anchor="middle">PIR/Camera OR detection</text>
+<text x="430" y="283" font-size="11" fill="#6B7280" text-anchor="middle">Motion or visual candidate</text>
+<line x1="430" y1="300" x2="515" y2="404" stroke="#9CA3AF" stroke-width="1" stroke-dasharray="3 3" marker-end="url(#arrowGray)"/>
+
+<rect x="580" y="210" width="390" height="105" rx="6" fill="#FFFFFF" stroke="#4A7FB8" stroke-width="1.5"/>
+<text x="775" y="230" font-size="13" font-weight="700" fill="#0C447C" text-anchor="middle">TI IWR6843ISK Reference mmWave Profile</text>
+<text x="775" y="249" font-size="11" fill="#6B7280" text-anchor="middle">Role: occupant confirmation</text>
+<text x="775" y="265" font-size="11" fill="#6B7280" text-anchor="middle">Output-level virtual sensor simulation</text>
+<text x="775" y="281" font-size="11" fill="#6B7280" text-anchor="middle">presence &#183; point count &#183; distance</text>
+<text x="775" y="295" font-size="11" fill="#6B7280" text-anchor="middle">velocity &#183; confidence</text>
+<line x1="775" y1="315" x2="722" y2="411" stroke="#9CA3AF" stroke-width="1" stroke-dasharray="3 3" marker-end="url(#arrowGray)"/>
+
+<rect x="990" y="228" width="200" height="72" rx="6" fill="#FFFFFF" stroke="#4A7FB8" stroke-width="1"/>
+<text x="1090" y="250" font-size="13" font-weight="700" fill="#0C447C" text-anchor="middle">DHT22 temp / humidity</text>
+<text x="1090" y="267" font-size="11" fill="#6B7280" text-anchor="middle">Thermal risk prediction</text>
+<text x="1090" y="283" font-size="11" fill="#6B7280" text-anchor="middle">Predicts time-to-35&#176;C</text>
+<line x1="1090" y1="300" x2="922" y2="427" stroke="#9CA3AF" stroke-width="1" stroke-dasharray="3 3" marker-end="url(#arrowGray)"/>
+
+<!-- ================= Bottom labels ================= -->
+<line x1="285" y1="650" x2="300" y2="487" stroke="#9CA3AF" stroke-width="1" stroke-dasharray="3 3" marker-end="url(#arrowGray)"/>
+<rect x="250" y="650" width="310" height="95" rx="6" fill="#FFFFFF" stroke="#6B7280" stroke-width="1"/>
+<text x="405" y="672" font-size="13" font-weight="700" fill="#374151" text-anchor="middle">Dashboard cluster</text>
+<text x="405" y="690" font-size="11" fill="#6B7280" text-anchor="middle">UWB/BLE receiver &#8212; guardian departure</text>
+<text x="405" y="706" font-size="11" fill="#6B7280" text-anchor="middle">Raspberry Pi controller &#8212; state machine</text>
+<text x="405" y="722" font-size="11" fill="#6B7280" text-anchor="middle">Relay module &#8212; actuator switching</text>
+
+<line x1="700" y1="650" x2="391" y2="497" stroke="#9CA3AF" stroke-width="1" stroke-dasharray="3 3" marker-end="url(#arrowGray)"/>
+<rect x="580" y="650" width="300" height="95" rx="6" fill="#FFFFFF" stroke="#E8863A" stroke-width="1"/>
+<text x="730" y="672" font-size="13" font-weight="700" fill="#7A3E0D" text-anchor="middle">Actuator control</text>
+<text x="730" y="690" font-size="11" fill="#6B7280" text-anchor="middle">Cooling fan &#8212; air circulation</text>
+<text x="730" y="706" font-size="11" fill="#6B7280" text-anchor="middle">LED warning &#8212; visual alert</text>
+<text x="730" y="722" font-size="11" fill="#6B7280" text-anchor="middle">Buzzer alert &#8212; audible warning</text>
+
+<line x1="1085" y1="650" x2="1071" y2="533" stroke="#9CA3AF" stroke-width="1" stroke-dasharray="3 3" marker-end="url(#arrowGray)"/>
+<rect x="970" y="650" width="230" height="80" rx="6" fill="#FFFFFF" stroke="#E8863A" stroke-width="1"/>
+<text x="1085" y="675" font-size="13" font-weight="700" fill="#7A3E0D" text-anchor="middle">DC motor</text>
+<text x="1085" y="693" font-size="11" fill="#6B7280" text-anchor="middle">Window opening simulation</text>
+
+<!-- ================= Right-side state machine flowchart ================= -->
+<text x="1400" y="195" font-size="14" font-weight="700" fill="#1F2937" text-anchor="middle">SafeGuard state machine</text>
+<text x="1400" y="209" font-size="11" fill="#6B7280" text-anchor="middle">Event-driven, forward-only</text>
+
+<line x1="1400" y1="273" x2="1400" y2="305" stroke="#4A7FB8" stroke-width="1.5" marker-end="url(#arrowBlue)"/>
+<line x1="1400" y1="353" x2="1400" y2="385" stroke="#4A7FB8" stroke-width="1.5" marker-end="url(#arrowBlue)"/>
+<line x1="1400" y1="433" x2="1400" y2="465" stroke="#4A7FB8" stroke-width="1.5" marker-end="url(#arrowBlue)"/>
+<line x1="1400" y1="513" x2="1400" y2="545" stroke="#4A7FB8" stroke-width="1.5" marker-end="url(#arrowBlue)"/>
+<path d="M1540,409 L1552,409 L1552,675 L1540,675" fill="none" stroke="#E8863A" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arrowOrange)"/>
+
+<rect x="1260" y="225" width="280" height="48" rx="6" fill="#E8F0F9" stroke="#4A7FB8" stroke-width="1"/>
+<text x="1400" y="249" font-size="12" font-weight="700" fill="#0C447C" text-anchor="middle" font-family="Consolas, Menlo, monospace">UWB_DEPARTURE_CHECK</text>
+
+<rect x="1260" y="305" width="280" height="48" rx="6" fill="#E8F0F9" stroke="#4A7FB8" stroke-width="1"/>
+<text x="1400" y="329" font-size="12" font-weight="700" fill="#0C447C" text-anchor="middle" font-family="Consolas, Menlo, monospace">PIR_CAMERA_CHECK</text>
+
+<rect x="1260" y="385" width="280" height="48" rx="6" fill="#E8F0F9" stroke="#4A7FB8" stroke-width="1"/>
+<text x="1400" y="409" font-size="12" font-weight="700" fill="#0C447C" text-anchor="middle" font-family="Consolas, Menlo, monospace">MMWAVE_CHECK</text>
+
+<rect x="1260" y="465" width="280" height="48" rx="6" fill="#E8F0F9" stroke="#4A7FB8" stroke-width="1"/>
+<text x="1400" y="489" font-size="12" font-weight="700" fill="#0C447C" text-anchor="middle" font-family="Consolas, Menlo, monospace">THERMAL_PREDICTION</text>
+
+<rect x="1260" y="545" width="280" height="48" rx="6" fill="#E8F0F9" stroke="#4A7FB8" stroke-width="1"/>
+<text x="1400" y="569" font-size="12" font-weight="700" fill="#0C447C" text-anchor="middle" font-family="Consolas, Menlo, monospace">ACTUATOR_CONTROL</text>
+
+<rect x="1260" y="650" width="280" height="50" rx="6" fill="#FCEEE0" stroke="#E8863A" stroke-width="1"/>
+<text x="1400" y="668" font-size="12" font-weight="700" fill="#7A3E0D" text-anchor="middle" font-family="Consolas, Menlo, monospace">FAIL_SAFE</text>
+<text x="1400" y="686" font-size="11" fill="#7A3E0D" text-anchor="middle">mmWave timeout / error</text>
+
+<!-- ================= Data flow pipeline ================= -->
+<line x1="60" y1="780" x2="1540" y2="780" stroke="#E5E7EB" stroke-width="1.5"/>
+<text x="60" y="805" font-size="16" font-weight="700" fill="#1F2937">Data flow pipeline</text>
+
+<line x1="400" y1="862" x2="440" y2="862" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arrowGray)"/>
+<line x1="780" y1="862" x2="820" y2="862" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arrowGray)"/>
+<line x1="1160" y1="862" x2="1200" y2="862" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arrowGray)"/>
+
+<rect x="60" y="825" width="340" height="90" rx="6" fill="#E8F0F9" stroke="#4A7FB8" stroke-width="1"/>
+<text x="230" y="847" font-size="13" font-weight="700" fill="#0C447C" text-anchor="middle">Hardware log</text>
+<text x="230" y="865" font-size="11" fill="#375A80" text-anchor="middle">PIR &#183; DHT22 &#183; relay &#183; CPU</text>
+<text x="230" y="881" font-size="11" fill="#375A80" text-anchor="middle">Raspberry Pi hardware_log.csv</text>
+
+<rect x="440" y="825" width="340" height="90" rx="6" fill="#E8F0F9" stroke="#4A7FB8" stroke-width="1"/>
+<text x="610" y="847" font-size="13" font-weight="700" fill="#0C447C" text-anchor="middle">Virtual sensor</text>
+<text x="610" y="865" font-size="11" fill="#375A80" text-anchor="middle">UWB &#183; mmWave</text>
+<text x="610" y="881" font-size="11" fill="#375A80" text-anchor="middle">Output-level virtual sensor simulation</text>
+
+<rect x="820" y="825" width="340" height="90" rx="6" fill="#F1F0EA" stroke="#6B7280" stroke-width="1"/>
+<text x="990" y="845" font-size="13" font-weight="700" fill="#374151" text-anchor="middle">Analysis</text>
+<text x="990" y="862" font-size="11" fill="#5F5E5A" text-anchor="middle">State machine &#183; estimated power model</text>
+<text x="990" y="878" font-size="11" fill="#5F5E5A" text-anchor="middle">Model comparison</text>
+
+<rect x="1200" y="825" width="340" height="90" rx="6" fill="#FCEEE0" stroke="#E8863A" stroke-width="1"/>
+<text x="1370" y="847" font-size="13" font-weight="700" fill="#7A3E0D" text-anchor="middle">Dashboard</text>
+<text x="1370" y="865" font-size="11" fill="#854F0B" text-anchor="middle">SafeGuard TwinLab Agent</text>
+<text x="1370" y="881" font-size="11" fill="#854F0B" text-anchor="middle">Web dashboard &amp; paper-ready output</text>
+
+<!-- ================= Footer notes ================= -->
+<rect x="231" y="940" width="349" height="32" rx="16" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1"/>
+<text x="405" y="957" font-size="11" font-weight="500" fill="#374151" text-anchor="middle" dominant-baseline="central">UWB/mmWave: output-level virtual sensor simulation</text>
+
+<rect x="600" y="940" width="213" height="32" rx="16" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1"/>
+<text x="706" y="957" font-size="11" font-weight="500" fill="#374151" text-anchor="middle" dominant-baseline="central">Power: estimated power model</text>
+
+<rect x="833" y="940" width="245" height="32" rx="16" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1"/>
+<text x="955" y="957" font-size="11" font-weight="500" fill="#374151" text-anchor="middle" dominant-baseline="central">Hardware: Raspberry Pi hardware log</text>
+
+<rect x="1098" y="940" width="271" height="32" rx="16" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1"/>
+<text x="1233" y="957" font-size="11" font-weight="500" fill="#374151" text-anchor="middle" dominant-baseline="central">Control: event-driven Cascading Wake-up</text>
+
+</svg>

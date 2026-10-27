@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "scripts/ambient_weather.py": "6f72fe2e44ea88e638445eebdc738cddb8e981ea6f03eb4b275d0230dee4c0c0",
+    "scripts/dashboard.py": "05bfe43d145295b92f66d7229b0107ab8d677ed52c9ce36e357893c9116c31f2"
+  },
+  "files": {
+    "scripts/sensor_hub.py": "333dc31d47f84cf0bc6c4118137a9ffe671467efc697f6bf1f50c21ba174bb89",
+    "scripts/dashboard.html": "abb2e673808d1ecd916d80c8a0721671bbf414260a9989827a20f832ee462103",
+    "scripts/navigation_bridge.py": null,
+    "scripts/navigation_phone.html": null,
+    "scripts/navigation_ambient.py": null
+  }
+}

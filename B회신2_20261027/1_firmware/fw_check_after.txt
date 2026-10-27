@@ -1,0 +1,78 @@
+2026-10-27 18:36:17 KST
+CLI 포트: /dev/serial/by-id/usb-Silicon_Labs_CP2105_Dual_USB_to_UART_Bridge_Controller_01E86213-if00-port0
+---- version 응답 ----
+version
+Platform                : xWR68xx
+mmWave SDK Version      : 03.05.00.04
+Device Info             : IWR68XX QM non-secure ES 02.00
+RF F/W Version          : 06.03.02.06.20.08.11
+RF F/W Patch            : 00.00.00.00.00.00.00
+mmWaveLink Version      : 01.02.06.06
+Lot number              : 4608575
+Wafer number            : 1
+Die coordinates in wafer: X = 34, Y = 7
+Done
+mmwDemo:/>
+---- help 응답 (앞부분) ----
+help
+Help: This will display the usage of the CLI commands
+
+Command: Help Description
+
+sensorStart: [doReconfig(optional, default:enabled)]
+
+sensorStop: No arguments
+
+dynamicRACfarCfg: <leftSkipSize> <rightSkipSize> <leftSkipSizeAzimuth> <rightSkipSizeAngle> <searchWinSizeRange> <searchWinSizeAngle> <guardSizeRange> <guardSizeAngle> <threRange> <threAngle> <threSidelob> <enSecondPass> <dynamicFlag>
+
+staticRACfarCfg: <leftSkipSize> <rightSkipSize> <leftSkipSizeAzimuth> <rightSkipSizeAngle> <searchWinSizeRange> <searchWinSizeAngle> <guardSizeRange> <guardSizeAngle> <threRange> <threAngle> <threSidelob> <enSecondPass>
+
+dynamicRangeAngleCfg: <subFrameIdx> <searchStep> <mvdr_alpha> <detectionMethod> <dopplerEstMethod>
+
+dynamic2DAngleCfg: <subFrameIdx> <elevSearchStep> <mvdr_alpha> <maxNpeak2Search> <peakExpSamples> <elevOnly> <sideLobThr> <peakExpRelThr> <peakExpSNRThr>
+
+dopplerCfarCfg: <subFrameIdx> <discardLeft> <discardRight> <guardWinSize> <refWinSize> <threshold> 
+
+staticRangeAngleCfg: <subFrameIdx> <staticProcEnabled> <staticAzimStepDeciFactor> <staticElevStepDeciFactor>
+
+fineMotionCfg: <subFrameIdx> <fineMotionProcEnabled> <fineMotionObservationTime> <fineMotionProcCycle> <fineMotionDopplerThrIdx>
+
+fovCfg: <subFrameIdx> <azimFoV> <elevFoV> 
+
+antGeometry0: <elem0> <elem1> <elem2> <elem3> <elem4> <elem5> <elem6> <elem7> <elem8>  <elem9> <elem10> <elem11> <elem12> 
+
+antGeometry1: <elem0> <elem1> <elem2> <elem3> <elem4> <elem5> <elem6> <elem7> <elem8>  <elem9> <elem10> <elem11> <elem12> 
+
+antPhaseRot: <elem0> <elem1> <elem2> <elem3> <elem4> <elem5> <elem6> <elem7> <elem8>  <elem9> <elem10> <elem11> <elem12> 
+
+adcbufCfg: <subFrameIdx> <adcOutputFmt> <SampleSwap> <ChanInterleave> <ChirpThreshold>
+
+bpmCfg: <subFrameIdx> <enabled> <chirp0Idx> <chirp1Idx>
+
+compRangeBiasAndRxChanPhase: <rangeBias> <Re00> <Im00> <Re01> <Im01> <Re02> <Im02> <Re03> <Im03> <Re10> <Im10> <Re11> <Im11> <Re12> <Im12> <Re13> <Im13>  <Re20> <Im20> <Re21> <Im21> <Re22> <Im22> <Re23> <Im23> 
+
+resetDevice: No arguments
+
+trackingCfg: <enable> <paramSet> <numPoints> <numTracks> <maxDoppler> <maxDopplerResolution> <framePeriod> [boresightFilteringFlag - Default is enabled]
+
+staticBoundaryBox: <X min> <X Max> <Y min> <Y max> <Z min> <Z max>
+
+boundaryBox: <X min> <X Max> <Y min> <Y max> <Z min> <Z max>
+
+sensorPosition: <Z - Height> <Azimuth Tilt> <Elevation Tilt>
+
+gatingParam: <gating volume> <length> <width> <doppler>
+
+stateParam: <det2act> <det2free> <act2free> <stat2free> <exit2free> <sleep2free>
+
+allocationParam: <SNRs> <minimal velocity> <points> <in distance> <in velocity>
+
+maxAcceleration: <max X acc.> <max Y acc.> <max Z acc.>
+
+presenceBoundaryBox: <X min> <X Max> <Y min> <Y max> <Z min> <Z max>
+
+help: No help available
+
+****************************************************
+----
+판정: 3D People Tracking

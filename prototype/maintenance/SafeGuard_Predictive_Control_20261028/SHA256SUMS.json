@@ -1,0 +1,16 @@
+{
+  "README.md": "096f59b947748b0491ca5c3e86962e61a5f9d5becbbb8fdef0ba0815b81d1a03",
+  "VALIDATION.md": "32a05187d0cc6028365f5f827f3cc1ac5e138ac69665afb6b27e45bcb87cf3d6",
+  "install.py": "a44574f1701a0d7005d84317cc8695c000e07c6779172ee824ce266855dfb131",
+  "payload/scripts/dashboard.html": "a3b7ffd80abf873601d67a70ed962916d40213c0bc72a8404ce5e25686f25bba",
+  "payload/src/core.cpp": "f413a59a70a94b2e7e5175ee949473ae3fa6f96bcbaa2fc7385a3988e8549ae8",
+  "payload/src/core.hpp": "a81428c005e5146bcf299077a54ea384c409a7922eb8b9d6fa6860b05f6e628f",
+  "payload/src/main.cpp": "9c32d09a17f56b99bce2928588e3d0a2f01670fb43625e30c36605cd0f797a86",
+  "payload/src/thermal_observer.hpp": "05eb38e0d8d2579eb1784f01636f6802c7309b68eda0533346cbfaaaf6117a88",
+  "supported_sources.json": "da092ced9550c9d1f14585220c956c282eee72f0ee24fa89cac623f0b71ec6b0",
+  "tests/install_test.log": "19d49757ee45931809a32d1838dcc82466a606fbdf297c6880a752a611478368",
+  "tests/test_dashboard_research.js": "0a00a3e424ec7b754c750d2830dc4ffd7c29eaa48cf9fbe2e7c3f44c5a94bf32",
+  "tests/test_observer.cpp": "c1d9c19af036cb8ff04a79acd376b50a9fe2cef49d8f8e40ac54c11835323259",
+  "tests/test_output_path.cpp": "1d8bd2ebcbb5ce3e3b42fa0b11984d9566b5c5674dc4585823033baccd0f07db",
+  "tests/test_predictive_control.cpp": "54cd79f173a03486b40ce3f1c7ffb46857604355f385b5e9955da1298c86bc6d"
+}

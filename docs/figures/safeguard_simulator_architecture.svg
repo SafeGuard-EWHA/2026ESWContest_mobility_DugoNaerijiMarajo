@@ -1,0 +1,101 @@
+<svg width="1100" height="960" viewBox="0 0 1100 960" xmlns="http://www.w3.org/2000/svg" role="img" font-family="Malgun Gothic, Arial, sans-serif">
+<title>SafeGuard TwinLab Agent 시스템 구성도</title>
+<desc>시나리오 설정, hardware log 입력, virtual sensor, event-driven state machine, device activation, estimated power model, model comparison, report generator, 웹 대시보드로 이어지는 SafeGuard TwinLab Agent의 파이프라인 구조도.</desc>
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#6B7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+</defs>
+<rect x="0" y="0" width="1100" height="960" fill="#FFFFFF"/>
+
+<!-- Arrows: Row A -> B -->
+<line x1="200" y1="125" x2="248" y2="188" stroke="#6B7280" stroke-width="1.3" marker-end="url(#arr)"/>
+<line x1="550" y1="125" x2="550" y2="188" stroke="#6B7280" stroke-width="1.3" marker-end="url(#arr)"/>
+<line x1="900" y1="125" x2="832" y2="188" stroke="#6B7280" stroke-width="1.3" marker-end="url(#arr)"/>
+
+<!-- Row A -->
+<g>
+<rect x="40" y="30" width="320" height="95" rx="8" fill="#DCEBFA" stroke="#4A7FB8" stroke-width="1"/>
+<text x="200" y="56" font-size="14" font-weight="700" fill="#0C447C" text-anchor="middle">Scenario Config</text>
+<text x="200" y="78" font-size="11" fill="#375A80" text-anchor="middle">탑승자 존재·보호자 이탈시각</text>
+<text x="200" y="96" font-size="11" fill="#375A80" text-anchor="middle">온도조건·mmWave 모드·정책</text>
+</g>
+<g>
+<rect x="390" y="30" width="320" height="95" rx="8" fill="#DCEBFA" stroke="#4A7FB8" stroke-width="1"/>
+<text x="550" y="56" font-size="14" font-weight="700" fill="#0C447C" text-anchor="middle">Hardware Log</text>
+<text x="550" y="78" font-size="11" fill="#375A80" text-anchor="middle">hardware_log.csv 업로드 또는</text>
+<text x="550" y="96" font-size="11" fill="#375A80" text-anchor="middle">seed 고정 dummy 데이터 생성</text>
+</g>
+<g>
+<rect x="740" y="30" width="320" height="95" rx="8" fill="#DCEBFA" stroke="#4A7FB8" stroke-width="1"/>
+<text x="900" y="56" font-size="14" font-weight="700" fill="#0C447C" text-anchor="middle">Virtual Sensor</text>
+<text x="900" y="78" font-size="11" fill="#375A80" text-anchor="middle">UWB·mmWave output-level</text>
+<text x="900" y="96" font-size="11" fill="#375A80" text-anchor="middle">simulation (C4001 / TI profile)</text>
+</g>
+
+<!-- Row B -->
+<line x1="330" y1="300" x2="330" y2="358" stroke="#6B7280" stroke-width="1.3" marker-end="url(#arr)"/>
+<line x1="770" y1="300" x2="770" y2="358" stroke="#6B7280" stroke-width="1.3" marker-end="url(#arr)"/>
+<g>
+<rect x="120" y="190" width="860" height="110" rx="8" fill="#FCEEE0" stroke="#E8863A" stroke-width="1.5"/>
+<text x="550" y="222" font-size="15" font-weight="700" fill="#7A3E0D" text-anchor="middle">Event-driven State Machine</text>
+<text x="550" y="248" font-size="12" fill="#854F0B" text-anchor="middle">UWB_DEPARTURE_CHECK &#8594; PIR_CAMERA_CHECK &#8594; MMWAVE_CHECK</text>
+<text x="550" y="268" font-size="12" fill="#854F0B" text-anchor="middle">&#8594; THERMAL_PREDICTION &#8594; ACTUATOR_CONTROL &#8594; FAIL_SAFE</text>
+<text x="550" y="290" font-size="11" fill="#9A6A2E" text-anchor="middle">III장 설계와 동일한 상태 전이 조건 재구현 (재현성: seed 고정, pytest 51건 검증)</text>
+</g>
+
+<!-- Row C -->
+<line x1="330" y1="455" x2="330" y2="528" stroke="#6B7280" stroke-width="1.3" marker-end="url(#arr)"/>
+<line x1="770" y1="455" x2="770" y2="528" stroke="#6B7280" stroke-width="1.3" marker-end="url(#arr)"/>
+<g>
+<rect x="140" y="360" width="380" height="95" rx="8" fill="#E3F3E3" stroke="#4CAF7D" stroke-width="1"/>
+<text x="330" y="386" font-size="14" font-weight="700" fill="#1F6B45" text-anchor="middle">Device Activation</text>
+<text x="330" y="408" font-size="11" fill="#2F7A54" text-anchor="middle">Cascading Wake-up 기반 장치별</text>
+<text x="330" y="426" font-size="11" fill="#2F7A54" text-anchor="middle">ON/OFF, continuous / duty-cycle</text>
+</g>
+<g>
+<rect x="580" y="360" width="380" height="95" rx="8" fill="#E3F3E3" stroke="#4CAF7D" stroke-width="1"/>
+<text x="770" y="386" font-size="14" font-weight="700" fill="#1F6B45" text-anchor="middle">Estimated Power Model</text>
+<text x="770" y="408" font-size="11" fill="#2F7A54" text-anchor="middle">장치별 typical power value 기반</text>
+<text x="770" y="426" font-size="11" fill="#2F7A54" text-anchor="middle">순간 전력·누적 에너지 추정</text>
+</g>
+
+<!-- Row D -->
+<line x1="330" y1="625" x2="330" y2="698" stroke="#6B7280" stroke-width="1.3" marker-end="url(#arr)"/>
+<line x1="770" y1="625" x2="770" y2="698" stroke="#6B7280" stroke-width="1.3" marker-end="url(#arr)"/>
+<g>
+<rect x="140" y="530" width="380" height="95" rx="8" fill="#EEE8FA" stroke="#8B6FC7" stroke-width="1"/>
+<text x="330" y="556" font-size="14" font-weight="700" fill="#4A2E82" text-anchor="middle">Model Comparison</text>
+<text x="330" y="578" font-size="11" fill="#5B3E96" text-anchor="middle">All-on · PiBase-style ·</text>
+<text x="330" y="596" font-size="11" fill="#5B3E96" text-anchor="middle">Staged · SafeGuard proposed</text>
+</g>
+<g>
+<rect x="580" y="530" width="380" height="95" rx="8" fill="#EEE8FA" stroke="#8B6FC7" stroke-width="1"/>
+<text x="770" y="556" font-size="14" font-weight="700" fill="#4A2E82" text-anchor="middle">Report Generator</text>
+<text x="770" y="578" font-size="11" fill="#5B3E96" text-anchor="middle">표·그림·해석문 자동 생성</text>
+<text x="770" y="596" font-size="11" fill="#5B3E96" text-anchor="middle">(paper-ready output)</text>
+</g>
+
+<!-- Row E -->
+<g>
+<rect x="180" y="700" width="740" height="100" rx="8" fill="#DFF5F2" stroke="#2FA89A" stroke-width="1.5"/>
+<text x="550" y="730" font-size="15" font-weight="700" fill="#0E5F56" text-anchor="middle">SafeGuard TwinLab Agent Dashboard</text>
+<text x="550" y="754" font-size="12" fill="#166B62" text-anchor="middle">Streamlit 기반 웹 대시보드</text>
+<text x="550" y="774" font-size="12" fill="#166B62" text-anchor="middle">state log · power timeline · model comparison</text>
+</g>
+
+<!-- Handoff to next chapter -->
+<line x1="550" y1="800" x2="550" y2="840" stroke="#9CA3AF" stroke-width="1.3" stroke-dasharray="4 3" marker-end="url(#arr)"/>
+<text x="550" y="862" font-size="12" fill="#6B7280" text-anchor="middle">V. 실험 및 결과</text>
+
+<!-- Legend -->
+<rect x="60" y="900" width="14" height="14" rx="3" fill="#DCEBFA" stroke="#4A7FB8" stroke-width="1"/>
+<text x="82" y="911" font-size="11" fill="#374151">입력 / 설정</text>
+<rect x="230" y="900" width="14" height="14" rx="3" fill="#FCEEE0" stroke="#E8863A" stroke-width="1"/>
+<text x="252" y="911" font-size="11" fill="#374151">상태 판단 로직</text>
+<rect x="420" y="900" width="14" height="14" rx="3" fill="#E3F3E3" stroke="#4CAF7D" stroke-width="1"/>
+<text x="442" y="911" font-size="11" fill="#374151">계산 엔진</text>
+<rect x="580" y="900" width="14" height="14" rx="3" fill="#EEE8FA" stroke="#8B6FC7" stroke-width="1"/>
+<text x="602" y="911" font-size="11" fill="#374151">분석·출력</text>
+<rect x="740" y="900" width="14" height="14" rx="3" fill="#DFF5F2" stroke="#2FA89A" stroke-width="1"/>
+<text x="762" y="911" font-size="11" fill="#374151">웹 대시보드</text>
+
+</svg>

@@ -1,0 +1,11 @@
+[figure_power_timeline.png]
+Figure 1. SafeGuard 추정 전력 모델(estimated power model) 기반 순간 전력 timeline. 실측값이 아닌 datasheet 기반 추정치임에 유의한다.
+
+[figure_energy_by_state.png]
+Figure 2. SafeGuard state별 추정 소비 에너지 비교. 단계별 센서/액추에이터 활성화 시간의 차이가 에너지 분포에 반영된다.
+
+[figure_model_energy_comparison.png]
+Figure 3. 비교 모델(All-on, PiBase-style, Staged, SafeGuard) 간 총 추정 에너지 비교.
+
+[figure_saving_vs_all_on.png]
+Figure 4. All-on 모델 대비 각 비교 모델의 에너지 절감률(%). SafeGuard duty-cycle 정책이 continuous 정책 대비 추가 절감을 보이는지 확인한다.

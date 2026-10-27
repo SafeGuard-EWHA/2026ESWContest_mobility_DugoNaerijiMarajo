@@ -1,0 +1,95 @@
+{
+  "kind": "SOFTWARE_SIMULATION_NOT_HARDWARE_RESULTS",
+  "cases": [
+    {
+      "profile": "simulation",
+      "scenario": "normal",
+      "passed": true,
+      "states": [
+        "DEPARTURE_CHECK",
+        "INIT",
+        "MMWAVE",
+        "PRIMARY",
+        "PROTECTION",
+        "STANDBY"
+      ],
+      "run_folder": "/workspace/scratch/7d2896fae045/tmp/thermal_build_check/project/runs/20261027T192224_261955Z"
+    },
+    {
+      "profile": "simulation",
+      "scenario": "mmwave_fault",
+      "passed": true,
+      "states": [
+        "DEPARTURE_CHECK",
+        "FAIL_SAFE",
+        "INIT",
+        "MMWAVE",
+        "PRIMARY",
+        "PROTECTION",
+        "STANDBY"
+      ],
+      "run_folder": "/workspace/scratch/7d2896fae045/tmp/thermal_build_check/project/runs/20261027T192224_262383Z"
+    },
+    {
+      "profile": "simulation",
+      "scenario": "unknown",
+      "passed": true,
+      "states": [
+        "DEPARTURE_CHECK",
+        "FAIL_SAFE",
+        "INIT",
+        "MMWAVE",
+        "PRIMARY",
+        "STANDBY"
+      ],
+      "run_folder": "/workspace/scratch/7d2896fae045/tmp/thermal_build_check/project/runs/20261027T192224_264369Z"
+    },
+    {
+      "profile": "simulation",
+      "scenario": "api_fault",
+      "passed": true,
+      "states": [
+        "DEPARTURE_CHECK",
+        "INIT",
+        "MMWAVE",
+        "PRIMARY",
+        "PROTECTION",
+        "STANDBY"
+      ],
+      "run_folder": "/workspace/scratch/7d2896fae045/tmp/thermal_build_check/project/runs/20261027T192224_266032Z"
+    },
+    {
+      "profile": "simulation",
+      "scenario": "estop",
+      "passed": true,
+      "states": [
+        "DEPARTURE_CHECK",
+        "ESTOP",
+        "INIT",
+        "MMWAVE",
+        "PRIMARY",
+        "PROTECTION",
+        "STANDBY"
+      ],
+      "run_folder": "/workspace/scratch/7d2896fae045/tmp/thermal_build_check/project/runs/20261027T192224_269028Z"
+    },
+    {
+      "profile": "real",
+      "scenario": "normal",
+      "passed": true,
+      "states": [
+        "INIT"
+      ],
+      "run_folder": "/workspace/scratch/7d2896fae045/tmp/thermal_build_check/project/runs/20261027T192224_266370Z"
+    },
+    {
+      "profile": "demo",
+      "scenario": "normal",
+      "passed": true,
+      "states": [
+        "INIT"
+      ],
+      "run_folder": "/workspace/scratch/7d2896fae045/tmp/thermal_build_check/project/runs/20261027T192224_268327Z"
+    }
+  ]
+}

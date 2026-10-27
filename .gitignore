@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Streamlit
+.streamlit/secrets.toml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Generated outputs (regenerate via dashboard or scripts/generate_paper_outputs.py)
+outputs/csv/*
+outputs/figures/*
+outputs/report/*
+!outputs/csv/.gitkeep
+!outputs/figures/.gitkeep
+!outputs/report/.gitkeep
+
+# Editor
+.vscode/
+.idea/
+
+.claude/

@@ -1,0 +1,35 @@
+Pi 장비 상태 확인 — 2026-10-27 20:09:22 KST (ssh로 직접 확인, Pi 부팅 17:09:42)
+
+실행 중 프로그램
+  mmwave_reader / camera_motion / sensor_hub / safeguard_main / uwb_reader / rpicam / run_control: 없음
+  (safeguard-navigation.service는 enabled 상태로 원래 있던 것. B가 건드리지 않음)
+
+USB 직렬 장치 (/dev/serial/by-id)
+  usb-Silicon_Labs_CP2105_Dual_USB_to_UART_Bridge_Controller_01E86213-if00-port0 -> ttyUSB0  레이더 CLI   사용자 없음
+  usb-Silicon_Labs_CP2105_Dual_USB_to_UART_Bridge_Controller_01E86213-if01-port0 -> ttyUSB1  레이더 DATA  사용자 없음
+  usb-SEGGER_J-Link_000760217939-if00 -> ttyACM0                                            UWB         사용자 없음
+  ESP32 (usb-Silicon_Labs_CP2102_..._0001-if00-port0): 없음 ← 주의
+    dmesg: 19:02:18 "ttyUSB2: failed set request 0x12 status: -110" → 19:03:19 "usb 3-1: USB disconnect"
+    B 시험 시작(19:27) 전이며 B는 ESP32를 건드리지 않음. 케이블·전원 확인 필요.
+
+카메라
+  /dev/media0, media1을 pipewire(1364)·wireplumber(1366)만 열고 있음 = Pi 기본 서비스.
+  이 상태에서 B 카메라 시험이 정상 동작했으므로 메인 사용에 문제 없음.
+
+레이더 상태: 정지
+  마지막 B 리더(시험 3, 19:35)가 끝날 때 sensorStop을 보냄.
+  데이터 포트를 3초 듣기만 함(명령 안 보냄) → 0 바이트 = 측정 안 하는 중.
+  펌웨어: 3D People Tracking (18:36 확인), cfg는 보드에 남지 않으므로 시작할 때마다 다시 보내야 함.
+  주의: sensorStop 뒤에는 USB 전원을 다시 넣어야 다음 sensorStart가 응답함(여러 번 재현).
+    → 메인에서 레이더 시작 전에 레이더 USB를 한 번 뺐다 꽂을 것.
+    Pi 재부팅만으로 USB 전원이 끊기는지는 확인 안 함 → 재부팅 후에도 레이더 USB 재연결 권장.
+
+재부팅 후 B 쪽에서 따로 실행할 것: 없음
+  B는 서비스·자동 실행을 만들지 않았음. 레이더 수신이 필요하면 3_final_files의 명령을 직접 실행.
+
+Pi에서 바뀐 파일
+  ~/safeguard-mmwave-simulator : git pull로 c6e3f60(main)까지 맞춤.
+    hardware/mmwave/mmwave_reader.py만 수정(--raw 추가, 미커밋), SHA256 945c2f40…d565
+  ~/check_radar_firmware.py    : 펌웨어 확인 스크립트 (version/help만 보냄)
+  ~/b_reply_20261027/           : 오늘 시험 원본 (fw_check_*, rx60*, test3_*, cam_light*, mark_events.py)
+  /home/pi/SafeGuard_Main      : B는 수정하지 않음

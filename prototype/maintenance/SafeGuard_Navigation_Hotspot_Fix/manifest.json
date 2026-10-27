@@ -1,0 +1,18 @@
+{
+  "package": "SafeGuard_Navigation_Hotspot_Fix",
+  "files": {
+    "README_KO.txt": "0425b22aed3f6eed8668e3662716ea330751982ac52aef56a5e98bb4643c8f21",
+    "base_hashes.json": "f84664554dda05dee61ea49b5c00fd7de02883972d7110ca1c9c810042c578c4",
+    "install_fix.py": "500daf489c7a5ecd27764bb1b0722465a26e73478a6a3292b21f4851e6a51162",
+    "patch/scripts/navigation_bridge.py": "527f9f5149d99f7e6bf5c9bf4bbb8c7a594d1edf81f5a6e7b173643809bd8e73",
+    "patch/scripts/navigation_phone.html": "7e8ee59361c58dcfd2c783747f667ac76465b4e4a4135ec6acc685667d0f1171",
+    "runtime/navigation_tls_identity.py": "6f6d9c85ced1a198cf72e71385eea6d5e648e47fe5857de0fc2d859b5196c769",
+    "runtime/run_receiver.py": "55435b7b558208479fd1e07ed5b7ce2b94fb36d57a4f4c2cce2ebb7c68cdbbfc",
+    "start_fix.py": "b2b7223800e537ca7aa4e87ed9cc6212d4c9137b8bb6c8b923c51532963c8b1d",
+    "tests/test_hotspot.py": "75049d64409a8b887412c0657d1f3cd6d3abd98d25bc3cade6bfded7f0854579",
+    "tests/test_navigation_bridge.py": "fcafc181a431bbd2430ef52239cbe1574f6d673784eba20dd1c233c726d36daa",
+    "tests/test_navigation_ipv6.py": "d462e512ac40acfb5365032d586367ffa1e013bf2305627230e24197e011c499",
+    "tests/test_phone_ui.js": "d25b0c19ef6e899869398661be0c2d39150a408d0b2ca93aba9d23fc9b48c4c0",
+    "tests/test_runtime.py": "7c254e7881464921c406ad27ee7ba9336abb4d2acb3aafefdafb10f27389d280"
+  }
+}

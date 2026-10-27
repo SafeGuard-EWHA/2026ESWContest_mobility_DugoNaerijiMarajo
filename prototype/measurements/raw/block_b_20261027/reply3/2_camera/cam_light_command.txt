@@ -1,0 +1,1 @@
+python3 -u hardware/camera/camera_motion.py --duration 200 --csv /home/pi/b_reply_20261027/cam_light.csv --snap-dir /home/pi/b_reply_20261027/cam_light_snaps

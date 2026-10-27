@@ -1,0 +1,20 @@
+{
+  "version": "0.1.0-integration-preparation",
+  "sha256": {
+    "configuration_fragment.json": "9fc16f2106c9ebe05ef9c7d9612e17af13abaece602b3859e7839e283ee8d887",
+    "README_KO.txt": "404f305b3c9a7b23549009c6a39478ca138089899749e9ecd5f73b408f477057",
+    "self_check.py": "33a19b869b5bf6e8c2ed9f8dafe9d53f5df4bb51de5b77e45d4b7af730b9817c",
+    "install.py": "8371c6e44954737ca9c7b82ce81d5ad4afd72e750a996439a16e648d02673e26",
+    "base_hashes.json": "4c546f6176b24ca015d6432a66e8fce8ab63f045ed891f09fe680718b3f25e6c",
+    "VALIDATION_KO.txt": "870e135eab9809a1137eac5a32ceb108a2c92ffa6b9f3e5811d9e9c5a55640a1",
+    "reference_configs/ODS_rideon_est.cfg": "07e6f29c5754c041724c6b0a1b06c65b734da500d9a191944553e6bc3c88c9de",
+    "reference_configs/ODS_sedan_est.cfg": "674fbe92ebb69a17f9b5534b1e7fdec6c3a99f2b8b379c6f4c417a3d4a3582ce",
+    "tests/test_radar_main.cpp": "425000a0d1c4556c1b10e6a5c19e4e6509e9194723527d86c46e1d308e859c6d",
+    "tests/test_radar.py": "2374d10a656dcac4dad231bdd52fbed264d764f6350028a918911aa114a4657d",
+    "patch/src/core.hpp": "ac7f2a0c2cd2787333dc9576b476b6603424135266d4b65acf93bada8dc9f758",
+    "patch/src/core.cpp": "c3d5ac1462f064f3134d7159bbdffac05ad82d96d587ddfbe08907a7b786d2a3",
+    "patch/src/main.cpp": "ea46cfd04362e1a84c12e478bbaab61ecf680fbb3981432a05c87e6a1b710479",
+    "patch/scripts/mmwave_input.py": "e08ea43cd4053f278ccb20e2b2d58fc67b2fec11766f145a14b05c3429e002de",
+    "patch/scripts/sensor_hub.py": "d7a8c372ca78bd4ace20bdf0a55dbfc70a65f99205b46e4499d5f64b59be7837"
+  }
+}

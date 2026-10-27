@@ -1,0 +1,621 @@
+{
+  "scope": "Available uploaded measurement bundles; NOT a full copy of /home/pi/safeguard_c",
+  "files": [
+    {
+      "path": "raw/uwb_20261016/session_01/telemetry.csv",
+      "source": "upload/telemetry.csv",
+      "kind": "actual_measurement",
+      "bytes": 125305,
+      "sha256": "0ad1d1f61a3ce75864cad93a224355d89526aa362e16d5d1a75da6207558c0b9"
+    },
+    {
+      "path": "raw/uwb_20261016/session_01/raw.jsonl",
+      "source": "upload/raw.jsonl",
+      "kind": "actual_measurement",
+      "bytes": 153462,
+      "sha256": "4d06fecc43fa8c89589bc66b3195fdf8ed3cdf6439540fc9e8030898427291ac"
+    },
+    {
+      "path": "raw/uwb_20261016/session_02/telemetry.csv",
+      "source": "upload/telemetry(1).csv",
+      "kind": "actual_measurement",
+      "bytes": 12713,
+      "sha256": "ea3f21d61d4f9280ef3bd6410a31f32d1abb97745c8bdc142fe80023546df45d"
+    },
+    {
+      "path": "raw/block_b_20261027/reply1/cfg/ODS_6m_staticRetention.cfg",
+      "source": "B회신_20261027.zip::cfg\\ODS_6m_staticRetention.cfg",
+      "kind": "original_measurement_bundle",
+      "bytes": 1709,
+      "sha256": "7b7a30b62b256ae3b3b366e97b48d909ca4e14e99b7f26a37174c1e11b3a3406"
+    },
+    {
+      "path": "raw/block_b_20261027/reply1/cfg/ODS_sedan_est.cfg",
+      "source": "B회신_20261027.zip::cfg\\ODS_sedan_est.cfg",
+      "kind": "original_measurement_bundle",
+      "bytes": 3749,
+      "sha256": "674fbe92ebb69a17f9b5534b1e7fdec6c3a99f2b8b379c6f4c417a3d4a3582ce"
+    },
+    {
+      "path": "raw/block_b_20261027/reply1/csv/testA_origcfg_3people_still_orig.csv",
+      "source": "B회신_20261027.zip::csv\\testA_origcfg_3people_still_orig.csv",
+      "kind": "original_measurement_bundle",
+      "bytes": 187082,
+      "sha256": "88bb00159bfbb280da8d9910338fe024b3a6124490c38e0803f0648e9bb47e65"
+    },
+    {
+      "path": "raw/block_b_20261027/reply1/csv/testB_sedancfg_1person_still_car.csv",
+      "source": "B회신_20261027.zip::csv\\testB_sedancfg_1person_still_car.csv",
+      "kind": "original_measurement_bundle",
+      "bytes": 188065,
+      "sha256": "5b34a065dd9899be227ebe33ce6f099f3a7bb8d61bec45306b5263c0fbd0fac7"
+    },
+    {
+      "path": "raw/block_b_20261027/reply1/csv/testC_origcfg_1person_still_orig1.csv",
+      "source": "B회신_20261027.zip::csv\\testC_origcfg_1person_still_orig1.csv",
+      "kind": "original_measurement_bundle",
+      "bytes": 187510,
+      "sha256": "08262d87351d2cc7523c954b2906a6d2f6c050f6a1d507f3c828d17093a2ef71"
+    },
+    {
+      "path": "raw/block_b_20261027/reply1/tools/check_radar_firmware.py",
+      "source": "B회신_20261027.zip::tools\\check_radar_firmware.py",
+      "kind": "original_measurement_bundle",
+      "bytes": 2702,
+      "sha256": "368153863a4d3bcaf75b9eb95e27893ddc2d865572e4efb90282b74b7986b140"
+    },
+    {
+      "path": "raw/block_b_20261027/reply1/README_회신.txt",
+      "source": "B회신_20261027.zip::README_회신.txt",
+      "kind": "original_measurement_bundle",
+      "bytes": 6566,
+      "sha256": "e037aa7f5ee76c7098ddf7fa61eaca140676d2948d4f080de008d37096121e5f"
+    },
+    {
+      "path": "raw/block_b_20261027/reply1/SHA256SUMS.txt",
+      "source": "B회신_20261027.zip::SHA256SUMS.txt",
+      "kind": "original_measurement_bundle",
+      "bytes": 687,
+      "sha256": "d91ab4858b34caa6d87aa6536f619be17bda62e31080b5aec1a1170bba44fc2d"
+    },
+    {
+      "path": "raw/block_b_20261027/reply2/1_firmware/check_radar_firmware.py",
+      "source": "B회신2_20261027_1-2.zip::1_firmware\\check_radar_firmware.py",
+      "kind": "original_measurement_bundle",
+      "bytes": 2702,
+      "sha256": "368153863a4d3bcaf75b9eb95e27893ddc2d865572e4efb90282b74b7986b140"
+    },
+    {
+      "path": "raw/block_b_20261027/reply2/1_firmware/fw_check_after.txt",
+      "source": "B회신2_20261027_1-2.zip::1_firmware\\fw_check_after.txt",
+      "kind": "original_measurement_bundle",
+      "bytes": 3411,
+      "sha256": "314233740c348f54b3bbd54546028c2290e56f377a3e0360800e812639ef6426"
+    },
+    {
+      "path": "raw/block_b_20261027/reply2/1_firmware/fw_check_before.txt",
+      "source": "B회신2_20261027_1-2.zip::1_firmware\\fw_check_before.txt",
+      "kind": "original_measurement_bundle",
+      "bytes": 3310,
+      "sha256": "9c96899249e7c44341aa4e04aac0306ad4163a392a318987e7b762fad1362d85"
+    },
+    {
+      "path": "raw/block_b_20261027/reply2/1_firmware/uniflash_log.txt",
+      "source": "B회신2_20261027_1-2.zip::1_firmware\\uniflash_log.txt",
+      "kind": "original_measurement_bundle",
+      "bytes": 2535,
+      "sha256": "6edaa9e6681ed02cee7da2801fd3c86bb65b4d3055539895cf9523ef789f0d6a"
+    },
+    {
+      "path": "raw/block_b_20261027/reply2/2_pi_receive/mmwave_reader.py",
+      "source": "B회신2_20261027_1-2.zip::2_pi_receive\\mmwave_reader.py",
+      "kind": "original_measurement_bundle",
+      "bytes": 19293,
+      "sha256": "945c2f40904af9866619c3836e8721f265b1c264fc7cefb1671672a13ce7d565"
+    },
+    {
+      "path": "raw/block_b_20261027/reply2/2_pi_receive/mmwave_reader_raw.diff",
+      "source": "B회신2_20261027_1-2.zip::2_pi_receive\\mmwave_reader_raw.diff",
+      "kind": "original_measurement_bundle",
+      "bytes": 3005,
+      "sha256": "f486f36c6f8c5b08765c05277fe62ab47e88a41c50fc897a7cd5ecf2aa1bdfee"
+    },
+    {
+      "path": "raw/block_b_20261027/reply2/2_pi_receive/rx60.csv",
+      "source": "B회신2_20261027_1-2.zip::2_pi_receive\\rx60.csv",
+      "kind": "original_measurement_bundle",
+      "bytes": 42331,
+      "sha256": "8c319da95e89ad5e84d67287c28a74511b439747c53cfd6969a552326a6916c0"
+    },
+    {
+      "path": "raw/block_b_20261027/reply2/2_pi_receive/rx60.log",
+      "source": "B회신2_20261027_1-2.zip::2_pi_receive\\rx60.log",
+      "kind": "original_measurement_bundle",
+      "bytes": 7574,
+      "sha256": "e3e6c5ced96fbd54c9bb13c13ab5bde32644f2cddaf423051ce30a7977f50249"
+    },
+    {
+      "path": "raw/block_b_20261027/reply2/2_pi_receive/rx60_command.txt",
+      "source": "B회신2_20261027_1-2.zip::2_pi_receive\\rx60_command.txt",
+      "kind": "original_measurement_bundle",
+      "bytes": 407,
+      "sha256": "d8c7a70d4dcd9523b020d24017deaa7b7bf2e39be3a0e2f275f3632d4dc82c89"
+    },
+    {
+      "path": "raw/block_b_20261027/reply2/2_pi_receive/rx60_raw.bin",
+      "source": "B회신2_20261027_1-2.zip::2_pi_receive\\rx60_raw.bin",
+      "kind": "original_measurement_bundle",
+      "bytes": 875777,
+      "sha256": "aff8af4d4a1601fa507b420773594e98ea7325ead5f5dd3ecdf798deafd59377"
+    },
+    {
+      "path": "raw/block_b_20261027/reply2/2_pi_receive/rx60_raw.bin.idx.csv",
+      "source": "B회신2_20261027_1-2.zip::2_pi_receive\\rx60_raw.bin.idx.csv",
+      "kind": "original_measurement_bundle",
+      "bytes": 326412,
+      "sha256": "6605a8efa1ba702837bc26b2f2383f897767a63122d79c7a5165b42535d751a9"
+    },
+    {
+      "path": "raw/block_b_20261027/reply2/README_회신2.txt",
+      "source": "B회신2_20261027_1-2.zip::README_회신2.txt",
+      "kind": "original_measurement_bundle",
+      "bytes": 5159,
+      "sha256": "599ff3459fac8416263727a9d4f865706df1c25119aec054281474546294c94b"
+    },
+    {
+      "path": "raw/block_b_20261027/reply2/SHA256SUMS.txt",
+      "source": "B회신2_20261027_1-2.zip::SHA256SUMS.txt",
+      "kind": "original_measurement_bundle",
+      "bytes": 1159,
+      "sha256": "aee004a11ed5103b1f7ea27a50145d953378b7d8f2443d5511c56751e1660f32"
+    },
+    {
+      "path": "raw/block_b_20261027/reply3/1_radar_test3/clock_offset.txt",
+      "source": "B회신3_20261027_메인전달.zip::1_radar_test3\\clock_offset.txt",
+      "kind": "original_measurement_bundle",
+      "bytes": 392,
+      "sha256": "d8a77c72d758fc57e1fecf7bd02400938ec3b56da90988dbae37a82beccd08d5"
+    },
+    {
+      "path": "raw/block_b_20261027/reply3/1_radar_test3/README_시험3.txt",
+      "source": "B회신3_20261027_메인전달.zip::1_radar_test3\\README_시험3.txt",
+      "kind": "original_measurement_bundle",
+      "bytes": 7882,
+      "sha256": "c54fa8cf50ab557915c6a49079d4218707468a2e543a345f3f06eca184ff20ae"
+    },
+    {
+      "path": "raw/block_b_20261027/reply3/1_radar_test3/test3_action_times.csv",
+      "source": "B회신3_20261027_메인전달.zip::1_radar_test3\\test3_action_times.csv",
+      "kind": "original_measurement_bundle",
+      "bytes": 1683,
+      "sha256": "1a2d325f0ac41b062da3f932de55e7e346ac492659c9e4e02451ba5c17c197b1"
+    },
+    {
+      "path": "raw/block_b_20261027/reply3/1_radar_test3/test3_cam.csv",
+      "source": "B회신3_20261027_메인전달.zip::1_radar_test3\\test3_cam.csv",
+      "kind": "original_measurement_bundle",
+      "bytes": 142688,
+      "sha256": "a08ae7538eaa782fe99b87250e78949936330f9330ed05df896a4bd8c9a0c7d1"
+    },
+    {
+      "path": "raw/block_b_20261027/reply3/1_radar_test3/test3_cam.log",
+      "source": "B회신3_20261027_메인전달.zip::1_radar_test3\\test3_cam.log",
+      "kind": "original_measurement_bundle",
+      "bytes": 39171,
+      "sha256": "6b7185dd1c8d2b338d01b7ff2c65608f0096544dcabeebbdd268fc5951820544"
+    },
+    {
+      "path": "raw/block_b_20261027/reply3/1_radar_test3/test3_commands.txt",
+      "source": "B회신3_20261027_메인전달.zip::1_radar_test3\\test3_commands.txt",
+      "kind": "original_measurement_bundle",
+      "bytes": 574,
+      "sha256": "ec6aa8a410d36f57b5ad7887ae584d04fdaf5bd77291025ce78a8e349177ac99"
+    },
+    {
+      "path": "raw/block_b_20261027/reply3/1_radar_test3/test3_cues.csv",
+      "source": "B회신3_20261027_메인전달.zip::1_radar_test3\\test3_cues.csv",
+      "kind": "original_measurement_bundle",
+      "bytes": 966,
+      "sha256": "40c549fbc47668a7aab0f8ad3191d15d63928d5f32b69bbaa74e613831797617"
+    },
+    {
+      "path": "raw/block_b_20261027/reply3/1_radar_test3/test3_radar.csv",
+      "source": "B회신3_20261027_메인전달.zip::1_radar_test3\\test3_radar.csv",
+      "kind": "original_measurement_bundle",
+      "bytes": 303886,
+      "sha256": "a83a68542cd8950ce3340cc76757b38be6569f5b132ebba5409962d38b7d93bd"
+    },
+    {
+      "path": "raw/block_b_20261027/reply3/1_radar_test3/test3_radar.log",
+      "source": "B회신3_20261027_메인전달.zip::1_radar_test3\\test3_radar.log",
+      "kind": "original_measurement_bundle",
+      "bytes": 53462,
+      "sha256": "7c206337bf1410bca09216dad1ac29075f926edc3ba62733438a983976c83996"
+    },
+    {
+      "path": "raw/block_b_20261027/reply3/1_radar_test3/test3_raw.bin",
+      "source": "B회신3_20261027_메인전달.zip::1_radar_test3\\test3_raw.bin",
+      "kind": "original_measurement_bundle",
+      "bytes": 2072029,
+      "sha256": "aaa81f7854d336536733c3ac1165c5677fe4bffa2b2a7fac4b78d191a45a167a"
+    },
+    {
+      "path": "raw/block_b_20261027/reply3/1_radar_test3/test3_raw.bin.idx.csv",
+      "source": "B회신3_20261027_메인전달.zip::1_radar_test3\\test3_raw.bin.idx.csv",
+      "kind": "original_measurement_bundle",
+      "bytes": 1504658,
+      "sha256": "a41cc7064c700f8da3f02c7d2b10e9f0ab169fee7fe9397d5047dd110d7cfdcd"
+    },
+    {
+      "path": "raw/block_b_20261027/reply3/1_radar_test3/test3_cam_snaps/motion_20261027_193100.jpg",
+      "source": "B회신3_20261027_메인전달.zip::1_radar_test3\\test3_cam_snaps\\motion_20261027_193100.jpg",
+      "kind": "photo",
+      "bytes": 96491,
+      "sha256": "dfceddb8bd96680a4b6d366f0520ff2c2ef0c4de25d819daf5ff22121f793868"
+    },
+    {
+      "path": "raw/block_b_20261027/reply3/1_radar_test3/test3_cam_snaps/motion_20261027_193143.jpg",
+      "source": "B회신3_20261027_메인전달.zip::1_radar_test3\\test3_cam_snaps\\motion_20261027_193143.jpg",
+      "kind": "photo",
+      "bytes": 139173,
+      "sha256": "137dd93bf6c542dcd9baa6b6eb486fe3871beff75cae51825ab56b9ff8e9d574"
+    },
+    {
+      "path": "raw/block_b_20261027/reply3/1_radar_test3/test3_cam_snaps/motion_20261027_193152.jpg",
+      "source": "B회신3_20261027_메인전달.zip::1_radar_test3\\test3_cam_snaps\\motion_20261027_193152.jpg",
+      "kind": "photo",
+      "bytes": 136949,
+      "sha256": "b05dca8fc6619a0d058770143f95e5652b90a9fad70b0fe38d2f6f9dea23cc54"
+    },
+    {
+      "path": "raw/block_b_20261027/reply3/1_radar_test3/test3_cam_snaps/motion_20261027_193303.jpg",
+      "source": "B회신3_20261027_메인전달.zip::1_radar_test3\\test3_cam_snaps\\motion_20261027_193303.jpg",
+      "kind": "photo",
+      "bytes": 130295,
+      "sha256": "ab1438c4693116fcc20569dab797a2f05b6f76d8272a046128f8ffd010896c46"
+    },
+    {
+      "path": "raw/block_b_20261027/reply3/1_radar_test3/test3_cam_snaps/motion_20261027_193430.jpg",
+      "source": "B회신3_20261027_메인전달.zip::1_radar_test3\\test3_cam_snaps\\motion_20261027_193430.jpg",
+      "kind": "photo",
+      "bytes": 95222,
+      "sha256": "df4c802c2cf06380cc0522bd4b3671ab7280d5a3edc2c93896e2abd4a5aacd32"
+    },
+    {
+      "path": "raw/block_b_20261027/reply3/1_radar_test3/test3_cam_snaps/motion_20261027_193502.jpg",
+      "source": "B회신3_20261027_메인전달.zip::1_radar_test3\\test3_cam_snaps\\motion_20261027_193502.jpg",
+      "kind": "photo",
+      "bytes": 140970,
+      "sha256": "c07486c8d8c5c9bfed11f0129856d8415e7102ff359de9118ce18caffe57381d"
+    },
+    {
+      "path": "raw/block_b_20261027/reply3/1_radar_test3/test3_cam_snaps/motion_20261027_193508.jpg",
+      "source": "B회신3_20261027_메인전달.zip::1_radar_test3\\test3_cam_snaps\\motion_20261027_193508.jpg",
+      "kind": "photo",
+      "bytes": 139509,
+      "sha256": "9b7ea801a93d4448fb12ed40a3fa5fc1c20bcf5f117ff0a8a33cfc77abf01828"
+    },
+    {
+      "path": "raw/block_b_20261027/reply3/2_camera/camera_motion.py",
+      "source": "B회신3_20261027_메인전달.zip::2_camera\\camera_motion.py",
+      "kind": "original_measurement_bundle",
+      "bytes": 11263,
+      "sha256": "bdb1c0e79da1d60df09d937830d73fcd8f832236b952f446a503ff948e7bb3e1"
+    },
+    {
+      "path": "raw/block_b_20261027/reply3/2_camera/cam_light.csv",
+      "source": "B회신3_20261027_메인전달.zip::2_camera\\cam_light.csv",
+      "kind": "original_measurement_bundle",
+      "bytes": 62273,
+      "sha256": "7a68229f94dfbb3a77ce74ec79478d8d1b230641a112b7c2052a2b1c882dc046"
+    },
+    {
+      "path": "raw/block_b_20261027/reply3/2_camera/cam_light.log",
+      "source": "B회신3_20261027_메인전달.zip::2_camera\\cam_light.log",
+      "kind": "original_measurement_bundle",
+      "bytes": 18160,
+      "sha256": "c7f7175ff559f7ddce772d16309049ff2409497519cd9167386535282c9d7404"
+    },
+    {
+      "path": "raw/block_b_20261027/reply3/2_camera/cam_light_command.txt",
+      "source": "B회신3_20261027_메인전달.zip::2_camera\\cam_light_command.txt",
+      "kind": "original_measurement_bundle",
+      "bytes": 158,
+      "sha256": "f5b64cb95a67bbd4df84b67966f9c8e49a772ed3a05d2da1bd2a5882f0aa5849"
+    },
+    {
+      "path": "raw/block_b_20261027/reply3/2_camera/cam_light_cues.csv",
+      "source": "B회신3_20261027_메인전달.zip::2_camera\\cam_light_cues.csv",
+      "kind": "original_measurement_bundle",
+      "bytes": 1214,
+      "sha256": "890ad0708390d75c923811792722b19b6b89c0efc671e304a04748daa3a437ae"
+    },
+    {
+      "path": "raw/block_b_20261027/reply3/2_camera/README.md",
+      "source": "B회신3_20261027_메인전달.zip::2_camera\\README.md",
+      "kind": "original_measurement_bundle",
+      "bytes": 4422,
+      "sha256": "5f68c5bb0235cc3e34b67d97f8ad8ba0fc27709dfdf053307f6496f72ba68e2a"
+    },
+    {
+      "path": "raw/block_b_20261027/reply3/2_camera/README_카메라.txt",
+      "source": "B회신3_20261027_메인전달.zip::2_camera\\README_카메라.txt",
+      "kind": "original_measurement_bundle",
+      "bytes": 5290,
+      "sha256": "c610e9cbec6855fd640d8739ff713d37053b05f6316e1d16fb65465d08f7872f"
+    },
+    {
+      "path": "raw/block_b_20261027/reply3/2_camera/cam_light_snaps/motion_20261027_195637.jpg",
+      "source": "B회신3_20261027_메인전달.zip::2_camera\\cam_light_snaps\\motion_20261027_195637.jpg",
+      "kind": "photo",
+      "bytes": 131053,
+      "sha256": "759a3c54b03ca7ec2c1ef4b4dfbd653a8cd7d36900b850a382d403c454d0a71d"
+    },
+    {
+      "path": "raw/block_b_20261027/reply3/2_camera/cam_light_snaps/motion_20261027_195645.jpg",
+      "source": "B회신3_20261027_메인전달.zip::2_camera\\cam_light_snaps\\motion_20261027_195645.jpg",
+      "kind": "photo",
+      "bytes": 132454,
+      "sha256": "fe3c5570980bfb8de0bf50c7daf4c543571bcaa7e28729beea2a3b132f00e541"
+    },
+    {
+      "path": "raw/block_b_20261027/reply3/2_camera/cam_light_snaps/motion_20261027_195736.jpg",
+      "source": "B회신3_20261027_메인전달.zip::2_camera\\cam_light_snaps\\motion_20261027_195736.jpg",
+      "kind": "photo",
+      "bytes": 113911,
+      "sha256": "32fd0f9ce8afba231d14c6c760b53fb23a54480ad2309ff8cd21d183d72796ec"
+    },
+    {
+      "path": "raw/block_b_20261027/reply3/2_camera/cam_light_snaps/motion_20261027_195804.jpg",
+      "source": "B회신3_20261027_메인전달.zip::2_camera\\cam_light_snaps\\motion_20261027_195804.jpg",
+      "kind": "photo",
+      "bytes": 130685,
+      "sha256": "916e4f85b8133b67569f39e2054fa9c6b17160988d9a937d5467ed2eed65dc8c"
+    },
+    {
+      "path": "raw/block_b_20261027/reply3/2_camera/cam_light_snaps/motion_20261027_195932.jpg",
+      "source": "B회신3_20261027_메인전달.zip::2_camera\\cam_light_snaps\\motion_20261027_195932.jpg",
+      "kind": "photo",
+      "bytes": 106190,
+      "sha256": "6dedada265a0101801e9e5d06458d4231db886fef55cfedd56c2cfd151b04c31"
+    },
+    {
+      "path": "raw/block_b_20261027/reply3/3_final_files/camera_motion.py",
+      "source": "B회신3_20261027_메인전달.zip::3_final_files\\camera_motion.py",
+      "kind": "original_measurement_bundle",
+      "bytes": 11263,
+      "sha256": "bdb1c0e79da1d60df09d937830d73fcd8f832236b952f446a503ff948e7bb3e1"
+    },
+    {
+      "path": "raw/block_b_20261027/reply3/3_final_files/check_radar_firmware.py",
+      "source": "B회신3_20261027_메인전달.zip::3_final_files\\check_radar_firmware.py",
+      "kind": "original_measurement_bundle",
+      "bytes": 2702,
+      "sha256": "368153863a4d3bcaf75b9eb95e27893ddc2d865572e4efb90282b74b7986b140"
+    },
+    {
+      "path": "raw/block_b_20261027/reply3/3_final_files/mmwave_reader.py",
+      "source": "B회신3_20261027_메인전달.zip::3_final_files\\mmwave_reader.py",
+      "kind": "original_measurement_bundle",
+      "bytes": 19293,
+      "sha256": "945c2f40904af9866619c3836e8721f265b1c264fc7cefb1671672a13ce7d565"
+    },
+    {
+      "path": "raw/block_b_20261027/reply3/3_final_files/mmwave_reader_raw.diff",
+      "source": "B회신3_20261027_메인전달.zip::3_final_files\\mmwave_reader_raw.diff",
+      "kind": "original_measurement_bundle",
+      "bytes": 3005,
+      "sha256": "f486f36c6f8c5b08765c05277fe62ab47e88a41c50fc897a7cd5ecf2aa1bdfee"
+    },
+    {
+      "path": "raw/block_b_20261027/reply3/3_final_files/ODS_sedan_est.cfg",
+      "source": "B회신3_20261027_메인전달.zip::3_final_files\\ODS_sedan_est.cfg",
+      "kind": "original_measurement_bundle",
+      "bytes": 3749,
+      "sha256": "674fbe92ebb69a17f9b5534b1e7fdec6c3a99f2b8b379c6f4c417a3d4a3582ce"
+    },
+    {
+      "path": "raw/block_b_20261027/reply3/3_final_files/tools/plan_camera.csv",
+      "source": "B회신3_20261027_메인전달.zip::3_final_files\\tools\\plan_camera.csv",
+      "kind": "original_measurement_bundle",
+      "bytes": 782,
+      "sha256": "d0b8a6abcb54d13f9e3c672d4dcc0bbef0b259588b873aa00c9e0aee6ab2cb03"
+    },
+    {
+      "path": "raw/block_b_20261027/reply3/3_final_files/tools/plan_radar_test3.csv",
+      "source": "B회신3_20261027_메인전달.zip::3_final_files\\tools\\plan_radar_test3.csv",
+      "kind": "original_measurement_bundle",
+      "bytes": 627,
+      "sha256": "a46fbf01e7ce7c9f77181942445c0d680476cf16c8102d333c2b0ae784b8b2cf"
+    },
+    {
+      "path": "raw/block_b_20261027/reply3/3_final_files/tools/run_cues.ps1",
+      "source": "B회신3_20261027_메인전달.zip::3_final_files\\tools\\run_cues.ps1",
+      "kind": "original_measurement_bundle",
+      "bytes": 1626,
+      "sha256": "ae4d578beda9b9e5191765b66d490df1b6534145071e876b42ddb300271f387f"
+    },
+    {
+      "path": "raw/block_b_20261027/reply3/4_device_status/device_status_20261027_2009.txt",
+      "source": "B회신3_20261027_메인전달.zip::4_device_status\\device_status_20261027_2009.txt",
+      "kind": "original_measurement_bundle",
+      "bytes": 2526,
+      "sha256": "306f86253fdd1f7ae3f691324ccbc9a59f1010cb31258fe73642b189cf65c1d1"
+    },
+    {
+      "path": "raw/block_b_20261027/reply3/5_photos/1_side_tilt_a.jpg",
+      "source": "B회신3_20261027_메인전달.zip::5_photos\\1_side_tilt_a.jpg",
+      "kind": "photo",
+      "bytes": 2397383,
+      "sha256": "4f2f18de382f6457d41aea920829b8603bad372a325e14d5d862476bae46d5c1"
+    },
+    {
+      "path": "raw/block_b_20261027/reply3/5_photos/1_side_tilt_b.jpg",
+      "source": "B회신3_20261027_메인전달.zip::5_photos\\1_side_tilt_b.jpg",
+      "kind": "photo",
+      "bytes": 2396731,
+      "sha256": "7f4b5df68072b282c672bbc7ef9711728e3931f4540323c774800984a127dcae"
+    },
+    {
+      "path": "raw/block_b_20261027/reply3/5_photos/1_side_tilt_c.jpg",
+      "source": "B회신3_20261027_메인전달.zip::5_photos\\1_side_tilt_c.jpg",
+      "kind": "photo",
+      "bytes": 2365184,
+      "sha256": "c2b1703666cb3bef2dcd67ad3e0fe6e7ccc05d75fefcde7b556d7c0eac566753"
+    },
+    {
+      "path": "raw/block_b_20261027/reply3/5_photos/2_behind_board_to_chair.jpg",
+      "source": "B회신3_20261027_메인전달.zip::5_photos\\2_behind_board_to_chair.jpg",
+      "kind": "photo",
+      "bytes": 2677895,
+      "sha256": "3dfd33e6474eee8aeae67c710de671bc0fa81eb0a4a08efa1a826907989eaf33"
+    },
+    {
+      "path": "raw/block_b_20261027/reply3/5_photos/3_overview_board_chair_a.jpg",
+      "source": "B회신3_20261027_메인전달.zip::5_photos\\3_overview_board_chair_a.jpg",
+      "kind": "photo",
+      "bytes": 4439774,
+      "sha256": "b07f66b7f7d1efc4e45056aaf69600bf9a34b5430ce2e03e9b6869a447398bda"
+    },
+    {
+      "path": "raw/block_b_20261027/reply3/5_photos/3_overview_board_chair_b.jpg",
+      "source": "B회신3_20261027_메인전달.zip::5_photos\\3_overview_board_chair_b.jpg",
+      "kind": "photo",
+      "bytes": 4429172,
+      "sha256": "1cdf44ad40f278b51f96761198c5c1f9d5f3307710dc170319691016b408a7cf"
+    },
+    {
+      "path": "raw/block_b_20261027/reply3/5_photos/README_사진.txt",
+      "source": "B회신3_20261027_메인전달.zip::5_photos\\README_사진.txt",
+      "kind": "original_measurement_bundle",
+      "bytes": 1048,
+      "sha256": "29e60a659f7353758542d9a6a0e97fae8991f688b72695a3f839ed53c5a8060c"
+    },
+    {
+      "path": "raw/block_b_20261027/reply3/README_메인전달.txt",
+      "source": "B회신3_20261027_메인전달.zip::README_메인전달.txt",
+      "kind": "original_measurement_bundle",
+      "bytes": 7442,
+      "sha256": "3eee8501a9ddc64d92234dd6719276a180f1e8d7d93d067c738550b95b77c794"
+    },
+    {
+      "path": "raw/block_b_20261027/reply3/SHA256SUMS.txt",
+      "source": "B회신3_20261027_메인전달.zip::SHA256SUMS.txt",
+      "kind": "original_measurement_bundle",
+      "bytes": 4950,
+      "sha256": "f278126fcf9dda6d4cfa3e8b9c69ffa6064bb151e45ea2d94d8a7e0dbd4437f0"
+    },
+    {
+      "path": "raw/block_b_20261027/reply4/cfg/ODS_sedan_est.cfg",
+      "source": "B회신4_20261027_레이더두문제.zip::cfg\\ODS_sedan_est.cfg",
+      "kind": "analysis_or_candidate_not_new_measurement",
+      "bytes": 3749,
+      "sha256": "674fbe92ebb69a17f9b5534b1e7fdec6c3a99f2b8b379c6f4c417a3d4a3582ce"
+    },
+    {
+      "path": "raw/block_b_20261027/reply4/cfg/ODS_sedan_s2f100.cfg",
+      "source": "B회신4_20261027_레이더두문제.zip::cfg\\ODS_sedan_s2f100.cfg",
+      "kind": "analysis_or_candidate_not_new_measurement",
+      "bytes": 4428,
+      "sha256": "f9beec9da6c24fa4f7219ef07d58b3349bbe6b4711300a2de6a7a39b646befed"
+    },
+    {
+      "path": "raw/block_b_20261027/reply4/cfg/ODS_sedan_s2f200.cfg",
+      "source": "B회신4_20261027_레이더두문제.zip::cfg\\ODS_sedan_s2f200.cfg",
+      "kind": "analysis_or_candidate_not_new_measurement",
+      "bytes": 4430,
+      "sha256": "24c085bfa37feaba6cd531390062bb135f287a7cc82857570e163a7b66e6e8fc"
+    },
+    {
+      "path": "raw/block_b_20261027/reply4/cfg/ODS_sedan_s2f500.cfg",
+      "source": "B회신4_20261027_레이더두문제.zip::cfg\\ODS_sedan_s2f500.cfg",
+      "kind": "analysis_or_candidate_not_new_measurement",
+      "bytes": 4430,
+      "sha256": "c840867e82f58fca4dfe22dd5f15a1f23c57ca6846a8d4323ade18c3860c65cb"
+    },
+    {
+      "path": "raw/block_b_20261027/reply4/scripts/mmwave_reader.py",
+      "source": "B회신4_20261027_레이더두문제.zip::scripts\\mmwave_reader.py",
+      "kind": "analysis_or_candidate_not_new_measurement",
+      "bytes": 19293,
+      "sha256": "945c2f40904af9866619c3836e8721f265b1c264fc7cefb1671672a13ce7d565"
+    },
+    {
+      "path": "raw/block_b_20261027/reply4/scripts/restart_check.py",
+      "source": "B회신4_20261027_레이더두문제.zip::scripts\\restart_check.py",
+      "kind": "analysis_or_candidate_not_new_measurement",
+      "bytes": 6283,
+      "sha256": "8c0cafad38105a52ba6a8cc18f2939aa4a7f486df59aa7c1e09783f4219be67d"
+    },
+    {
+      "path": "raw/block_b_20261027/reply4/analyze_test3_tracks.py",
+      "source": "B회신4_20261027_레이더두문제.zip::analyze_test3_tracks.py",
+      "kind": "analysis_or_candidate_not_new_measurement",
+      "bytes": 2764,
+      "sha256": "9447f57c79173e574fbf182466d21a648315ba311842295d6d03db613639200b"
+    },
+    {
+      "path": "raw/block_b_20261027/reply4/analyze_test3_tracks_output.txt",
+      "source": "B회신4_20261027_레이더두문제.zip::analyze_test3_tracks_output.txt",
+      "kind": "analysis_or_candidate_not_new_measurement",
+      "bytes": 715,
+      "sha256": "1a994cc7fc89eea70449edf2633d6f7d0c1c0efc59293ef8fc95b683b91f5bf9"
+    },
+    {
+      "path": "raw/block_b_20261027/reply4/README_두문제_분석.txt",
+      "source": "B회신4_20261027_레이더두문제.zip::README_두문제_분석.txt",
+      "kind": "analysis_or_candidate_not_new_measurement",
+      "bytes": 11425,
+      "sha256": "7ec65364504ab022da3c0d6288af5be7973b3823d9a129abacca5ea0cf15fb4a"
+    },
+    {
+      "path": "raw/block_b_20261027/reply4/SHA256SUMS.txt",
+      "source": "B회신4_20261027_레이더두문제.zip::SHA256SUMS.txt",
+      "kind": "analysis_or_candidate_not_new_measurement",
+      "bytes": 843,
+      "sha256": "9a5f4073e2537593f0a744dd39935b97701d48f530f6c9f650b83de7364c3980"
+    },
+    {
+      "path": "tools/uwb_legacy/safeguard_uwb_reader.py",
+      "source": "output/safeguard_uwb_reader.py",
+      "kind": "historical_reader_not_active",
+      "bytes": 18678,
+      "sha256": "1e063067dc282c209312821f38ac1d9c04369f6256aed21385a1dd3f944b9e07"
+    },
+    {
+      "path": "tools/uwb_legacy/safeguard_uwb_input.hpp",
+      "source": "SafeGuard_C_Main_Link.zip::safeguard_uwb_input.hpp",
+      "kind": "historical_handoff_not_active",
+      "bytes": 6727,
+      "sha256": "c851b92f3f93f62d33b9246de1e4233130d1ac925abbae8aadcfb98b43bb08d0"
+    },
+    {
+      "path": "tools/uwb_legacy/safeguard_uwb_main_input.cpp",
+      "source": "SafeGuard_C_Main_Link.zip::safeguard_uwb_main_input.cpp",
+      "kind": "historical_handoff_not_active",
+      "bytes": 3978,
+      "sha256": "acdd604634a9534ece6a597411d87a9a42853def7ee0ad5f09d76cc24a3797c1"
+    },
+    {
+      "path": "tools/uwb_legacy/test_uwb_input.cpp",
+      "source": "SafeGuard_C_Main_Link.zip::test_uwb_input.cpp",
+      "kind": "historical_handoff_not_active",
+      "bytes": 3344,
+      "sha256": "db03c53db8c07758a15c7824a274cb5d5d914a16481ac7e5ad260a5172416129"
+    },
+    {
+      "path": "tools/uwb_legacy/README_KO.txt",
+      "source": "SafeGuard_C_Main_Link.zip::README_KO.txt",
+      "kind": "historical_handoff_not_active",
+      "bytes": 6914,
+      "sha256": "76beca33993f89e2408c763ffc1f88b10d483aec0d9449713d31552b220408f4"
+    },
+    {
+      "path": "raw/block_a_20261024/observed_serial.txt",
+      "source": "upload/SafeGuard_BlockA_observed_serial_earlier_20261024.txt",
+      "kind": "historical_observed_serial",
+      "bytes": 1110,
+      "sha256": "04ea03b5d25acf65d372d9162a8ee11922c517092b566d86944378e340214d03"
+    }
+  ]
+}

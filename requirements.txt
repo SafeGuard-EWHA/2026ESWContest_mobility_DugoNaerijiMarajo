@@ -1,0 +1,8 @@
+# Runtime (app/streamlit_app.py 실행에 필요)
+pandas>=2.2
+numpy>=1.26
+streamlit>=1.36
+matplotlib>=3.8
+
+# Dev/test (배포 시에는 불필요하지만 단일 requirements.txt로 유지)
+pytest>=8.2

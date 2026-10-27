@@ -1,0 +1,24 @@
+[SafeGuard TwinLab Agent - 한계 및 향후 개선점 (자동 생성)]
+
+1) 데이터 관련 한계
+- 이번 실행은 dummy(합성) hardware log를 사용했다. 실제 하드웨어 검증 이전 단계의 결과다.
+- 본 시나리오는 duration=300s, guardian_departure_time_s=10s 등 특정 파라미터 조합에서의 결과이며, 모든 실제 상황을 대표하지 않는다.
+
+2) 센서 관련 한계
+- UWB(DWM1001-DEV 등가), mmWave는 raw RF/radar signal (FMCW chirp, FFT spectrum, 다중경로 반사 등)을 물리적으로 모델링하지 않는 output-level virtual sensor simulation이다.
+- 이번 실행의 mmWave sensor profile: C4001 24GHz Low-cost profile (low-cost 24GHz radar module profile 기반 output-level virtual sensor simulation). profile 선택은 output field 구성과 confirmation 임계값만 바꿀 뿐, 실제 해당 하드웨어를 사용하거나 raw signal processing을 수행한 것이 아니다.
+- Camera 감지 역시 OpenCV contour 연산을 직접 재현하지 않고, light_condition에 따른 detection probability로 근사한 output-level 결과다.
+
+3) 전력 관련 한계
+- 모든 전력 값은 datasheet/typical-value 기반 추정 전력 모델(estimated power model)이며 실측(measured power)이 아니다.
+- 릴레이/액추에이터의 돌입전류(inrush current), 온도에 따른 소비전력 변화 등은 반영하지 않는다.
+
+4) 재현성
+- 모든 난수는 RANDOM_SEED(고정값)로 초기화되어 동일 입력에 대해 동일 결과를 재현한다.
+- 실측 검증이 필요할 경우 data_loader.load_power_measure_log()로 power_measure_log.csv를 불러와 추정 모델과 교차 비교할 수 있는 경로가 이미 마련되어 있다.
+
+5) 향후 개선점
+- 실제 INA219/INA226 등 전류 센서를 이용한 estimated vs measured 오차율 정량화.
+- UWB/mmWave 실제 모듈의 raw signal 기반 재현 및 output-level 시뮬레이션과의 상관관계 검증.
+- 다양한 차량/센서 배치, 계절/외기온 조건에 대한 민감도 분석 확장.
+- 실차 환경에서의 장기 운용 데이터 수집을 통한 FAIL_SAFE 오탐/미탐률 정량 평가.

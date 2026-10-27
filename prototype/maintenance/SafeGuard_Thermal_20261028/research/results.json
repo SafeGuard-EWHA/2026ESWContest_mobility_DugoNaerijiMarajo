@@ -1,0 +1,192 @@
+{
+  "source_equation": "C*dT/dt=(Ta-T)/R+Q; R=1/H; C=3600*mC(Wh/K)",
+  "gaspar2024_table1": {
+    "R_K_W": 0.016666666666666666,
+    "C_J_K": 450000,
+    "Q_W": 1800,
+    "tau_min": 125.0,
+    "rise30_C": 6.4011641680033975,
+    "rise60_C": 11.436498245815775,
+    "t35_from20_min": 86.64339756999316,
+    "euler1s_max_error_1h_C": 0.000594075358165469
+  },
+  "existing_placeholder": {
+    "R_K_W": 0.2,
+    "C_J_K": 1000,
+    "Q_W": 80,
+    "tau_min": 3.3333333333333335,
+    "equilibrium_at_Ta5_C": 21.0,
+    "t35_from20_min": 9.241962407465937
+  },
+  "mclaren_published_summary": {
+    "rise60_mean_C": 22.77777777777778,
+    "rise60_range_C": [
+      15.555555555555555,
+      27.22222222222222
+    ],
+    "fraction_30_over60": 0.8
+  },
+  "mclaren_fig3_common_fit": {
+    "A_C": 23.026876705577994,
+    "tau_min": 19.02282116945982,
+    "note": "Fit to all 7 approximate graph curves; this is calibration, not validation."
+  },
+  "loco": {
+    "metrics": {
+      "mae_C": 1.8875523785044643,
+      "rmse_C": 2.375483446147754,
+      "max_abs_C": 5.971131010509062
+    },
+    "folds": [
+      {
+        "case": "ambient_73F",
+        "fit_other_curves_A_C": 23.064108408533876,
+        "fit_other_curves_tau_min": 18.856857105767663,
+        "mae_C": 0.5651955990647556,
+        "rmse_C": 0.6858702632935985,
+        "max_abs_C": 1.1429108961591155,
+        "observed35_graph_interpolated_min": 15.0,
+        "predicted35_min": 14.234299927707863,
+        "eta_error_min": -0.7657000722921374
+      },
+      {
+        "case": "ambient_74F",
+        "fit_other_curves_A_C": 22.80614637407585,
+        "fit_other_curves_tau_min": 19.457519554534123,
+        "mae_C": 2.1330815709508664,
+        "rmse_C": 2.1488028102658543,
+        "max_abs_C": 2.5016565747354704,
+        "observed35_graph_interpolated_min": 10.0,
+        "predicted35_min": 13.941984997366495,
+        "eta_error_min": 3.941984997366495
+      },
+      {
+        "case": "ambient_77F",
+        "fit_other_curves_A_C": 23.34536087408221,
+        "fit_other_curves_tau_min": 20.280486503475203,
+        "mae_C": 1.3954256246220833,
+        "rmse_C": 1.9561287156788245,
+        "max_abs_C": 4.343441496907943,
+        "observed35_graph_interpolated_min": 5.833333333333335,
+        "predicted35_min": 11.341445560918586,
+        "eta_error_min": 5.508112227585252
+      },
+      {
+        "case": "ambient_78F",
+        "fit_other_curves_A_C": 23.74996424353211,
+        "fit_other_curves_tau_min": 19.565557293065932,
+        "mae_C": 2.5341235475381976,
+        "rmse_C": 2.829378167375146,
+        "max_abs_C": 3.754834518265085,
+        "observed35_graph_interpolated_min": 10.0,
+        "predicted35_min": 9.918476786523158,
+        "eta_error_min": -0.08152321347684222
+      },
+      {
+        "case": "ambient_84F",
+        "fit_other_curves_A_C": 23.069063403790317,
+        "fit_other_curves_tau_min": 19.247172519166888,
+        "mae_C": 0.5871392590717305,
+        "rmse_C": 0.7811946112574428,
+        "max_abs_C": 1.9445385775822501,
+        "observed35_graph_interpolated_min": 4.230769230769229,
+        "predicted35_min": 5.923424890814106,
+        "eta_error_min": 1.6926556600448768
+      },
+      {
+        "case": "ambient_88F",
+        "fit_other_curves_A_C": 22.01751428724521,
+        "fit_other_curves_tau_min": 17.86852774499164,
+        "mae_C": 2.8349268004443964,
+        "rmse_C": 3.3491363574021977,
+        "max_abs_C": 5.971131010509062,
+        "observed35_graph_interpolated_min": 4.374999999999998,
+        "predicted35_min": 3.472677570060176,
+        "eta_error_min": -0.9023224299398223
+      },
+      {
+        "case": "ambient_93F",
+        "fit_other_curves_A_C": 23.193495414638967,
+        "fit_other_curves_tau_min": 17.98959992446519,
+        "mae_C": 3.162974247839218,
+        "rmse_C": 3.2793108967470346,
+        "max_abs_C": 4.372584416241331,
+        "observed35_graph_interpolated_min": 1.4285714285714313,
+        "predicted35_min": 0.8831394842575212,
+        "eta_error_min": -0.5454319443139101
+      }
+    ],
+    "note": "Same-study graph-held-out curves; no independent vehicle/environment validation; no irradiance control."
+  },
+  "rolling_forecast": {
+    "5": {
+      "persistence": {
+        "mae_C": 1.2539682539682537,
+        "rmse_C": 1.4728585028142278,
+        "max_abs_C": 3.8888888888888857,
+        "n": 70
+      },
+      "linear": {
+        "mae_C": 0.7301587301587343,
+        "rmse_C": 1.0414682350682092,
+        "max_abs_C": 4.166666666666671,
+        "n": 70
+      },
+      "adaptive_rc": {
+        "mae_C": 0.5628930681272573,
+        "rmse_C": 0.805632355972499,
+        "max_abs_C": 3.4400231134255037,
+        "n": 70
+      }
+    },
+    "10": {
+      "persistence": {
+        "mae_C": 2.4426807760141083,
+        "rmse_C": 2.74941427500025,
+        "max_abs_C": 6.666666666666664,
+        "n": 63
+      },
+      "linear": {
+        "mae_C": 1.6313932980599744,
+        "rmse_C": 2.3808054040467277,
+        "max_abs_C": 9.444444444444443,
+        "n": 63
+      },
+      "adaptive_rc": {
+        "mae_C": 0.8897918733106192,
+        "rmse_C": 1.4281321821175348,
+        "max_abs_C": 6.753946643186367,
+        "n": 63
+      }
+    }
+  },
+  "digitization_sensitivity": {
+    "replicates": 200,
+    "seed": 20261028,
+    "A_C_minmax": [
+      22.738375143315928,
+      23.324560128332045
+    ],
+    "tau_min_minmax": [
+      18.11952287081199,
+      20.017411577744266
+    ],
+    "note": "Uniform independent +/-1 F perturbations; reading sensitivity only, NOT confidence or prediction interval."
+  },
+  "cold_start_screen": {
+    "history_minutes": 10,
+    "threshold_C": 35,
+    "cases_at_or_above_threshold_when_history_ready": [
+      "ambient_74F",
+      "ambient_77F",
+      "ambient_78F",
+      "ambient_84F",
+      "ambient_88F",
+      "ambient_93F"
+    ],
+    "count": 6,
+    "total": 7,
+    "note": "Approximate graph readings. A history-only forecast cannot provide a pre-threshold warning in these cases."
+  },
+  "digitization_quality_check": "Compared color-trace pixel positions against axes; corrected six one-F visual readings. Overlapping curves remain approximate. Not raw instrument measurements."
+}

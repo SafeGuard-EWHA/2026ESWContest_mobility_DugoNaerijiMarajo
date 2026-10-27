@@ -1,0 +1,20 @@
+{
+  "package": "SafeGuard_Navigation_Autostart_V2",
+  "files": {
+    "README_KO.txt": "f2f3cce029ae4c147ce0764ae03daf5598c73e1b9ac7ac6a7c44649dac8bb85a",
+    "base_hashes.json": "6a4e12a8e94c4c6c78a368da18d341f02ed9bd6fb4844bfb58310fb09559a287",
+    "install_demo.py": "2da12392304a20ddd8745575235878f5cdaa690279d90fb55b1dfe5faeae19af",
+    "patch/scripts/navigation_bridge.py": "527f9f5149d99f7e6bf5c9bf4bbb8c7a594d1edf81f5a6e7b173643809bd8e73",
+    "patch/scripts/navigation_phone.html": "7e8ee59361c58dcfd2c783747f667ac76465b4e4a4135ec6acc685667d0f1171",
+    "runtime/navigation_tls_identity.py": "6f6d9c85ced1a198cf72e71385eea6d5e648e47fe5857de0fc2d859b5196c769",
+    "runtime/prepare_network.py": "651d0a71ad5ff36b9a1c625835a077b753a3cf8daba94e9b409dce2ca49e6886",
+    "runtime/run_receiver.py": "ac96c88879546c0b241ac24d05a279083405b3d3006bf6607ce32a51c98fb654",
+    "show_status.py": "96022a465c2215a59773536ee730b879124f6176b086e1f3fdca4846df514e7e",
+    "tests/test_boot_network.py": "b246cf7f392813463f3129487dc2b38c9a320385148606d691280bb2093c1dc5",
+    "tests/test_navigation_bridge.py": "fcafc181a431bbd2430ef52239cbe1574f6d673784eba20dd1c233c726d36daa",
+    "tests/test_navigation_ipv6.py": "d462e512ac40acfb5365032d586367ffa1e013bf2305627230e24197e011c499",
+    "tests/test_phone_ui.js": "d25b0c19ef6e899869398661be0c2d39150a408d0b2ca93aba9d23fc9b48c4c0",
+    "tests/test_runtime.py": "7c254e7881464921c406ad27ee7ba9336abb4d2acb3aafefdafb10f27389d280",
+    "tests/test_service_runtime.py": "c3d129a92225d2a9d63cfe217e317b49a331071ac94a4d941f08cc7e4b5bea21"
+  }
+}

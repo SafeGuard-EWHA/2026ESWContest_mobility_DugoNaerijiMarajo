@@ -1,0 +1,24 @@
+{
+  "version": "0.3.0",
+  "sha256": {
+    "run_control.py": "5c43c366ecceaa806ba89295c97c28365e4e0cab72f50d0f3732a6d3ee50d032",
+    "set_servo_angle.py": "287fc39fafa665dab2329bae10167902bf5085e67da53bb729c3755aee3830f7",
+    "check_link.py": "1b35e969df2d046e989d54bc61f2b28bc3f40e7cd95a78ba915304b1e3e19615",
+    "base_hashes.json": "0f7b410a404ac04099a857913fc78607b6d0da617d98d783abf282580a385222",
+    "README_KO.txt": "6e69147f545a5f5e782817470c711e2ebcebae33e8912881dab91d18cb20a6c0",
+    "TECHNICAL.md": "e0c913a2a65cc9ea2f2b1d02f1b5b93b082c3ee14308ea92c1c3b388b808cacc",
+    "VALIDATION_KO.txt": "d0dc1e903eb0c5021988340cf20ab108ec7679c427b79669e596d823a66bd5ed",
+    "install.py": "d5801a9e6b4047d04ca000a80402660e8e842bf894b557987114467c69c81408",
+    "originals/sketch_oct24b.ino": "76729270634a95b0444964843e741d7f74e31cc1818841aca4adcd854b1a7079",
+    "tests/test_firmware.py": "043b0abae816b8c74e3ac3c07d71ba762e3b264337e79b05216713c0b2676bfc",
+    "tests/test_integration.py": "5c0f7e3cebeadced35ea8a841a4b49449247e3343d4288075e49f3034d7eed01",
+    "tests/mock_headers.py": "a8b6bc786a5289bc12d8a250796d68d992571745375f9882151aa76c19f71242",
+    "firmware/SafeGuard_Software_Stop/SafeGuard_Software_Stop.ino": "52cb5d46e47520f59ee2bab0b3642c92dfdbd0afedfde240802fc9fda67e9951",
+    "patch/scripts/dashboard.py": "7d3b0e3c9f49e41551f80ff2a5bc00cf5d89a653dea23ea249f93b42815cff2f",
+    "patch/scripts/sensor_hub.py": "9d223a2820b331248372f1da0b8a8c7646e3674f311576f6341943526e223c86",
+    "patch/scripts/dashboard.html": "322a76b8f1fa92b944ef4eb2481db62c06d21c69878c28898bd39085a70a96d3",
+    "patch/src/main.cpp": "989dc1a294382d2cb65cde196cd5c9bb96ae7aee533c152db54a8ac8d445ac45",
+    "patch/src/manual_control.hpp": "6c45de817501f89faa778bd4d96dc6021d7933b4e0e84fd19a211793a0ce8f77"
+  },
+  "packaging_note": "GitHub preparation snapshot: check_link.py includes installed 20261028 fix. Old installer applies only to its original target hashes; not an upgrade path for this assembled tree."
+}

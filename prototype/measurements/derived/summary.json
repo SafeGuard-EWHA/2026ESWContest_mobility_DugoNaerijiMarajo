@@ -1,0 +1,72 @@
+{
+  "source": "Original uploaded CSVs. Frame/sample proportions are not independent accuracy estimates.",
+  "uwb": [
+    {
+      "source": "raw/uwb_20261016/session_01/telemetry.csv",
+      "records": 1109,
+      "elapsed_s": 602.516,
+      "valid_records": 1106,
+      "status_counts": {
+        "waiting": 1,
+        "fresh": 1106,
+        "stale": 1,
+        "stopped": 1
+      }
+    },
+    {
+      "source": "raw/uwb_20261016/session_02/telemetry.csv",
+      "records": 114,
+      "elapsed_s": 58.0,
+      "valid_records": 112,
+      "status_counts": {
+        "waiting": 1,
+        "fresh": 112,
+        "stopped": 1
+      }
+    }
+  ],
+  "radar_test3": {
+    "source": "raw/block_b_20261027/reply3/1_radar_test3/test3_radar.csv",
+    "records": 8363,
+    "bad_frames": 0,
+    "intervals": [
+      {
+        "label": "Initial empty",
+        "start_s_inclusive": 0,
+        "end_s_exclusive": 170,
+        "frames": 3090,
+        "positive_frames": 0,
+        "positive_percent": 0.0
+      },
+      {
+        "label": "Seated still",
+        "start_s_inclusive": 180,
+        "end_s_exclusive": 300,
+        "frames": 2182,
+        "positive_frames": 2182,
+        "positive_percent": 100.0
+      },
+      {
+        "label": "Empty after departure",
+        "start_s_inclusive": 315,
+        "end_s_exclusive": 375,
+        "frames": 1090,
+        "positive_frames": 1090,
+        "positive_percent": 100.0
+      }
+    ]
+  },
+  "camera_light": {
+    "source": "raw/block_b_20261027/reply3/2_camera/cam_light.csv",
+    "records": 1996,
+    "kind_counts": {
+      "still": 1723,
+      "candidate": 31,
+      "motion": 200,
+      "light": 5,
+      "settle": 37
+    },
+    "motion_active_records": 376,
+    "cue_source": "raw/block_b_20261027/reply3/2_camera/cam_light_cues.csv"
+  }
+}

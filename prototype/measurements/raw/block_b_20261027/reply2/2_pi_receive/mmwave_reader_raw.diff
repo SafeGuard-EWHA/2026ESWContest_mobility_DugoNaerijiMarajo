@@ -1,0 +1,65 @@
+diff --git a/hardware/mmwave/mmwave_reader.py b/hardware/mmwave/mmwave_reader.py
+index ade32a9..80ce3eb 100644
+--- a/hardware/mmwave/mmwave_reader.py
++++ b/hardware/mmwave/mmwave_reader.py
+@@ -246,6 +246,10 @@ def run(args: argparse.Namespace) -> int:
+ 
+     csv_file = None
+     writer = None
++    raw_file = None
++    raw_idx_file = None
++    raw_idx = None
++    raw_offset = 0
+     try:
+         if not args.no_cfg:
+             lines = read_cfg_lines(args.cfg)
+@@ -263,6 +267,15 @@ def run(args: argparse.Namespace) -> int:
+                              "num_tracks", "presence", "bad_frame",
+                              "breath_rate", "heart_rate", "breath_dev", "range_bin"])
+ 
++        if args.raw:
++            # 데이터 포트에서 받은 바이트를 해석 전 그대로 저장한다 (메인 쪽 파서 대조용).
++            # .idx.csv에는 읽은 묶음마다 수신 시각과 raw 파일 안의 위치를 남긴다.
++            raw_file = open(args.raw, "wb")
++            raw_idx_file = open(args.raw.with_name(args.raw.name + ".idx.csv"), "w",
++                                newline="", encoding="utf-8")
++            raw_idx = csv.writer(raw_idx_file)
++            raw_idx.writerow(["monotonic_s", "wall_time", "byte_offset", "num_bytes"])
++
+         reader = FrameReader()
+         t_start = time.monotonic()
+         t_report = t_start
+@@ -277,6 +290,11 @@ def run(args: argparse.Namespace) -> int:
+ 
+         while args.duration <= 0 or time.monotonic() - t_start < args.duration:
+             chunk = data.read(data.in_waiting or 1)
++            if raw_file and chunk:
++                raw_file.write(chunk)
++                raw_idx.writerow([f"{time.monotonic():.6f}", f"{time.time():.3f}",
++                                  raw_offset, len(chunk)])
++                raw_offset += len(chunk)
+             for frame in reader.feed(chunk):
+                 total_frames += 1
+                 frames_in_window += 1
+@@ -347,8 +365,13 @@ def run(args: argparse.Namespace) -> int:
+         data.close()
+         if csv_file:
+             csv_file.close()
++        if raw_file:
++            raw_file.close()
++            raw_idx_file.close()
+ 
+     print(f"총 {total_frames} 프레임, 누락 {dropped}, 깨짐 {bad_frames}")
++    if args.raw:
++        print(f"원본 바이트 {raw_offset} B 저장: {args.raw}")
+     return 0
+ 
+ 
+@@ -360,6 +383,7 @@ def _parse_args() -> argparse.Namespace:
+     p.add_argument("--no-cfg", action="store_true", help="설정을 보내지 않고 수신만 (이미 동작 중일 때)")
+     p.add_argument("--duration", type=float, default=0, help="실행 시간(초), 0이면 Ctrl+C까지")
+     p.add_argument("--csv", type=Path, help="프레임별 기록 CSV 경로")
++    p.add_argument("--raw", type=Path, help="데이터 포트 원본 바이트 저장 경로 (예: raw.bin, 옆에 .idx.csv 생김)")
+     p.add_argument("--show-points", action="store_true", help="추적 대상과 점 좌표를 모두 출력")
+     return p.parse_args()
+ 

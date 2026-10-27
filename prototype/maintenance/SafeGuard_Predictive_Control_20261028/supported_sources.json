@@ -1,0 +1,7 @@
+{
+  "src/core.hpp": "f1621f84f017288803e3c8f78edd8fbab21823edcf0b86268920b29e9ee79cd4",
+  "src/core.cpp": "d4471cdcbc7f04a89d431eb78ca919d0331a189edf4c7d46d91c5edc4d806bdc",
+  "src/main.cpp": "8d110d8c7bb925ce1dd2b032a47b1c59f1e17941c8fac2a7fe447e84c21833ff",
+  "src/thermal_observer.hpp": "05eb38e0d8d2579eb1784f01636f6802c7309b68eda0533346cbfaaaf6117a88",
+  "scripts/dashboard.html": "ff2ed0ec2f8c0abb0478627cd919c0426904686f34aec4c03f830766d3cf7c7d"
+}

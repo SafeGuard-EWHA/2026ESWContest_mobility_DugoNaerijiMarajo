@@ -1,0 +1,36 @@
+cff-version: 1.2.0
+message: >-
+  이 소프트웨어를 사용하는 경우 아래 정보를 인용해 주세요.
+  Zenodo에 release를 업로드하면 DOI가 자동 발급되며, 발급 후
+  doi 필드를 추가하는 것을 권장합니다.
+title: "SafeGuard TwinLab Agent"
+type: software
+version: 1.0.0
+date-released: "2026-07-02"
+abstract: >-
+  SafeGuard TwinLab Agent는 차량 내 잔류 탑승자 보호 시스템 SafeGuard의
+  end-to-end 시뮬레이션 프로젝트다. Raspberry Pi hardware log와
+  UWB/mmWave output-level virtual sensor를 결합한 event-driven state
+  machine, 추정 전력(estimated power) 모델, All-on/PiBase-style/Staged
+  operation/SafeGuard proposed 비교 모델, 논문용 표/그림/해석문 자동
+  생성 기능을 제공한다.
+authors:
+  - family-names: "<팀장 성>"
+    given-names: "<팀장 이름>"
+    affiliation: "<소속 기관/학교>"
+  # 팀원이 더 있다면 아래 형식으로 추가하세요.
+  # - family-names: "<성>"
+  #   given-names: "<이름>"
+  #   affiliation: "<소속>"
+repository-code: "https://github.com/yoontf0/safeguard-mmwave-simulator"
+url: "https://yoontf0.github.io/safeguard-mmwave-simulator/"
+license: MIT
+keywords:
+  - embedded systems
+  - child presence detection
+  - UWB
+  - mmWave
+  - Raspberry Pi
+  - Cascading Wake-up
+  - Streamlit
+  - simulation

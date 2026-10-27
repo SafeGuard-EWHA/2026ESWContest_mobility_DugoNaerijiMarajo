@@ -1,0 +1,13 @@
+Generated at 2026-07-02T14:26:51.098917
+
+model_power_comparison.csv: C:\Users\yhe44\OneDrive\Desktop\임베디드공모전_클로드\outputs\csv\model_power_comparison.csv
+state_power_summary.csv: C:\Users\yhe44\OneDrive\Desktop\임베디드공모전_클로드\outputs\csv\state_power_summary.csv
+event_log.csv: C:\Users\yhe44\OneDrive\Desktop\임베디드공모전_클로드\outputs\csv\event_log.csv
+figure_power_timeline.png: C:\Users\yhe44\OneDrive\Desktop\임베디드공모전_클로드\outputs\figures\figure_power_timeline.png
+figure_energy_by_state.png: C:\Users\yhe44\OneDrive\Desktop\임베디드공모전_클로드\outputs\figures\figure_energy_by_state.png
+figure_model_energy_comparison.png: C:\Users\yhe44\OneDrive\Desktop\임베디드공모전_클로드\outputs\figures\figure_model_energy_comparison.png
+figure_saving_vs_all_on.png: C:\Users\yhe44\OneDrive\Desktop\임베디드공모전_클로드\outputs\figures\figure_saving_vs_all_on.png
+paper_result_summary_kr.txt: C:\Users\yhe44\OneDrive\Desktop\임베디드공모전_클로드\outputs\report\paper_result_summary_kr.txt
+figure_captions_kr.txt: C:\Users\yhe44\OneDrive\Desktop\임베디드공모전_클로드\outputs\report\figure_captions_kr.txt
+limitations_kr.txt: C:\Users\yhe44\OneDrive\Desktop\임베디드공모전_클로드\outputs\report\limitations_kr.txt
+judge_qna_kr.txt: C:\Users\yhe44\OneDrive\Desktop\임베디드공모전_클로드\outputs\report\judge_qna_kr.txt

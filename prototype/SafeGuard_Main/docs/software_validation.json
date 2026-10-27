@@ -1,0 +1,124 @@
+{
+  "software_version": "0.1.1",
+  "validation_date": "2026-10-23",
+  "platform": "Linux x86_64, GCC 13.3, C++17; not Raspberry Pi hardware execution",
+  "cmake": "3.31.6; reviewed Release build with GCC warnings as errors",
+  "unit_tests": {
+    "cpp_core_and_input_contract": "PASS, CTest assertions active in Release",
+    "python_sensor_hub": {
+      "cases": 22,
+      "status": "PASS"
+    }
+  },
+  "integration": {
+    "kind": "SOFTWARE_SIMULATION_NOT_HARDWARE_RESULTS",
+    "cases": [
+      {
+        "profile": "simulation",
+        "scenario": "normal",
+        "passed": true,
+        "states": [
+          "DEPARTURE_CHECK",
+          "INIT",
+          "MMWAVE",
+          "PRIMARY",
+          "PROTECTION",
+          "STANDBY"
+        ]
+      },
+      {
+        "profile": "simulation",
+        "scenario": "mmwave_fault",
+        "passed": true,
+        "states": [
+          "DEPARTURE_CHECK",
+          "FAIL_SAFE",
+          "INIT",
+          "MMWAVE",
+          "PRIMARY",
+          "PROTECTION",
+          "STANDBY"
+        ]
+      },
+      {
+        "profile": "simulation",
+        "scenario": "unknown",
+        "passed": true,
+        "states": [
+          "DEPARTURE_CHECK",
+          "FAIL_SAFE",
+          "INIT",
+          "MMWAVE",
+          "PRIMARY",
+          "STANDBY"
+        ]
+      },
+      {
+        "profile": "simulation",
+        "scenario": "api_fault",
+        "passed": true,
+        "states": [
+          "DEPARTURE_CHECK",
+          "INIT",
+          "MMWAVE",
+          "PRIMARY",
+          "PROTECTION",
+          "STANDBY"
+        ]
+      },
+      {
+        "profile": "simulation",
+        "scenario": "estop",
+        "passed": true,
+        "states": [
+          "DEPARTURE_CHECK",
+          "ESTOP",
+          "INIT",
+          "MMWAVE",
+          "PRIMARY",
+          "PROTECTION",
+          "STANDBY"
+        ]
+      },
+      {
+        "profile": "real",
+        "scenario": "normal",
+        "passed": true,
+        "states": [
+          "INIT"
+        ]
+      },
+      {
+        "profile": "demo",
+        "scenario": "normal",
+        "passed": true,
+        "states": [
+          "INIT"
+        ]
+      }
+    ]
+  },
+  "dashboard_http_integration": "PASS: UI HTTP serving; manual rearm after ESTOP release/ACK; unrelated rearm cannot release protection",
+  "browser_visual": "Not run: browser executable unavailable; JavaScript syntax/DOM and HTTP tests passed",
+  "reference_esp32": "PASS: real ArduinoJson 6.21.5 and 7.4.2 headers, default and enabled host-mock variants (4); no ESP32 target build or hardware verification",
+  "uwb_reader": "v1.1.0 preserved byte-for-byte; prior user hardware evidence does not validate this new whole main build",
+  "excluded_claims": [
+    "physical sensor accuracy",
+    "actual Fan/Buzzer motion",
+    "real Thermal calibration",
+    "power savings"
+  ],
+  "controller_pty_integration": {
+    "status": "PASS",
+    "kind": "SOFTWARE_MOCK_NOT_HARDWARE",
+    "cases": [
+      "retained ON after controller handover delay",
+      "new ON command after MCU reboot",
+      "stale ACK invalidated and recovery resynchronized",
+      "short released ESTOP latch reaches main",
+      "manual rearm requires ACK and avoids old latch"
+    ]
+  },
+  "dashboard_dom_regressions": "PASS: valid non-crossing, configurable risk threshold redraw, current and predicted crossing, invalid/missing model",
+  "review_report": "code_review_20261023.md"
+}

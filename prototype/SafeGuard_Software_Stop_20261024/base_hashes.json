@@ -1,0 +1,10 @@
+{
+  "scripts/dashboard.py": "05bfe43d145295b92f66d7229b0107ab8d677ed52c9ce36e357893c9116c31f2",
+  "scripts/sensor_hub.py": "72ea3a3dc365e431efccc8c94e6b99db744515fc5641ebdfae2355afe22d59d8",
+  "src/main.cpp": "12ca44641bdb472ec26ea7375b90b673e2956ee8172c0bffe766b501cdc6cac5",
+  "src/core.cpp": "d4471cdcbc7f04a89d431eb78ca919d0331a189edf4c7d46d91c5edc4d806bdc",
+  "src/core.hpp": "f1621f84f017288803e3c8f78edd8fbab21823edcf0b86268920b29e9ee79cd4",
+  "scripts/block_a_legacy_readonly.py": "ffa603427aca1c5458375c7bcd48277b9997a30b06246aa7597f45843b48fd02",
+  "scripts/dashboard.html": "5753b62d23e96a4c45d537098d49a7481c6fe9ca48a7eb348a6121a282687542",
+  "src/manual_control.hpp": null
+}

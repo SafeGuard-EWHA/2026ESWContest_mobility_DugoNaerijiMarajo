@@ -1,0 +1,202 @@
+{
+  "version": "0.1.1",
+  "created_date": "2026-10-23",
+  "verification": "Software review and regression tests; physical integration pending",
+  "files": [
+    {
+      "path": ".gitignore",
+      "bytes": 32,
+      "sha256": "eb911ec334608b93c27ae1b649e485e5d4dd1ace5425b1c0da1611066bdb3cdd"
+    },
+    {
+      "path": "CMakeLists.txt",
+      "bytes": 1382,
+      "sha256": "fd71b924d5cc59974a84e9e6748b4d0fbff979790fffc9b3714ae83b6867bd85"
+    },
+    {
+      "path": "README_KO.md",
+      "bytes": 13564,
+      "sha256": "d99872c575460aac0f53ae5bc1699365db21f29c930d37165d7cea38de02b4ab"
+    },
+    {
+      "path": "configs/demo.json",
+      "bytes": 1691,
+      "sha256": "bede267b3a213131534d911f2f3d3c090e467c8cb13ec94e70c0bd1d9a9ab67f"
+    },
+    {
+      "path": "configs/real.json",
+      "bytes": 1686,
+      "sha256": "494b1ab707455398dece4415698e37ce90b22bba6baf0754d47d03d969e8d019"
+    },
+    {
+      "path": "configs/simulation.json",
+      "bytes": 1690,
+      "sha256": "225788a65904e0cdab20e99ee6e74d3bb84266afb314bd019f340c9807697d1f"
+    },
+    {
+      "path": "docs/bringup_checklist.md",
+      "bytes": 5390,
+      "sha256": "dab3d1e321fb43c2bcec6e590844b85f9924f929806c5ebbfaf489a1ffb6dc19"
+    },
+    {
+      "path": "docs/code_review_20261023.md",
+      "bytes": 5095,
+      "sha256": "106e94c7b3fd744a07cdfc47f1bd7e98e30dfe318b18d3627fcd9f2f80d94c27"
+    },
+    {
+      "path": "docs/contracts.md",
+      "bytes": 6766,
+      "sha256": "cfd97d5e1160084c7d37ebad71212af47f1baf045bc81d63e347639336ca0b57"
+    },
+    {
+      "path": "docs/requirements_trace.md",
+      "bytes": 5549,
+      "sha256": "18b24d904f090eb18ceedc578d64c46a99fdce788f95b4e679adbfcba21fec24"
+    },
+    {
+      "path": "docs/software_validation.json",
+      "bytes": 3428,
+      "sha256": "0775480312aab05c7952992f2b6171c3c4201beed698d4486d5eb44586b80363"
+    },
+    {
+      "path": "firmware/README_KO.txt",
+      "bytes": 15880,
+      "sha256": "ed48cb3228dfc08b5a0b424fbe7a185d6c6e61ce4caca574b514f21fda4c4fb9"
+    },
+    {
+      "path": "firmware/esp32_reference/esp32_reference.ino",
+      "bytes": 17716,
+      "sha256": "11ff20b9d177248bd7afc035959124047af544638a4c8aa2c30111fccbd2e444"
+    },
+    {
+      "path": "measurement_templates/occupancy.csv",
+      "bytes": 56,
+      "sha256": "2ae33e125765b669a73246bb664656d57c541c1f8701adf6012e85738c077ff8"
+    },
+    {
+      "path": "measurement_templates/power.csv",
+      "bytes": 42,
+      "sha256": "5c349f572e83b679f92370b0a9dbf21e17f928a9b3db551c115114c49aa9b232"
+    },
+    {
+      "path": "measurement_templates/thermal.csv",
+      "bytes": 73,
+      "sha256": "9c350786ddedc1e24f5a96ccf1e4c76f90d14e057cb5780b9622b5cd7f38fff9"
+    },
+    {
+      "path": "measurement_templates/uwb_distance.csv",
+      "bytes": 45,
+      "sha256": "2a555b90a8b01fcf8bd8757b19f0a0b0f94364e7d4862b028a81d29681304f01"
+    },
+    {
+      "path": "scripts/build.sh",
+      "bytes": 583,
+      "sha256": "674cb1bef2c4746a104f5023e76b57a8c51aff44d91eb602ba5b232532e30117"
+    },
+    {
+      "path": "scripts/dashboard.html",
+      "bytes": 27979,
+      "sha256": "acc02bd1cf10764b0a7dbb9f6cbb1343713bd574da490a6f526a467f547bd98b"
+    },
+    {
+      "path": "scripts/dashboard.py",
+      "bytes": 8445,
+      "sha256": "5728927d45b72bebc64fa09c28e67e00bcacac0efcac90813754fef8eb9239a8"
+    },
+    {
+      "path": "scripts/install_pi.sh",
+      "bytes": 1048,
+      "sha256": "fc09abcd6cb7a070d34e31773a02837e9b0f24e0d7179a9322781580f8e5b122"
+    },
+    {
+      "path": "scripts/run_demo.sh",
+      "bytes": 2496,
+      "sha256": "498c78c6adaa4ca8dee46ee87a01526939172ed1aedd49ae713a1202c57f7d3d"
+    },
+    {
+      "path": "scripts/run_real.sh",
+      "bytes": 1159,
+      "sha256": "29e54a32c980136134d01d3bb8504deaebeccd1e78a3a9ddacede8ac5b8642cf"
+    },
+    {
+      "path": "scripts/safeguard_uwb_reader.py",
+      "bytes": 18678,
+      "sha256": "1e063067dc282c209312821f38ac1d9c04369f6256aed21385a1dd3f944b9e07"
+    },
+    {
+      "path": "scripts/sensor_hub.py",
+      "bytes": 36543,
+      "sha256": "868dcd5a112b33935fc605a9043c5c1d786f1ba0ced77aa93ed5f78765fa5307"
+    },
+    {
+      "path": "src/core.cpp",
+      "bytes": 21524,
+      "sha256": "d4471cdcbc7f04a89d431eb78ca919d0331a189edf4c7d46d91c5edc4d806bdc"
+    },
+    {
+      "path": "src/core.hpp",
+      "bytes": 4097,
+      "sha256": "f1621f84f017288803e3c8f78edd8fbab21823edcf0b86268920b29e9ee79cd4"
+    },
+    {
+      "path": "src/main.cpp",
+      "bytes": 35892,
+      "sha256": "12ca44641bdb472ec26ea7375b90b673e2956ee8172c0bffe766b501cdc6cac5"
+    },
+    {
+      "path": "src/uwb_input.hpp",
+      "bytes": 6727,
+      "sha256": "c851b92f3f93f62d33b9246de1e4233130d1ac925abbae8aadcfb98b43bb08d0"
+    },
+    {
+      "path": "tests/test_controller_recovery.py",
+      "bytes": 9666,
+      "sha256": "1ea86663a7c55bac59845c800e6f17cf6ebbf738b032cbb24d160ed100c40bc5"
+    },
+    {
+      "path": "tests/test_core.cpp",
+      "bytes": 15380,
+      "sha256": "1fc128e818fb5818f27816cb9355c895d0259703335e532f71b4e4052b253ec6"
+    },
+    {
+      "path": "tests/test_dashboard_flow.py",
+      "bytes": 3380,
+      "sha256": "08cea0ff71d3534dde5c263df3c88b53a1034b295425fb38b61878c4925f7359"
+    },
+    {
+      "path": "tests/test_dashboard_render.js",
+      "bytes": 2739,
+      "sha256": "bf23a3db1b83a9163c203cd0798d9593b4ee52f979641f22239a921b6ab14c83"
+    },
+    {
+      "path": "tests/test_firmware_reference.py",
+      "bytes": 7293,
+      "sha256": "3159106c1552386820d5a86425548dbeda7875151e1b4a51b942ec686c4a51db"
+    },
+    {
+      "path": "tests/test_input.cpp",
+      "bytes": 15883,
+      "sha256": "d5f7fa6dcce7ea7ca3cc8a14398ac20fa713649550e9c68ed3d620500434cb2e"
+    },
+    {
+      "path": "tests/test_scenarios.py",
+      "bytes": 3776,
+      "sha256": "4ebc89c27b6e238a3147446f06a9970d3dd5a6bdd5f8c9d3421d5aacd92276db"
+    },
+    {
+      "path": "tests/test_sensor_hub.py",
+      "bytes": 18830,
+      "sha256": "65c8afdd5348161392b545ac1d733e9ffceae562054e02c674bd9467732ede31"
+    },
+    {
+      "path": "tools/README_KO.txt",
+      "bytes": 5461,
+      "sha256": "bc6549a1de4016f234a9aa2acf1ecdad8cd641b739842d88b08df1062b5c303e"
+    },
+    {
+      "path": "tools/evaluate_measurements.py",
+      "bytes": 10791,
+      "sha256": "370dd0e476c5c840a76d6405b3b686cb6229528f9b2d4f846ea547064df95315"
+    }
+  ]
+}

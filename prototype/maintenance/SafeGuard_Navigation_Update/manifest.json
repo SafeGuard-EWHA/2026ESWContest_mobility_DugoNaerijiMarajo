@@ -1,0 +1,24 @@
+{
+  "name": "SafeGuard_Navigation_Update",
+  "version": "0.1.0",
+  "files": {
+    "README_KO.md": "b260d253f81c05a3f2d1fa283caedcbac37f87206bd8efb52712c1b58296592d",
+    "VALIDATION_KO.txt": "79cedb2c70b3996ce749968c5fab8b32ee8059985c1195b2b96ae6d573968492",
+    "base_hashes.json": "bdf6b30def2b7be6792154cd375567db0671ce78a0bbf83599904a33e053d4d5",
+    "check_navigation.py": "07ca798037d1ae40da7f69057cdd8f033a73ddc8b40eccb285c24982d9149739",
+    "install_navigation.py": "bb0840d2827c2622e3b8b0f05e06a61c8e66c4547780e42cf230e2b734695724",
+    "patch/scripts/dashboard.html": "5753b62d23e96a4c45d537098d49a7481c6fe9ca48a7eb348a6121a282687542",
+    "patch/scripts/navigation_ambient.py": "08097827e584fadcd47cd8e236768799168e4b2135924e7a17bed261d15e3866",
+    "patch/scripts/navigation_bridge.py": "15256d3c458a760ed5105190d2eadf8072a1329d7bf1cac4cbd6f377035b66b5",
+    "patch/scripts/navigation_phone.html": "e46df982feef655fc818c85be2b2fe360f106ae5b44e94b0eb73a42c901cd4af",
+    "patch/scripts/sensor_hub.py": "afdb4a923834aa5b58c7a7620557a4d9d79e4d506022071545c85595ddb7b848",
+    "setup_navigation.py": "6f6d9c85ced1a198cf72e71385eea6d5e648e47fe5857de0fc2d859b5196c769",
+    "start_navigation.py": "263f31da550d05606f91d3e95e55a6319833d1da87ee4dd0e4687b168491be81",
+    "tests/test_dashboard_render.js": "8cdbebc674d9128372200335474e13d01dad50661528df457ca7ff37f508465d",
+    "tests/test_navigation_ambient.py": "86ab4ff44f9614050994c64de8fe6ebf6cbba20fe6f117df0336c6fbdf9ab179",
+    "tests/test_navigation_bridge.py": "fcafc181a431bbd2430ef52239cbe1574f6d673784eba20dd1c233c726d36daa",
+    "tests/test_navigation_install.py": "bb87b5a0b4b912aacf8a2020b6818ecc1c110ea05beac9339af61117215b28d0",
+    "tests/test_navigation_setup.py": "2b1738eabdc98e9e528486934fac4e88c54b0b2a40b5f46317fd77ffaafecae3",
+    "tests/test_phone_ui.js": "a9b4239167153f78ac087aba670b4a6cc34d4c32bfa16af4652e3383f7b62e87"
+  }
+}

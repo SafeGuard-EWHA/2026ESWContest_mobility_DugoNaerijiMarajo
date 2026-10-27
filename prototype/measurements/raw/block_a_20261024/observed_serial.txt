@@ -1,0 +1,10 @@
+{"sensor_ok":true,"temp":22.4,"hum":45.3,"pir":0,"threshold":35.0,"fan":0,"alarm":0,"buzzer":0,"mode":"AUTO"}
+{"sensor_ok":true,"temp":22.4,"hum":45.2,"pir":0,"threshold":35.0,"fan":0,"alarm":0,"buzzer":0,"mode":"AUTO"}
+{"sensor_ok":true,"temp":22.4,"hum":45.2,"pir":0,"threshold":35.0,"fan":0,"alarm":0,"buzzer":0,"mode":"AUTO"}
+{"sensor_ok":true,"temp":22.4,"hum":45.1,"pir":0,"threshold":35.0,"fan":0,"alarm":0,"buzzer":0,"mode":"AUTO"}
+{"sensor_ok":true,"temp":22.4,"hum":45.0,"pir":0,"threshold":35.0,"fan":0,"alarm":0,"buzzer":0,"mode":"AUTO"}
+{"sensor_ok":true,"temp":22.4,"hum":47.2,"pir":0,"threshold":35.0,"fan":1,"alarm":0,"buzzer":0,"mode":"MANUAL"}
+{"sensor_ok":true,"temp":22.4,"hum":47.7,"pir":0,"threshold":35.0,"fan":1,"alarm":0,"buzzer":0,"mode":"MANUAL"}
+{"sensor_ok":true,"temp":22.4,"hum":47.8,"pir":0,"threshold":35.0,"fan":1,"alarm":0,"buzzer":0,"mode":"MANUAL"}
+{"sensor_ok":true,"temp":22.4,"hum":47.3,"pir":0,"threshold":35.0,"fan":1,"alarm":0,"buzzer":0,"mode":"MANUAL"}
+{"sensor_ok":true,"temp":22.4,"hum":46.8,"pir":0,"threshold":35.0,"fan":1,"alarm":0,"buzzer":0,"mode":"MANUAL"}

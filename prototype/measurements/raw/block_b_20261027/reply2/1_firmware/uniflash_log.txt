@@ -1,0 +1,27 @@
+UniFlash 9.7.0 (데스크톱) 업로드 로그 - 노트북, COM6(CP2105 Enhanced), 2026-10-27
+보드: IWR6843ISK-ODS Rev C, S1 Flashing(1 ON, 2 OFF, 3 ON, 4 ON, 5 OFF) + S2(RST)
+파일: C:/ti/radar_toolbox_4_00_00_05/source/ti/examples/Industrial_and_Personal_Electronics/People_Tracking/3D_People_Tracking/prebuilt_binaries/3D_people_track_6843_demo.bin
+      (3D_People_Tracking_Low_Power 아님)
+      SHA256 74aece5dcd63f2893df0692c30605d3fbbaf6b7baeb3310f58becb8698448349, 625,668 바이트
+
+[2026. 10. 27. 오후 6:30:57] [INFO] Cortex_R4_0: Initialization complete.
+[2026. 10. 27. 오후 6:30:57] [INFO] Cortex_R4_0: Flashing process starting...
+[2026. 10. 27. 오후 6:30:57] [INFO] Cortex_R4_0: Connecting to COM Port COM6...
+[2026. 10. 27. 오후 6:30:57] [INFO] Cortex_R4_0: Reset connection to device
+[2026. 10. 27. 오후 6:30:57] [INFO] Cortex_R4_0: Set break signal
+[2026. 10. 27. 오후 6:30:57] [INFO] Cortex_R4_0: Connection to COM port succeeded. Flashing can proceed.
+[2026. 10. 27. 오후 6:30:58] [INFO] Cortex_R4_0: Reading device version info...
+[2026. 10. 27. 오후 6:30:58] [INFO] Cortex_R4_0: ** 1 files specified for flashing.
+[2026. 10. 27. 오후 6:30:58] [INFO] Cortex_R4_0: Checking file C:/ti/radar_toolbox_4_00_00_05/source/ti/examples/Industrial_and_Personal_Electronics/People_Tracking/3D_People_Tracking/prebuilt_binaries/3D_people_track_6843_demo.bin for correct header for IWR6843.
+[2026. 10. 27. 오후 6:30:58] [INFO] Cortex_R4_0: IWR6843 device, fileType=META_IMAGE1 detected -> OK
+[2026. 10. 27. 오후 6:30:58] [INFO] Cortex_R4_0: !! Files are valid for IWR6843.
+[2026. 10. 27. 오후 6:30:58] [INFO] Cortex_R4_0: Format on download was specified. Formatting SFLASH storage...
+[2026. 10. 27. 오후 6:30:58] [INFO] Cortex_R4_0: -->Erasing storage [SFLASH]
+[2026. 10. 27. 오후 6:30:58] [INFO] Cortex_R4_0: -->Sending Erase command to device...
+[2026. 10. 27. 오후 6:31:10] [SUCCESS] Cortex_R4_0: -->Erase storage completed successfully!
+[2026. 10. 27. 오후 6:31:10] [INFO] Cortex_R4_0: Downloading [META_IMAGE1] size [625668]
+[2026. 10. 27. 오후 6:32:26] [INFO] Cortex_R4_0: SUCCESS!! File type META_IMAGE1 downloaded successfully to SFLASH.
+[2026. 10. 27. 오후 6:32:26] [INFO] Cortex_R4_0: Disconnecting from device on COM port COM6...
+[2026. 10. 27. 오후 6:32:26] [INFO] Cortex_R4_0: Flashing instance clean-up initiated...
+[2026. 10. 27. 오후 6:32:26] [INFO] Cortex_R4_0: Instance deinitialized!
+[2026. 10. 27. 오후 6:32:26] [SUCCESS] Program Load completed successfully.

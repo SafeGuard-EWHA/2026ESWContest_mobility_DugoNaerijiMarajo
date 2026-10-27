@@ -1,0 +1,21 @@
+{
+  "VALIDATION.md": "d991e1ac5668229144210e8e888e3b18b0f71f4576b30e197801b004d954b8a7",
+  "patch_project.py": "eee1906ba74f5ee65eab28735be004af36439c6234cd1123ce8de9c92b7eba38",
+  "preview.html": "a69d49bd78a7f633d6d6a1741494f62fadd0a85596a1c07b52766af23e416ad0",
+  "METHOD.md": "1a6082b54d1c41ee1d36d9ee409921a22c2950ceba825d5e871f3113340aed93",
+  "README.md": "0e6cb6ca654c06dbf78b9cab72bf8dba53814ea6f0f38b8bda0e5b14481ff337",
+  "example_curve.svg": "df25dd5d8b29d976616a51a6fe52413fa3e368282570ba62b56e5ef126e3ae78",
+  "install.py": "18814cb130bd57e1b33192c6b3451a66b1d386e589d977df2068b7500fb43899",
+  "supported_sources.json": "9dec33b689de28f64782d6118522ec9c0a58b5395c15fd6c3183f4f3a41e00aa",
+  "tests/test_dashboard_research.js": "73badd2c1c4650dcfdcaf3cd512448a1eabc863338a44ea00b8d3107773f5a03",
+  "tests/scenario_results.json": "f601ecf2795bbd9e0cdeabb9648817515614171fb59c112fd3eede7da21fb451",
+  "tests/example_result.json": "dc7b92d6e7113cdc4963f46ea23ae941ba7519ab47be81a4739c6db316bb6db3",
+  "tests/export_example.cpp": "49101aa4e026fb8d657e8dc5d2bbb34803cd579825c3c0055bc57b341afdaab2",
+  "tests/install_test.log": "334749a62a775f4e79e0ad21a1db959e9ab542129809fa8a7d30ae1b5bf5046f",
+  "tests/test_install.py": "b74bb331ba57dd2e51fe39c2b6f260647d15ba5120320d89e807a7cd5f39a422",
+  "tests/test_observer.cpp": "c1d9c19af036cb8ff04a79acd376b50a9fe2cef49d8f8e40ac54c11835323259",
+  "payload/thermal_observer.hpp": "05eb38e0d8d2579eb1784f01636f6802c7309b68eda0533346cbfaaaf6117a88",
+  "research/results.json": "d43fd6a9b8bf2c4b300de6262f3bbca753bfa538ac5bc1bfd98dd476932b96a3",
+  "research/analyze.py": "83de234aeb665426695cf646da88a07e40014e6528becb26ac98ba7835607484",
+  "research/digitized_fig3.json": "bf4b8fb639e12df9930e3c7da0f72ed0bf80364dde6597438b0bdc43f06b9173"
+}

@@ -1,0 +1,7 @@
+# Raspberry Pi 실제 하드웨어 전용 의존성.
+# 웹 배포(requirements.txt, Streamlit Cloud)에는 절대 포함하지 않는다.
+# 실제 Raspberry Pi에서만 설치: python -m pip install -r hardware/requirements-pi.txt
+gpiozero>=2.0
+RPi.GPIO>=0.7.1
+adafruit-circuitpython-dht>=4.0
+adafruit-blinka>=8.0

@@ -1,0 +1,2 @@
+python3 -u hardware/mmwave/mmwave_reader.py --cli /dev/serial/by-id/usb-Silicon_Labs_CP2105_Dual_USB_to_UART_Bridge_Controller_01E86213-if00-port0 --data /dev/serial/by-id/usb-Silicon_Labs_CP2105_Dual_USB_to_UART_Bridge_Controller_01E86213-if01-port0 --cfg hardware/mmwave/people_tracking/ODS_sedan_est.cfg --duration 460 --csv /home/pi/b_reply_20261027/test3_radar.csv --raw /home/pi/b_reply_20261027/test3_raw.bin
+python3 -u hardware/camera/camera_motion.py --duration 460 --csv /home/pi/b_reply_20261027/test3_cam.csv --snap-dir /home/pi/b_reply_20261027/test3_cam_snaps

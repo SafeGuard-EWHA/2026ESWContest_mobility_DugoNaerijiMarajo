@@ -1,0 +1,78 @@
+{
+  "version": "0.1.1",
+  "mode": "DEMO",
+  "profile": "SIMULATION",
+  "scenario": "normal",
+  "settings_status": "initial candidates; field calibration and hardware validation pending",
+  "fsm": {
+    "departure_distance_m": 5.0,
+    "departure_hold_s": 1.0,
+    "return_distance_m": 4.0,
+    "return_hold_s": 1.0,
+    "uwb_timeout_s": 2.0,
+    "fusion_window_s": 2.0,
+    "sensor_timeout_s": 2.0,
+    "mmwave_timeout_s": 2.0,
+    "evidence_hold_s": 0.5,
+    "mmwave_observe_s": 2.0,
+    "init_timeout_s": 5.0
+  },
+  "required": {
+    "esp32": false,
+    "camera": false,
+    "mmwave": false
+  },
+  "thermal": {
+    "enabled": true,
+    "calibrated": false,
+    "R_K_per_W": 0.2,
+    "C_J_per_K": 1000.0,
+    "Q_in_W": 80.0,
+    "dt_s": 1.0,
+    "horizon_s": 300.0,
+    "protect_horizon_s": 60.0,
+    "risk_temp_c": 35.0,
+    "ambient_timeout_s": 3600.0,
+    "temp_timeout_s": 2.0
+  },
+  "hardware": {
+    "uwb_port": "auto",
+    "uwb_serial": "000760217939",
+    "anchor_id": "0CA7",
+    "esp32_port": "",
+    "esp32_baud": 115200,
+    "camera_enabled": false,
+    "camera_width": 320,
+    "camera_height": 240,
+    "camera_roi": [
+      0.0,
+      0.0,
+      1.0,
+      1.0
+    ],
+    "camera_area": 400,
+    "camera_frames": 3,
+    "camera_fps": 5,
+    "mmwave_json_port": "",
+    "mmwave_baud": 115200,
+    "mmwave_validated": false
+  },
+  "actuation": {
+    "enabled": false,
+    "ack_timeout_s": 0.5,
+    "retry_limit": 2
+  },
+  "dashboard": {
+    "enabled": true,
+    "host": "127.0.0.1",
+    "port": 8080
+  },
+  "demo": {
+    "live_uwb": false,
+    "live_sensors": false,
+    "override_temperature": false,
+    "rate_hz": 10,
+    "temperature_c": 34.0,
+    "ambient_c": 45.0
+  }
+}

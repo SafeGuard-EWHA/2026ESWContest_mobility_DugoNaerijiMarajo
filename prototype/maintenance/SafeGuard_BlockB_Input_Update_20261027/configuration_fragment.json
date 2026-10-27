@@ -1,0 +1,22 @@
+{
+  "_note": "Fragment only. Merge later into existing control/navigation config; not a standalone run config.",
+  "fsm": {
+    "mmwave_observe_s": 5.0,
+    "mmwave_timeout_s": 2.0
+  },
+  "hardware": {
+    "mmwave_json_port": "",
+    "mmwave_validated": false,
+    "mmwave_native": {
+      "enabled": false,
+      "profile": "people_tracking_ods",
+      "firmware_confirmed": false,
+      "usb_serial": "01E86213",
+      "configure_on_start": false,
+      "cfg_path": "",
+      "cfg_sha256": "",
+      "validated": false,
+      "allow_omitted_empty_tracks": false
+    }
+  }
+}

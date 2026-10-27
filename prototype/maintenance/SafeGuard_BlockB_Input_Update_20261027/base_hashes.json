@@ -1,0 +1,9 @@
+{
+  "src/core.hpp": "f1621f84f017288803e3c8f78edd8fbab21823edcf0b86268920b29e9ee79cd4",
+  "src/core.cpp": "d4471cdcbc7f04a89d431eb78ca919d0331a189edf4c7d46d91c5edc4d806bdc",
+  "src/main.cpp": "989dc1a294382d2cb65cde196cd5c9bb96ae7aee533c152db54a8ac8d445ac45",
+  "scripts/sensor_hub.py": "9d223a2820b331248372f1da0b8a8c7646e3674f311576f6341943526e223c86",
+  "src/manual_control.hpp": "6c45de817501f89faa778bd4d96dc6021d7933b4e0e84fd19a211793a0ce8f77",
+  "src/uwb_input.hpp": "c851b92f3f93f62d33b9246de1e4233130d1ac925abbae8aadcfb98b43bb08d0",
+  "CMakeLists.txt": "fd71b924d5cc59974a84e9e6748b4d0fbff979790fffc9b3714ae83b6867bd85"
+}

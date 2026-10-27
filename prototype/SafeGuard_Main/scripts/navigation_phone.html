@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>SafeGuard · 차량 위치 전달</title>
+<style>
+:root{font-family:system-ui,-apple-system,sans-serif;color:#163047;background:#edf3f6}*{box-sizing:border-box}body{margin:0;padding:24px 18px 38px;max-width:640px;margin:auto}h1{font-size:27px;margin:8px 0}h2{font-size:17px;margin-top:0}p{line-height:1.6}.eyebrow{font-size:12px;letter-spacing:.14em;color:#526d7d;font-weight:700}.card{background:white;border:1px solid #d8e4ea;border-radius:18px;padding:20px;margin-top:18px;box-shadow:0 4px 16px #183a5010}.muted{color:#617989;font-size:14px}.status{font-size:19px;font-weight:750;margin:8px 0;color:#234c6a}.good{color:#08794f}.bad{color:#a73824}button,input{font:inherit;font-size:17px;border-radius:11px;padding:14px;width:100%;border:1px solid #bacdd7}button{cursor:pointer;font-weight:700;background:#146d96;color:white;border:0;margin-top:10px}button.secondary{background:#e7eef2;color:#24475c}button:disabled{opacity:.45;cursor:default}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.metrics{display:grid;grid-template-columns:1fr 1fr;gap:18px}dt{font-size:12px;color:#617989;margin-bottom:5px}dd{margin:0;font-size:18px;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}.small{font-size:13px}#pairCode{font-variant-numeric:tabular-nums;letter-spacing:.16em;text-align:center}.pill{display:inline-block;font-size:12px;background:#dbeef5;border-radius:30px;padding:5px 9px}code{font-size:13px;word-break:break-all}footer{font-size:12px;line-height:1.6;margin-top:20px;color:#617989}[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<div class="eyebrow">SAFEGUARD / VEHICLE NAVIGATION</div>
+<h1>차량 위치 전달</h1>
+<p class="muted">이 아이폰을 차량 내비게이션 대용으로 Pi와 함께 두세요. 이동하면 실제 위치를 자동으로 전달합니다.</p>
+<div class="card" id="pairCard"><h2>1. Pi와 연결</h2><p class="muted">Pi의 검은 창에 표시된 8자리 연결 코드를 입력하세요. 새 수신기를 실행할 때마다 코드가 바뀝니다.</p><input id="pairCode" type="text" inputmode="numeric" pattern="[0-9]{8}" maxlength="8" autocomplete="off" aria-label="Pi의 8자리 연결 코드" placeholder="8자리 코드"><button id="pairButton">연결하기</button><p id="pairMessage" class="small" role="status"></p></div>
+<div class="card"><span id="connection" class="pill">연결 대기</span><h2 style="margin-top:16px">2. 위치 자동 전달</h2><div id="status" class="status" role="status">Pi 연결 후 시작하세요.</div><p id="detail" class="muted">위치 접근 요청이 나오면 허용하고, 정확한 위치를 켜주세요.</p><div class="row"><button id="start" disabled>시연 시작</button><button id="stop" class="secondary" disabled>정지</button></div><p class="small muted">시연 중 이 Safari 화면을 켜두세요. 화면 잠금·다른 앱 전환 시 전달을 중단합니다. 돌아오면 다시 시작하세요.</p></div>
+<div class="card"><h2>실제 수신 상태</h2><dl class="metrics"><div><dt>위도</dt><dd id="latitude">—</dd></div><div><dt>경도</dt><dd id="longitude">—</dd></div><div><dt>아이폰이 보고한 정확도</dt><dd id="accuracy">—</dd></div><div><dt>위치 측정 후 경과</dt><dd id="age">—</dd></div><div><dt>Pi가 마지막으로 받은 시각</dt><dd id="received">—</dd></div><div><dt>Pi 수신 확인 횟수</dt><dd id="count">0</dd></div></dl><p id="receiverStatus" class="muted small">아직 유효한 위치를 전달하지 않았습니다.</p></div>
+<footer>출처: 이 아이폰의 위치 서비스. GPS·Wi-Fi·이동통신 등 운영체제가 제공하는 위치이며 원시 GPS 측위 성공을 보증하는 표시는 아닙니다. 외기 온도는 Pi가 이 좌표로 Open-Meteo API에 조회합니다. 기상 격자가 같으면 이동해도 온도는 같을 수 있습니다.</footer>
+<script>
+'use strict';
+const el = id => document.getElementById(id);
+let token = sessionStorage.getItem('safeguard_nav_token') || '';
+let seq = Number(sessionStorage.getItem('safeguard_nav_seq') || 0);
+if (!Number.isSafeInteger(seq) || seq < 0) seq = 0;
+let active=false, generation=0, watch=null, interval=null, statusTimer=null, requestPending=false;
+let lastContact=null;
+let sampleQueued=false;
+let sendQueue=Promise.resolve(), lastSend=-Infinity, lastPositionTime=null, wakeLock=null;
+const errorText = {1:'위치 권한이 거부됐어요. Safari의 위치 접근과 정확한 위치를 허용한 뒤 다시 시작하세요.',2:'아이폰이 위치를 확인하지 못했어요. 창가나 하늘이 보이는 곳에서 다시 확인하세요.',3:'위치 확인 시간이 초과됐어요. 다시 시도하고 있어요.'};
+function setStatus(text,detail='',kind=''){el('status').textContent=text;el('status').className='status '+kind;el('detail').textContent=detail;}
+function updateConnection(){el('connection').textContent=!token?'연결 대기':lastContact!==null&&performance.now()-lastContact<10000?'Pi 응답 확인됨':'Pi 응답 확인 필요';}
+function setPaired(yes){el('pairCard').hidden=yes;updateConnection();el('start').disabled=!yes||active;el('stop').disabled=!active;}
+async function call(path,body,authenticated=true,keepalive=false){
+ const headers={};if(body!==undefined)headers['Content-Type']='application/json';if(authenticated)headers.Authorization='Bearer '+token;
+ const controller=new AbortController();const timeout=setTimeout(()=>controller.abort(),5000);
+ try{const response=await fetch(path,{method:body===undefined?'GET':'POST',headers,body:body===undefined?undefined:JSON.stringify(body),cache:'no-store',credentials:'omit',signal:controller.signal,keepalive});
+ let result;try{result=await response.json();}catch(_){throw new Error('Pi가 올바른 응답을 보내지 않았어요.');}
+ if(response.status===401){token='';sessionStorage.removeItem('safeguard_nav_token');stopTracking(false);setPaired(false);throw new Error('연결이 만료됐어요. Pi 창의 새 연결 코드를 입력하세요.');}
+ if(!response.ok)throw new Error(result.error||'Pi 연결 오류');lastContact=performance.now();updateConnection();return result;
+ }catch(error){lastContact=null;updateConnection();throw error;
+ }finally{clearTimeout(timeout);}
+}
+function nextSeq(){seq+=1;sessionStorage.setItem('safeguard_nav_seq',String(seq));return seq;}
+function clearDisplayed(){lastPositionTime=null;el('age').textContent='—';el('receiverStatus').textContent='위치가 중단되었거나 유효하지 않습니다.';}
+function enqueueInvalid(){
+ if(!token)return;
+ sendQueue=sendQueue.catch(()=>{}).then(async()=>{if(!token)return;await call('/api/location',{valid:false,seq:nextSeq()},true,true);}).catch(error=>{el('receiverStatus').textContent=error.message;});
+}
+function stopTracking(report=true,message='위치 전달 정지'){
+ active=false;generation++;if(watch!==null){navigator.geolocation.clearWatch(watch);watch=null;}clearInterval(interval);interval=null;
+ if(wakeLock){wakeLock.release().catch(()=>{});wakeLock=null;}
+ setPaired(!!token);clearDisplayed();setStatus(message,'다시 시연하려면 시연 시작을 누르세요.');if(report)enqueueInvalid();
+}
+function displayPosition(position){
+ el('latitude').textContent=position.coords.latitude.toFixed(6);el('longitude').textContent=position.coords.longitude.toFixed(6);
+ el('accuracy').textContent=Math.round(position.coords.accuracy)+' m';lastPositionTime=position.timestamp;
+}
+function onPosition(position,myGeneration){
+ if(!active||generation!==myGeneration||document.visibilityState!=='visible')return;
+ displayPosition(position);
+ if(sampleQueued||performance.now()-lastSend<2000)return;lastSend=performance.now();sampleQueued=true;
+ const sample={valid:true,latitude:position.coords.latitude,longitude:position.coords.longitude,accuracy_m:position.coords.accuracy,position_timestamp_ms:position.timestamp};
+ sendQueue=sendQueue.catch(()=>{}).then(async()=>{
+  try{if(!active||generation!==myGeneration)return;
+   const ack=await call('/api/location',{...sample,seq:nextSeq()});
+   if(!active||generation!==myGeneration)return;
+   el('received').textContent=new Date(ack.received_wall_s*1000).toLocaleTimeString();
+   setStatus('위치 자동 전달 중','이동하면 새 위치를 Pi에 보내고, Pi가 해당 지역 날씨를 조회합니다.','good');
+   el('receiverStatus').textContent='Pi가 이 위치를 유효한 입력으로 받았습니다.';
+  }catch(error){if(active&&generation===myGeneration){setStatus('전달 확인 필요',error.message,'bad');el('receiverStatus').textContent='새 위치가 인정되지 않았습니다. 기존 위치도 유효시간이 지나면 무효가 됩니다.';}}finally{sampleQueued=false;}
+ });
+}
+function onPositionError(error,myGeneration){
+ if(!active||generation!==myGeneration)return;
+ setStatus('위치 확인 중',errorText[error.code]||'위치 서비스를 확인하세요.','bad');clearDisplayed();enqueueInvalid();
+ if(error.code===1){stopTracking(false,'위치 권한 필요');setStatus('위치 권한 필요',errorText[1],'bad');}
+}
+function requestPosition(myGeneration){
+ if(requestPending||!active||generation!==myGeneration||document.visibilityState!=='visible')return;
+ requestPending=true;
+ navigator.geolocation.getCurrentPosition(p=>{requestPending=false;onPosition(p,myGeneration);},e=>{requestPending=false;onPositionError(e,myGeneration);},{enableHighAccuracy:true,maximumAge:0,timeout:10000});
+}
+async function refreshStatus(){
+ if(!token||document.visibilityState!=='visible')return;
+ try{const result=await call('/api/status');seq=Math.max(seq,result.last_seq||0);sessionStorage.setItem('safeguard_nav_seq',String(seq));el('count').textContent=String(result.accepted_count||0);
+ if(active&&!result.location.valid){el('receiverStatus').textContent='Pi의 유효한 위치 대기 중 · '+result.location.status;}
+ }catch(error){if(token)el('receiverStatus').textContent=error.message;}
+}
+el('pairButton').addEventListener('click',async()=>{
+ const code=el('pairCode').value.trim();if(!/^[0-9]{8}$/.test(code)){el('pairMessage').textContent='8자리 숫자를 입력하세요.';return;}
+ el('pairButton').disabled=true;el('pairMessage').textContent='연결 중…';
+ try{const result=await call('/api/pair',{code},false);token=result.token;seq=result.last_seq;sessionStorage.setItem('safeguard_nav_token',token);sessionStorage.setItem('safeguard_nav_seq',String(seq));el('pairCode').value='';setPaired(true);setStatus('연결 완료','시연 시작을 누르면 위치 권한을 요청합니다.');await refreshStatus();}
+ catch(error){el('pairMessage').textContent=error.message;}finally{el('pairButton').disabled=false;}
+});
+el('start').addEventListener('click',async()=>{
+ if(!window.isSecureContext){setStatus('보안 연결이 필요해요','Pi 안내에 따라 인증서를 설치·신뢰하고 https 주소로 접속하세요.','bad');return;}
+ if(!navigator.geolocation){setStatus('위치 기능을 사용할 수 없어요','Safari와 위치 서비스 설정을 확인하세요.','bad');return;}
+ if(active||!token)return;active=true;const myGeneration=++generation;lastSend=-Infinity;setPaired(true);setStatus('위치 확인 중','위치 권한 요청이 나오면 허용해 주세요.');
+ watch=navigator.geolocation.watchPosition(p=>onPosition(p,myGeneration),e=>onPositionError(e,myGeneration),{enableHighAccuracy:true,maximumAge:0,timeout:10000});
+ requestPosition(myGeneration);interval=setInterval(()=>requestPosition(myGeneration),10000);
+ if(navigator.wakeLock){try{const lock=await navigator.wakeLock.request('screen');if(active&&generation===myGeneration)wakeLock=lock;else lock.release();}catch(_){}}
+});
+el('stop').addEventListener('click',()=>stopTracking(true));
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState!=='visible'&&active)stopTracking(true,'화면을 벗어나 전달을 중단했어요');else if(document.visibilityState==='visible')refreshStatus();});
+window.addEventListener('pagehide',()=>{if(active)stopTracking(true);});
+setInterval(()=>{if(lastPositionTime!==null){const age=Math.max(0,(Date.now()-lastPositionTime)/1000);el('age').textContent=age.toFixed(1)+'초';if(age>=15&&active){el('receiverStatus').textContent='위치가 15초 이상 갱신되지 않았어요. Pi는 오래된 위치를 무효로 처리합니다.';}}},1000);
+setPaired(!!token);statusTimer=setInterval(refreshStatus,5000);if(token)refreshStatus();
+setInterval(updateConnection,1000);
+if(!window.isSecureContext)setStatus('HTTPS 연결이 필요해요','인증서 설치를 마친 뒤 Pi가 표시한 https 주소로 접속하세요.','bad');
+</script>
+</body>
+</html>

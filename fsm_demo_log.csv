@@ -1,0 +1,10 @@
+time_s,state,note
+3.03,STANDBY,저전력 대기
+9.1,DETECT,보호자 이탈->PIR/Cam
+9.14,DETECT,pir=False
+15.17,CONFIRM,mmWave/온도 확인
+15.23,CONFIRM,temp=27.8C hum=62.5%
+21.26,THERMAL_PREDICTION,Euler 예측 시작
+21.34,THERMAL_PREDICTION,"pred reach 35.0C in 190.0s, risk=True"
+28.37,PROTECT,위험 예측->actuator ON
+46.43,PROTECT,actuator 종료

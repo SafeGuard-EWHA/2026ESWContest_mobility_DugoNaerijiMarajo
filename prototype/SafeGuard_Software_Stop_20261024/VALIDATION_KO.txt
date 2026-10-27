@@ -1,0 +1,28 @@
+검증 구분: 개발 환경의 소프트웨어 검증. 사용자 Pi/ESP32에 원격 접속하여 실행한 결과가 아님.
+
+통과한 검사
+1. 실제 전달 펌웨어를 real ArduinoJson 6.21.5 및 7.4.2로 호스트 컴파일.
+   Arduino-ESP32 2/3 분기를 각각 GPIO/I2C/PWM/UART 모의 헤더로 검사: 총 4조합.
+   부팅 정지, 작동 중 STOP, 반복 STOP, 오래된 재개 거부, 명령 재전송,
+   하트비트 상실 정책, 물리 비상정지 미설치 표시, 전송 버퍼 크기를 확인.
+2. 실제 C++ main + 실제 Python hub + 실제 HTTP 서버 + 전달 펌웨어 로직을 PTY로 연결.
+   센서/주변장치는 모의. 테스트용 임시 복사본에만 합성 UWB/카메라 입력 주입.
+   실제 FSM에서 보호 출력 명령 → 팬/부저/서보 100도 요청 → HTTP 전체 정지 →
+   정지 확인/유지 → 재개 → 재개와 정지 경합 → 양방향 통신 끊김/복구 →
+   메인 재시작 후 정지 유지를 확인. 재개 ACK 유실 후 같은 ID 재시도도 확인.
+3. 기존 C++ core 및 입력/ACK 계약 검사 2개 통과.
+4. 기존 Python SensorHub 검사 22개 통과.
+5. 기존 브라우저 JS 렌더 검사 및 HTTP/메인 비상정지 재무장 회귀 검사 통과.
+6. 설치기를 별도 원본 복사본에서 실행: 실제 임시 C++ 빌드/검사, 백업,
+   원래 내비게이션 설정과 navigation_bridge 보존, 새 설정 생성,
+   설치 뒤 소스 변경 감지/덮어쓰기 거부 확인.
+
+미검증
+- Arduino IDE의 실제 ESP32 대상 빌드/업로드: A 담당자가 진행해야 함.
+- 사용자의 전원/배선, 팬·부저의 실제 동작, 서보 기계 동작: 현장 확인 필요.
+- 실제 차량 적용, mmWave 존재 검증, 열 예측 보정, 창문 거리 보정: 이번 변경 범위 밖.
+
+검사 실행 예
+python3 tests/test_firmware.py --arduinojson-dir /path/to/ArduinoJson/src
+python3 tests/test_integration.py --project /path/to/patched/SafeGuard_Main --arduinojson-dir /path/to/ArduinoJson/src
+기존 main 소스의 ctest / tests/test_sensor_hub.py / tests/test_dashboard_flow.py도 사용.

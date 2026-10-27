@@ -1,0 +1,6 @@
+﻿time_s,from_state,to_state,reason
+0.0,,UWB_DEPARTURE_CHECK,simulation_start
+28.0,UWB_DEPARTURE_CHECK,PIR_CAMERA_CHECK,guardian rolling mean distance >= 5.0m for >= 10.0s
+29.0,PIR_CAMERA_CHECK,MMWAVE_CHECK,pir_val=1 OR camera_val=1
+34.0,MMWAVE_CHECK,THERMAL_PREDICTION,mmWave presence confirmed for >= 5 consecutive samples
+35.0,THERMAL_PREDICTION,ACTUATOR_CONTROL,temp_c=31.93 >= 32.0 OR time_to_35c_s=77.3 <= 300.0

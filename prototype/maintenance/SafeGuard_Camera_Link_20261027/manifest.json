@@ -1,0 +1,12 @@
+{
+  "sha256": {
+    "README_KO.txt": "868c53ecd79bec2897cf4749e4172898900ede4c935b5284a8888c3c7697eb33",
+    "install_camera.py": "0bc4211d91bbe8ff4862c961d8cede5db0376af9f44379065c046d3b4f84d7f1",
+    "base_hashes.json": "7275aced744154ab493203493d6beef7149912af5aa52f92696086371e4066a8",
+    "VALIDATION_KO.txt": "d15af0653b55f524541134ca1a1daba79a50b1866f9ce54308e3162b5671b809",
+    "check_camera.py": "751173a98e820828b46d2ad4ff4f4c45d760bd2555dac8bf544ed68a36204f6a",
+    "tests/test_camera_adapter.py": "0c4704eb2d3e7b49c08c9b6d699c0acc394e4c0717231350356a993b31512433",
+    "patch/scripts/block_b_camera_adapter.py": "48301ff56f202b2ff3be1ccc206a3d9354085f8c3d37cacb0d9005849f460fea",
+    "patch/scripts/block_b_camera_motion.py": "bdb1c0e79da1d60df09d937830d73fcd8f832236b952f446a503ff948e7bb3e1"
+  }
+}

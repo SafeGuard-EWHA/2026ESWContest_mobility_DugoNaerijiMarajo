@@ -1,0 +1,35 @@
+[SafeGuard TwinLab Agent - 논문용 결과 해석문 (자동 생성, 초안)]
+
+0) Evidence / 데이터 출처 (대시보드 Evidence Panel과 동일 정보)
+- 데이터 소스: dummy(합성) hardware log 기반 시나리오 기반 시뮬레이션.
+- 센서 유형: UWB/mmWave는 output-level virtual sensor simulation (raw RF/radar signal이 아님).
+- 전력 유형: 모든 전력 값은 datasheet 기반 추정 전력 모델(estimated power model) (실측(measured) 아님).
+- mmWave 센서 프로파일: C4001 24GHz Low-cost profile (low-cost 24GHz radar module profile 기반 output-level virtual sensor simulation).
+
+1) 시나리오 조건
+- 시뮬레이션 시간: 300s, 탑승자 존재 여부: 있음, 보호자 이탈 시각: 10s
+- 초기 온도: 30.0C, 외기 온도: 42.0C, mmWave 모드: normal, 액추에이터 정책(사용자 선택): continuous
+
+2) SafeGuard state machine 이벤트 요약
+- 보호자 이탈 판정(UWB rolling mean >= 5m, 10s 유지): t=28s
+- mmWave 기반 occupant_confirmed(연속 5회 유효 판독): t=34s
+- ACTUATOR_CONTROL 진입: t=35s
+
+3) 비교 모델 대비 전력/에너지 결과 (추정 전력 모델 기반)
+- All-on 모델(상한 baseline) 총 에너지: 0.675 Wh, 평균 전력: 8.076 W
+- SafeGuard(continuous) 총 에너지: 0.496 Wh (All-on 대비 26.5% 절감)
+- SafeGuard(duty-cycle, 개선 제어 전략) 총 에너지: 0.334 Wh (All-on 대비 50.6% 절감)
+- duty-cycle 정책은 continuous 정책과 동일한 SafeGuard cascading 흐름 위에서 액추에이터 구동 방식만 다르게 적용한 결과이며, 두 결과를 함께 제시하여 제어 전략 변경에 따른 순수한 절감 효과를 비교 모델 대비 투명하게 보여준다.
+
+4) 한계 및 해석상 주의사항
+- 본 결과는 특정 시나리오 조건 하의 시뮬레이션 기반 추정치이며, 실제 하드웨어 실측 전력과는 차이가 있을 수 있다.
+- UWB/mmWave는 output-level virtual sensor simulation이므로 실제 다중경로 반사, 노이즈 특성 등 raw signal 수준의 현상은 반영하지 않는다.
+
+5) 첨부 표/그림 목록
+- model_power_comparison.csv: Table 1. 비교 모델별 평균 전력, 최대 전력, 총 에너지, All-on 대비 절감률 (추정 전력 모델 기반, 시나리오 기반 결과).
+- state_power_summary.csv: Table 2. SafeGuard state별 추정 소비 에너지 및 평균 전력.
+- event_log.csv: Table 3. SafeGuard event-driven state machine 전이 이력(event log).
+- figure_power_timeline.png: Figure 1. SafeGuard 추정 전력 모델(estimated power model) 기반 순간 전력 timeline. 실측값이 아닌 datasheet 기반 추정치임에 유의한다.
+- figure_energy_by_state.png: Figure 2. SafeGuard state별 추정 소비 에너지 비교. 단계별 센서/액추에이터 활성화 시간의 차이가 에너지 분포에 반영된다.
+- figure_model_energy_comparison.png: Figure 3. 비교 모델(All-on, PiBase-style, Staged, SafeGuard) 간 총 추정 에너지 비교.
+- figure_saving_vs_all_on.png: Figure 4. All-on 모델 대비 각 비교 모델의 에너지 절감률(%). SafeGuard duty-cycle 정책이 continuous 정책 대비 추가 절감을 보이는지 확인한다.
