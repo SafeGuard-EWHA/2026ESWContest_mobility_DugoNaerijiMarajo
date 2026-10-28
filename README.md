@@ -43,6 +43,17 @@
 
 라이브 데모 (TwinLab 시뮬레이터, 예선 제출본): https://safeguard-mmwave-simulator.streamlit.app/
 
+## 상황별 실제 대시보드
+
+**[상황별 캡처 7장과 간단한 설명 보기](docs/dashboard-scenarios/README.md)**
+
+정지 확인 → 근거리 감시 → 보호자 이탈·탑승 의심 → 열 예측 → 보호·종료 순서로 정리했습니다. 연결 장애 화면도 별도로 모았습니다.
+서로 다른 개발·시연 시점의 실제 캡처이며, 선제 보호 작동 장면은 갤러리의 시연영상 링크로 연결합니다.
+
+| 근거리 감시 대기 | 이탈 후 온도 판단 | 열 예측 결과 예시 |
+|---|---|---|
+| ![근거리 감시 대기](docs/dashboard-scenarios/images/02-standby.png) | ![이탈 후 온도 판단](docs/dashboard-scenarios/images/03-away-thermal.png) | ![도달 추정 없음](docs/dashboard-scenarios/images/04-no-crossing-forecast.png) |
+
 # 1. 서론: 배경과 목표
 
 - **배경**: 직사광선 아래 차량 실내 온도는 외기보다 크게 오르고, 아이는 체온 조절이 약해 짧은 시간에도 위험하다.
