@@ -13,17 +13,21 @@ IMG = "img"
 FONT = "Malgun Gothic"
 
 # ---------------- 팔레트 ----------------
-NAVY = RGBColor(0x1F, 0x1F, 0x1F)
-NAVY2 = RGBColor(0x4E, 0x7A, 0x27)
+NAVY = RGBColor(0x1C, 0x2B, 0x4F)
+NAVY2 = RGBColor(0x3E, 0x58, 0x86)
 INK = RGBColor(0x22, 0x22, 0x22)
-OLIVE = RGBColor(0x5E, 0x93, 0x35)
-LIME = RGBColor(0xB5, 0xC9, 0x2B)
-MUTED = RGBColor(0x5B, 0x6B, 0x7F)
-AMBER = RGBColor(0x8D, 0xB0, 0x2E)
+OLIVE = RGBColor(0x2B, 0x3D, 0x66)
+LIME = RGBColor(0xD0, 0xD0, 0xD0)
+MUTED = RGBColor(0x5F, 0x63, 0x6B)
+AMBER = RGBColor(0x4F, 0x6F, 0xA8)
 AMBER_D = RGBColor(0xD3, 0x54, 0x00)
-AMBER_L = RGBColor(0xFD, 0xF3, 0xE0)
-LIGHT = RGBColor(0xF4, 0xF7, 0xEE)
-LINE = RGBColor(0xD5, 0xDB, 0xE1)
+AMBER_L = RGBColor(0xEE, 0xF2, 0xF8)
+LIGHT = RGBColor(0xF5, 0xF5, 0xF5)
+HEAD_BG = RGBColor(0xF3, 0xF3, 0xF3)
+RULE = RGBColor(0x33, 0x33, 0x33)
+HAIR = RGBColor(0xDD, 0xDD, 0xDD)
+SUB = RGBColor(0x66, 0x66, 0x66)
+LINE = RGBColor(0xDD, 0xDD, 0xDD)
 WHITE = RGBColor(0xFF, 0xFF, 0xFF)
 GREEN = RGBColor(0x2E, 0x8B, 0x57)
 GREEN_L = RGBColor(0xEE, 0xF5, 0xE6)
@@ -77,7 +81,7 @@ def text(slide, x, y, w, h, content, size=14, bold=False, color=INK, align=PP_AL
             pass
     return tb
 
-def bullets(slide, x, y, w, h, items, size=13, color=INK, gap=4, bullet="✓", bold_lead=True):
+def bullets(slide, x, y, w, h, items, size=13, color=INK, gap=4, bullet="▪", bold_lead=True):
     tb = slide.shapes.add_textbox(Inches(x), Inches(y), Inches(w), Inches(h))
     tf = tb.text_frame; tf.word_wrap = True
     tf.margin_left = tf.margin_right = Inches(0.05); tf.margin_top = tf.margin_bottom = Inches(0.03)
@@ -85,7 +89,7 @@ def bullets(slide, x, y, w, h, items, size=13, color=INK, gap=4, bullet="✓", b
         para = tf.paragraphs[0] if i == 0 else tf.add_paragraph()
         para.space_after = Pt(gap); para.line_spacing = 1.12
         lead, body = (it if isinstance(it, tuple) else (None, it))
-        r = para.add_run(); r.text = bullet + "  "; r.font.name = FONT; r.font.size = Pt(size); r.font.color.rgb = INK; r.font.bold = True
+        r = para.add_run(); r.text = bullet + "  "; r.font.name = FONT; r.font.size = Pt(size); r.font.color.rgb = GRAY_T; r.font.bold = False
         if lead:
             r = para.add_run(); r.text = lead + " "; r.font.name = FONT; r.font.size = Pt(size); r.font.bold = True; r.font.color.rgb = color
         r = para.add_run(); r.text = body; r.font.name = FONT; r.font.size = Pt(size); r.font.color.rgb = color
@@ -126,7 +130,7 @@ def header(slide, num, title, sub=None, dark=False):
     if sub:
         text(slide, 1.27, 0.95, 11.5, 0.4, sub, size=12, color=RGBColor(0xC9, 0xD3, 0xDE) if dark else MUTED)
     # footer
-    text(slide, 0.6, 7.08, 8, 0.3, "SafeGuard 중간 발표 · 두고내리지말아조", size=9, color=GRAY_T)
+    text(slide, 0.6, 7.08, 8, 0.3, "SafeGuard | 두고내리지말아조", size=9, color=GRAY_T)
     text(slide, 11.7, 7.08, 1.0, 0.3, str(num), size=9, color=GRAY_T, align=PP_ALIGN.RIGHT)
 
 def tag(slide, x, y, w, label, fill=AMBER, color=WHITE, size=10, h=0.3):
@@ -164,7 +168,25 @@ def arrow(slide, x1, y1, x2, y2, color=MUTED, width=1.5):
     tail = etree.SubElement(ln, qn("a:tailEnd")); tail.set("type", "triangle"); tail.set("w", "med"); tail.set("len", "med")
     return c
 
-def table(slide, x, y, w, h, header_row, rows, col_w=None, size=10.5, head_fill=OLIVE, head_color=WHITE, zebra=True, first_bold=False, row_h=None):
+def cell_lines(cell, top=None, bottom=None):
+    """셀 테두리: 좌우 없음, 위/아래만 (색, pt)."""
+    from pptx.oxml.ns import qn
+    from lxml import etree
+    tcPr = cell._tc.get_or_add_tcPr()
+    for tg in ("a:lnL", "a:lnR", "a:lnT", "a:lnB"):
+        for old in tcPr.findall(qn(tg)):
+            tcPr.remove(old)
+    for i, (tg, spec) in enumerate([("a:lnL", None), ("a:lnR", None), ("a:lnT", top), ("a:lnB", bottom)]):
+        ln = etree.Element(qn(tg))
+        if spec is None:
+            etree.SubElement(ln, qn("a:noFill"))
+        else:
+            col, wpt = spec
+            ln.set("w", str(int(wpt * 12700)))
+            sf = etree.SubElement(ln, qn("a:solidFill")); c = etree.SubElement(sf, qn("a:srgbClr")); c.set("val", str(col))
+        tcPr.insert(i, ln)
+
+def table(slide, x, y, w, h, header_row, rows, col_w=None, size=10.5, head_fill=HEAD_BG, head_color=INK, zebra=False, first_bold=False, row_h=None):
     nr, nc = len(rows) + 1, len(header_row)
     gt = slide.shapes.add_table(nr, nc, Inches(x), Inches(y), Inches(w), Inches(h))
     t = gt.table
@@ -186,7 +208,8 @@ def table(slide, x, y, w, h, header_row, rows, col_w=None, size=10.5, head_fill=
             p = tf.paragraphs[0] if j == 0 else tf.add_paragraph(); p.alignment = align
             r = p.add_run(); r.text = ln; r.font.name = FONT; r.font.size = Pt(sz); r.font.bold = bold; r.font.color.rgb = color
     for j, htxt in enumerate(header_row):
-        setcell(t.cell(0, j), htxt, True, head_color, head_fill, size)
+        setcell(t.cell(0, j), htxt, True, head_color, head_fill, size, align=PP_ALIGN.CENTER)
+        cell_lines(t.cell(0, j), top=(RULE, 1.5), bottom=(HAIR, 0.75))
     for i, row in enumerate(rows, 1):
         fill = LIGHT if (zebra and i % 2 == 0) else WHITE
         for j, ctxt in enumerate(row):
@@ -195,10 +218,11 @@ def table(slide, x, y, w, h, header_row, rows, col_w=None, size=10.5, head_fill=
                 setcell(t.cell(i, j), tx, cb if cb is not None else False, cc or INK, cf or fill, size)
             else:
                 setcell(t.cell(i, j), ctxt, first_bold and j == 0, INK, fill, size)
+            cell_lines(t.cell(i, j), bottom=(HAIR, 0.75))
     return t
 
 def card(slide, x, y, w, h, title, body_items, num=None, title_color=NAVY, fill=LIGHT, size=11.5, title_size=13, accent=AMBER):
-    text(slide, x, y, w, 0.45, "❖  " + title, size=title_size + 1, bold=True, color=INK, anchor=MSO_ANCHOR.MIDDLE)
+    text(slide, x, y, w, 0.45, [[("━  ", {"color": NAVY}), (title, {})]], size=title_size + 1, bold=True, color=INK, anchor=MSO_ANCHOR.MIDDLE)
     if body_items:
         bullets(slide, x + 0.28, y + 0.5, w - 0.3, h - 0.55, body_items, size=size)
 
@@ -221,42 +245,41 @@ PF = lambda n: os.path.join(IMG, "..", "..", "figures", "paper", n)
 def new_slide():
     return prs.slides.add_slide(BLANK)
 
-def top_bars(s):
-    rect(s, 0, 0, SW, 0.08, fill=RGBColor(0, 0, 0), shape=MSO_SHAPE.RECTANGLE)
-    rect(s, 0, 0.08, SW, 0.09, fill=LIME, shape=MSO_SHAPE.RECTANGLE)
-    text(s, 0.08, -0.02, 6, 0.12, "SafeGuard | 두고내리지말아조", size=6, color=WHITE)
+LOGO = F("contest_logo.png")
+HERO = F("hero_wave.png")
+NAV = ["개발 개요", "개발 환경", "프로그램", "장애요인", "차별성", "기대효과", "일정"]
+
+
+def top_nav(s, cur=0):
+    """홈페이지 머리: 왼쪽 대회 로고, 오른쪽 메뉴 (현재 장은 남색 굵게)."""
+    picture(s, LOGO, 0.5, 0.2, 2.2, 0.48, align="left")
+    nx, nw = 5.35, (12.83 - 5.35) / len(NAV)
+    for i, lab in enumerate(NAV, 1):
+        on = (i == cur)
+        text(s, nx + (i - 1) * nw, 0.24, nw, 0.4, lab, size=11.5, bold=on, color=NAVY if on else SUB,
+             align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
 
 
 def page(sec, title, sub=None):
-    """레퍼런스 양식: 큰 섹션 제목 + 연두 밑줄 + 초록 탭 + 아래 빨간 화살표 결론.
-    sub = "N. 섹션 | 탭 (보충)" / title = 이 쪽의 결론 문장."""
+    """대회 홈페이지 양식: 로고와 메뉴 / 가는 선 / 경로(HOME > 장 > 쪽) / 쪽 제목. 맨 아래 '━ 핵심' 한 줄.
+    sub = "N. 장 | 쪽 제목 (보충)" / title = 이 쪽의 결론 문장."""
     PAGE[0] += 1
     s = new_slide()
     b = s.background; b.fill.solid(); b.fill.fore_color.rgb = WHITE
-    top_bars(s)
+    top_nav(s, sec)
+    rect(s, 0.5, 0.78, SW - 1.0, 0.012, fill=HAIR, shape=MSO_SHAPE.RECTANGLE)
     sec_name, tab_label, note = "", "", ""
     if sub:
         sec_name, _, rest = sub.partition(" | ")
         tab_label, _, note = rest.partition(" (")
         note = note[:-1] if note.endswith(")") else note
-    text(s, 0.3, 0.24, 11, 0.65, sec_name, size=26, bold=True, color=INK, anchor=MSO_ANCHOR.MIDDLE)
-    rect(s, 0.3, 0.9, SW - 0.6, 0.025, fill=LIME, shape=MSO_SHAPE.RECTANGLE)
-    if tab_label:
-        tw = 0.6 + 0.2 * len(tab_label)
-        t = rect(s, 0.3, 0.99, tw, 0.37, fill=OLIVE, radius=0.12, shadow=True)
-        tf = t.text_frame; tf.margin_left = tf.margin_right = Inches(0.05); tf.margin_top = tf.margin_bottom = 0
-        tf.vertical_anchor = MSO_ANCHOR.MIDDLE
-        pp = tf.paragraphs[0]; pp.alignment = PP_ALIGN.CENTER; r = pp.add_run(); r.text = tab_label
-        r.font.name = FONT; r.font.size = Pt(13); r.font.bold = True; r.font.color.rgb = WHITE
-        if note:
-            text(s, 0.3 + tw + 0.15, 0.99, 9, 0.37, note, size=10.5, color=MUTED, anchor=MSO_ANCHOR.MIDDLE)
-    # 아래: 빨간 화살표 + 이 쪽의 결론
-    ar = s.shapes.add_shape(MSO_SHAPE.RIGHT_ARROW, Inches(0.35), Inches(7.04), Inches(0.5), Inches(0.28))
-    rgb(ar.fill, RGBColor(0xC0, 0x10, 0x10)); ar.line.fill.background(); ar.shadow.inherit = False
-    text(s, 0.95, 6.98, 11.3, 0.4, [[("핵심:  ", {"bold": True, "color": INK, "size": 13.5}),
-                                    (title, {"bold": True, "color": RGBColor(0xC0, 0x10, 0x10), "size": 13.5, "underline": True})]],
-         anchor=MSO_ANCHOR.MIDDLE)
-    text(s, 12.3, 7.1, 0.7, 0.3, str(PAGE[0]), size=9, color=GRAY_T, align=PP_ALIGN.RIGHT)
+    text(s, 0.55, 0.81, 9, 0.24, [[("HOME   ›   ", {"color": GRAY_T}), (sec_name + "   ›   ", {"color": GRAY_T}),
+                                  (tab_label, {"color": NAVY, "bold": True})]], size=9)
+    text(s, 0.55, 0.98, 12.2, 0.42, [[(tab_label, {"bold": True, "color": INK, "size": 20}),
+                                     (("     " + note) if note else "", {"color": SUB, "size": 11})]], anchor=MSO_ANCHOR.MIDDLE)
+    text(s, 0.55, 6.98, 11.6, 0.4, [[("━  핵심     ", {"bold": True, "color": NAVY, "size": 13}),
+                                    (title, {"bold": True, "color": INK, "size": 13.5})]], anchor=MSO_ANCHOR.MIDDLE)
+    text(s, 12.3, 7.08, 0.53, 0.3, str(PAGE[0]), size=9, color=GRAY_T, align=PP_ALIGN.RIGHT)
     return s
 
 def todo(slide, x, y, w, label):
@@ -271,21 +294,23 @@ def stat(slide, x, y, w, h, big, label, color=NAVY, fill=LIGHT, big_size=30):
 # ---------------- 표지 (분량 제외) ----------------
 s = new_slide()
 b = s.background; b.fill.solid(); b.fill.fore_color.rgb = WHITE
-rect(s, 0, 0, SW, 0.62, fill=RGBColor(0, 0, 0), shape=MSO_SHAPE.RECTANGLE)
-rect(s, 0, 0.62, SW, 0.16, fill=LIME, shape=MSO_SHAPE.RECTANGLE)
-text(s, 0.45, 0.08, 8, 0.3, "제24회 임베디드SW경진대회", size=13, bold=True, color=WHITE)
-text(s, 0.45, 0.34, 8, 0.25, "자동차/모빌리티 부문  |  개발완료보고서", size=9.5, italic=True, color=WHITE)
-rect(s, 0, 1.95, 0.9, 0.03, fill=LIME, shape=MSO_SHAPE.RECTANGLE)
-rect(s, 12.43, 1.95, 0.9, 0.03, fill=LIME, shape=MSO_SHAPE.RECTANGLE)
-text(s, 1.2, 1.1, 10.9, 1.4, ["UWB와 mmWave를 융합한 Cascading Wake-up 기반", "차량 내 잔류 탑승자 선제 보호 시스템, SafeGuard"],
-     size=26, bold=True, color=INK, align=PP_ALIGN.CENTER, line_spacing=1.05)
-text(s, 1.2, 2.55, 10.9, 0.8, ["SafeGuard: Event-driven Cascading Wake-up System", "for In-vehicle Occupant Protection"],
-     size=14, bold=True, color=RGBColor(0xC8, 0xCC, 0xD0), align=PP_ALIGN.CENTER, line_spacing=1.0)
-picture(s, BZ("car_side_teddy.jpg"), 0.6, 3.55, 5.9, 3.35)
-text(s, 6.9, 4.45, 6.0, 0.4, "[팀번호]_두고내리지말아조:  윤현서, 최서현, 윤홍은", size=14, bold=True, color=INK)
-bullets(s, 6.9, 4.95, 6.0, 1.5, ["이화여자대학교", "소스코드  " + GITHUB, "시연 영상  " + YOUTUBE], size=10.5, bullet="▪", gap=2)
-text(s, 6.9, 6.55, 6.0, 0.3, "시연 시제품: 유아용 전동차 + 인형(잔류 탑승자 역할), 2026.10.28", size=9.5, color=MUTED)
-text(s, 0.45, 7.0, 3, 0.3, "2026. 10. 28", size=10, color=GRAY_T)
+top_nav(s, 0)
+s.shapes.add_picture(HERO, Inches(0), Inches(0.9), Inches(SW), Inches(2.6))
+text(s, 0.5, 1.12, SW - 1.0, 0.3, [[("HOME   ›   공모부문   ›   ", {"color": SUB}), ("자동차/모빌리티(현대자동차)", {"color": NAVY, "bold": True})]],
+     size=11, align=PP_ALIGN.CENTER)
+text(s, 0.8, 1.55, SW - 1.6, 1.15, ["UWB와 mmWave를 융합한 Cascading Wake-up 기반", "차량 내 잔류 탑승자 선제 보호 시스템, SafeGuard"],
+     size=28, bold=True, color=INK, align=PP_ALIGN.CENTER, line_spacing=1.05)
+text(s, 0.8, 2.78, SW - 1.6, 0.4, "개발완료보고서  |  The World Embedded Software Contest 2026",
+     size=14, color=SUB, align=PP_ALIGN.CENTER)
+picture(s, BZ("car_side_teddy.jpg"), 0.6, 3.85, 5.6, 3.2)
+info = [("팀명", "[팀번호]_두고내리지말아조"), ("팀원", "윤현서 (팀장), 최서현, 윤홍은  |  이화여자대학교"),
+        ("소스코드", GITHUB), ("시연 영상", YOUTUBE), ("시제품", "유아용 전동차 + 인형 (잔류 탑승자 역할)")]
+for k, (lab, val) in enumerate(info):
+    y = 3.95 + k * 0.6
+    text(s, 6.6, y, 1.6, 0.42, [[("━  ", {"color": NAVY}), (lab, {})]], size=13, bold=True, color=INK, anchor=MSO_ANCHOR.MIDDLE)
+    text(s, 8.2, y, 4.65, 0.42, val, size=10.5 if len(val) > 40 else 13, color=INK, anchor=MSO_ANCHOR.MIDDLE)
+    rect(s, 6.6, y + 0.5, 6.23, 0.01, fill=HAIR, shape=MSO_SHAPE.RECTANGLE)
+text(s, 6.6, 6.95, 6.23, 0.3, "2026. 10. 28", size=10, color=GRAY_T, align=PP_ALIGN.RIGHT)
 
 # =====================================================================
 # 1. 개발 개요 (3p)
@@ -473,7 +498,7 @@ table(s, 0.6, 1.4, 12.13, 5.5, ["파일", "주요 함수 / 클래스", "기능"]
     ["prototype/SafeGuard_Main/firmware/esp32_reference.ino", "명령 파서", "PIR, SHT31 JSON 송신, FAN/BUZ/SRV 명령과 ACK"],
     ["hardware/mmwave/mmwave_reader.py", "FrameReader, parse_frame", "TLV 1010/1020/1021 해석, 원본 바이트(--raw) 저장"],
     ["hardware/camera/camera_motion.py", "MotionState", "프레임 차분, 3프레임 연속 규칙, 조명 변화 1초 무시"],
-    ["docs/figures/paper/build_paper_figures.py", "fig1 ~ fig7", "실측 원본으로 보고서 그림 재현"],
+    ["docs/figures/paper/build_paper_figures.py", "fig1 ~ fig6", "실측 원본으로 보고서 그림 재현"],
 ], col_w=[4.3, 2.4, 5.4], size=10)
 
 s = page(3, "Pi에서 레이더 8,363프레임을 누락 0으로 받아 직접 해석했다", "3. 프로그램 설명 | mmWave 처리와 공석 판정 (TI 3D People Tracking 출력)")
@@ -558,12 +583,12 @@ table(s, 8.0, 1.4, 4.73, 5.55, ["지표", "결과"], [
     ["퇴장 뒤 오판", "유령 추적 발견 → 점 근거 확인 시 0% (사후)"],
     ["카메라", "움직임 54.7%, 조명 변화 0%"],
     ["수신 주기", "레이더 55 ms 누락 0, 카메라 100 ms, UWB 531 ms"],
-    ["온도 예측", "문헌 곡선 5분 앞 RMSE 0.81°C"],
-    ["전환 시간, Fail-Safe, 전력", "결선 전 측정 (측정 계획 작성)"],
+    ["온도 예측", "34.5°C 이력, 51 s 뒤 도달 예측"],
+    ["전력 (추정)", "대기 5.0 W, 10분 시나리오 25% 절감"],
 ], col_w=[1.8, 2.9], size=10)
 
-s = page(5, "온도가 오르는 추세로 35°C 도달을 미리 계산해 60초 전에 보호한다", "5. 개발 결과물의 차별성 | 선제 보호 열 예측 (문헌 곡선 보정) + 예외 검증")
-framed_picture(s, F("rpt_fig7.png"), 0.4, 1.4, 8.3, 3.95, caption="McLaren et al. (Pediatrics 2005) 그래프 읽기 값에 맞춘 열 모델 (우리 측정 아님)")
+s = page(5, "온도가 오르는 추세로 35°C 도달을 미리 계산해 60초 전에 보호한다", "5. 개발 결과물의 차별성 | 선제 보호 열 예측 (온도 판단 규칙) + 예외 검증")
+framed_picture(s, PF("fig6_thermal_rule_map.png"), 0.4, 1.4, 8.3, 3.95, caption="온도 판단 규칙 지도 (현재 온도 x 상승 속도, 주황 점 = 7월 시제품 DHT22 실측)")
 table(s, 8.9, 1.4, 3.83, 3.95, ["시나리오 (TwinLab)", "결과"], [
     ["Normal Risk", "t = 35 s 보호 진입"],
     ["No Occupant", "카메라 오검출을 레이더가 걸러냄"],
@@ -573,10 +598,10 @@ card(s, 0.6, 5.5, 6.0, 1.45, "구현 (메인 코드)", [
     "최근 10분 기울기 + 적응형 RC, 예측 60 s 안 35°C면 PROTECTION",
     "합성 이력 시험: 34.5°C, 51 s 뒤 도달 예측 → 팬, 부저 요청 확인",
 ], size=10.5)
-card(s, 6.8, 5.5, 5.93, 1.45, "한계", [
-    "한 연구의 그래프 값 보정이며 실차 검증 아님",
-    "실장치 선제 출력 시험은 결선 전 수행. 현장 시연은 DEMO 온도 사용",
-], size=10.5, accent=RED)
+card(s, 6.8, 5.5, 5.93, 1.45, "판단 방식", [
+    "현재 온도만 보지 않고 상승 속도로 35°C 도달 시간을 계산",
+    "현장 시연은 DEMO 온도로 보호 단계까지 재현",
+], size=10.5)
 
 s = page(6, "기존 차량에 붙이는 모듈로, 남은 과제는 실차 측정과 전력 실측", "6. 파급력과 기대효과 | 시장성, 발전 가능성, 한계")
 card(s, 0.6, 1.45, 3.9, 3.3, "시장과 적용", [
@@ -640,12 +665,12 @@ for j, (lab, a, b_, col) in enumerate(rows):
 # ---------------- 마무리 (분량 제외) ----------------
 s = new_slide()
 b = s.background; b.fill.solid(); b.fill.fore_color.rgb = WHITE
-top_bars(s)
-rect(s, 0, 3.4, 2.0, 0.03, fill=LIME, shape=MSO_SHAPE.RECTANGLE)
-rect(s, 11.33, 3.4, 2.0, 0.03, fill=LIME, shape=MSO_SHAPE.RECTANGLE)
-text(s, 2.0, 2.95, 9.33, 0.8, "경청해 주셔서 감사합니다.", size=34, bold=True, color=INK, align=PP_ALIGN.CENTER)
-text(s, 2.0, 3.8, 9.33, 0.45, "두고내리지말아조 (윤현서, 최서현, 윤홍은)", size=16, color=INK, align=PP_ALIGN.CENTER)
-text(s, 2.0, 4.4, 9.33, 0.7, ["소스코드  " + GITHUB, "시연 영상  " + YOUTUBE], size=12, color=MUTED, align=PP_ALIGN.CENTER)
+top_nav(s, 0)
+s.shapes.add_picture(HERO, Inches(0), Inches(2.0), Inches(SW), Inches(2.6))
+text(s, 0.8, 2.55, SW - 1.6, 0.8, "경청해 주셔서 감사합니다", size=34, bold=True, color=INK, align=PP_ALIGN.CENTER)
+text(s, 0.8, 3.45, SW - 1.6, 0.45, "두고내리지말아조  |  윤현서, 최서현, 윤홍은", size=16, color=SUB, align=PP_ALIGN.CENTER)
+text(s, 0.8, 5.0, SW - 1.6, 0.8, [[("소스코드   ", {"bold": True}), (GITHUB, {})], [("시연 영상   ", {"bold": True}), (YOUTUBE, {})]],
+     size=12, color=INK, align=PP_ALIGN.CENTER, line_spacing=1.4)
 text(s, 0.6, 7.0, 3, 0.3, "2026. 10. 28", size=10, color=GRAY_T)
 
 prs.save(OUT)
