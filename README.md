@@ -90,7 +90,7 @@
 
 <img src="docs/presentation/img/realcar/realcar_demo_dashboards.jpg" width="100%" alt="실차 시연 중 대시보드">
 
-시연 중 모습. 왼쪽 노트북은 SafeGuard 보호자 대시보드(UWB 거리, 실내 온도, 상태), 오른쪽 노트북은 10.27 레이더 시험 3 기록을 재생한 화면이다.
+시연 중 모습. 왼쪽 노트북은 SafeGuard 보호자 대시보드(UWB 거리, 실내 온도, 상태)다.
 사진은 긴 변 2000 px로 줄이고 위치 정보를 지웠으며, 차량 내비게이션 화면은 가렸다.
 
 ## 2.2 실측 결과
