@@ -8,7 +8,7 @@
 |---|---|
 | 개발완료보고서 (PDF, 본문 20쪽) | [`2026ESWContest_모빌리티_두고내리지말아조_개발완료보고서.pdf`](docs/presentation/2026ESWContest_모빌리티_두고내리지말아조_개발완료보고서.pdf) |
 | 작품소개서 (Word, 2쪽) | [`2026ESWContest_모빌리티_두고내리지말아조_작품소개서.docx`](docs/presentation/2026ESWContest_모빌리티_두고내리지말아조_작품소개서.docx) |
-| 시연 동영상 (YouTube) | 업로드 후 링크 추가 |
+| 시연 동영상 (YouTube) | [https://www.youtube.com/watch?v=aBB1S666mp4&feature=youtu.be](https://www.youtube.com/watch?v=aBB1S666mp4&feature=youtu.be) |
 | 레이더 영상 5종, 주요 그래프, 실측 그래프 | 아래 본문 (페이지를 열면 바로 재생) |
 
 | 폴더 | 내용 |
@@ -25,6 +25,7 @@
 ---
 
 [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://safeguard-mmwave-simulator.streamlit.app)
+[![Demo Video](https://img.shields.io/badge/Demo-YouTube-FF0000?logo=youtube)](https://www.youtube.com/watch?v=aBB1S666mp4&feature=youtu.be)
 [![Source Code](https://img.shields.io/badge/Source-GitHub-181717?logo=github)](https://github.com/SafeGuard-EWHA/2026ESWContest_mobility_DugoNaerijiMarajo)
 [![Sample Outputs](https://img.shields.io/badge/TwinLab-Sample%20Outputs-blue)](docs/sample_outputs/)
 
@@ -37,6 +38,8 @@
 | 서론 | 본론 | 결론 |
 |---|---|---|
 | 차량 내 아동 방치 사고는 온도가 오른 뒤 알리면 늦다. 단일 센서와 상시 구동 방식의 한계를 넘는 저전력 선제 보호가 목표 | 유아용 전동차 시제품, 시스템 구조와 상태기계, 레이더, 카메라, UWB 실측, 소비전력 추정 | [결론과 시사점](#3-결론과-시사점): 무엇을 확인했고 실제 차량에 무엇을 줄 수 있는지 |
+
+시연 영상 (2026.10.28 실차 시연): https://www.youtube.com/watch?v=aBB1S666mp4&feature=youtu.be
 
 라이브 데모 (TwinLab 시뮬레이터, 예선 제출본): https://safeguard-mmwave-simulator.streamlit.app/
 
