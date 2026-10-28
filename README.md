@@ -9,14 +9,15 @@
 | 개발완료보고서 (PDF, 본문 20쪽) | [`2026ESWContest_모빌리티_두고내리지말아조_개발완료보고서.pdf`](docs/presentation/2026ESWContest_모빌리티_두고내리지말아조_개발완료보고서.pdf) |
 | 작품소개서 (Word, 2쪽) | [`2026ESWContest_모빌리티_두고내리지말아조_작품소개서.docx`](docs/presentation/2026ESWContest_모빌리티_두고내리지말아조_작품소개서.docx) |
 | 시연 동영상 (YouTube) | 업로드 후 링크 추가 |
-| 레이더 영상 5종, 논문용 그림 7장, 실측 그래프 | 아래 본문 (페이지를 열면 바로 재생) |
+| 레이더 영상 5종, 주요 그래프, 실측 그래프 | 아래 본문 (페이지를 열면 바로 재생) |
 
 | 폴더 | 내용 |
 |---|---|
 | [`prototype/`](prototype/) | **장치 제어 소스**: C++ 상태기계와 열 관측기(`SafeGuard_Main/src`), Python 센서 허브와 대시보드(`scripts`), ESP32 펌웨어, 측정 원본 |
 | [`hardware/`](hardware/) | 블록 B 레이더 수신기(`mmwave/mmwave_reader.py`), 카메라 움직임 검출, ESP32 시험 스케치, 배선 가이드 |
 | [`src/`](src/), [`app/`](app/), [`tests/`](tests/) | TwinLab 시뮬레이터 (상태기계, 가상 센서, 전력 모델, Streamlit 대시보드, pytest) |
-| [`docs/figures/paper/`](docs/figures/paper/) | 논문용 그림 7장과 생성 스크립트 (실측 원본에서 재현) |
+| [`docs/figures/paper/`](docs/figures/paper/) | 주요 그래프와 생성 스크립트 (실측 원본에서 재현) |
+| [`docs/figures/power/`](docs/figures/power/) | 결선 장비 소비전력 추정 그래프와 계산 스크립트 |
 | [`docs/presentation/`](docs/presentation/) | 보고서, 소개서, 영상, 그림 생성 스크립트 |
 | `B회신*_20261027/` | 레이더, 카메라 시험 원본 (CSV, 원본 바이트, 사진, 분석) |
 | [`pic_red_benz/`](pic_red_benz/), [`pics/`](pics/) | 시연 시제품과 부품 사진 |
@@ -25,20 +26,32 @@
 
 [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://safeguard-mmwave-simulator.streamlit.app)
 [![Source Code](https://img.shields.io/badge/Source-GitHub-181717?logo=github)](https://github.com/SafeGuard-EWHA/2026ESWContest_mobility_DugoNaerijiMarajo)
-[![Paper-ready Outputs](https://img.shields.io/badge/Paper--ready-Outputs-blue)](docs/sample_outputs/)
+[![Sample Outputs](https://img.shields.io/badge/TwinLab-Sample%20Outputs-blue)](docs/sample_outputs/)
 
-> 위 배지의 GitHub/Streamlit 링크는 모두 실제 배포된 값으로 반영되어 있다.
-> 배포 절차 자체를 다시 확인하려면 [DEPLOYMENT_CHECKLIST.md](DEPLOYMENT_CHECKLIST.md) 참고.
+## 요약
 
-차량 내 잔류 탑승자 보호 시스템 **SafeGuard**를 위한 end-to-end agentic
-simulator다. 실제 Raspberry Pi hardware log와 UWB/mmWave virtual sensor를
-결합하여 event-driven state machine, actuator 제어, 추정 전력(estimated
-power) 계산, 비교 모델 분석, 논문용 표/그림/해석문까지 자동 생성한다.
+보호자가 차를 떠난 뒤 차 안에 남은 아이를 찾아, 실내 온도가 위험해지기 **전에** 팬과 부저를 켜는 장치다.
+보호자의 UWB 거리(5 m 초과 10초)로 이탈을 확인한 뒤에만 PIR, 카메라 → 60 GHz 레이더 → 온도 예측 순서로
+필요한 센서를 깨운다(Cascading Wake-up).
 
->
-> 라이브 데모 : https://safeguard-mmwave-simulator.streamlit.app/ 
+| 서론 | 본론 | 결론 |
+|---|---|---|
+| 차량 내 아동 방치 사고는 온도가 오른 뒤 알리면 늦다. 단일 센서와 상시 구동 방식의 한계를 넘는 저전력 선제 보호가 목표 | 유아용 전동차 시제품, 시스템 구조와 상태기계, 레이더, 카메라, UWB 실측, 소비전력 추정 | [결론과 시사점](#3-결론과-시사점): 무엇을 확인했고 실제 차량에 무엇을 줄 수 있는지 |
 
-## 시연 시제품: 유아용 전동차 위 SafeGuard (2026.10.28)
+라이브 데모 (TwinLab 시뮬레이터, 예선 제출본): https://safeguard-mmwave-simulator.streamlit.app/
+
+# 1. 서론: 배경과 목표
+
+- **배경**: 직사광선 아래 차량 실내 온도는 외기보다 크게 오르고, 아이는 체온 조절이 약해 짧은 시간에도 위험하다.
+  Euro NCAP은 2026년부터 어린이 잔류 감지(CPD)를 평가 항목으로 다루고, 국내도 통학차량 하차 확인 장치를 의무화했다.
+- **기존 방식의 한계**: PIR은 가만히 있는 아이를, 카메라는 어둠과 가림을 놓친다. 모든 센서를 상시 켜 두면 주차 중 배터리 부담이 크다.
+  "현재 온도가 기준을 넘으면 알림"은 이미 위험 구간에 들어선 뒤다.
+- **목표**: (1) 놓치지 않는다: 평소에는 PIR 또는 카메라 하나만 반응해도 레이더로 확인한다. (2) 필요할 때만 켠다.
+  (3) 뜨거워지기 전에 움직인다: 35 °C 도달까지 남은 시간으로 판단한다.
+
+# 2. 본론
+
+## 2.1 시연 시제품: 유아용 전동차 위 SafeGuard (2026.10.28)
 
 빨간 유아용 전동차를 차량 실내 모형으로 쓰고, 뒷좌석 자리에 인형(잔류 탑승자 역할)을 앉혔다.
 60 GHz 레이더(mmWave)는 운전대 앞 판에 붙여 좌석을 향하게 했고, 나머지 부품은 이름표를 붙여 옆에 배치했다.
@@ -61,7 +74,7 @@ power) 계산, 비교 모델 분석, 논문용 표/그림/해석문까지 자동
 
 사진 23장 (긴 변 2000 px로 줄이고 위치 정보 제거): [`pic_red_benz/`](pic_red_benz/)
 
-## 결선 하드웨어 결과 한눈에 보기
+## 2.2 실측 결과
 
 제24회 임베디드SW경진대회 자동차/모빌리티 부문 결선 시제품(두고내리지말아조)의 실측 결과다.
 아래 영상과 그래프는 모두 시험 원본 CSV와 레이더 원본 바이트에서 다시 그린 것이다
@@ -96,10 +109,6 @@ power) 계산, 비교 모델 분석, 논문용 표/그림/해석문까지 자동
 **Fig. 6 온도 판단 규칙 지도 (측정 아님).** `src/config.py` 규칙: 32 °C 이상 또는 35 °C 도달 예상 300 s 이하이면 PROTECT.
 
 <img src="docs/figures/paper/fig6_thermal_rule_map.png" width="70%" alt="Fig 6 thermal rule">
-
-**Fig. 7 열 예측 모델의 문헌 데이터 보정 (우리 측정 아님).** McLaren et al., Pediatrics 2005 Fig. 3의 곡선 7개를 읽은 값에 맞춘 결과: A = 23.0 °C, τ = 19.0 분. 곡선 하나씩 빼고 검증하면 35 °C 도달 시간 오차 평균 1.9 분, 5분 뒤 예측 RMSE 0.81 °C (단순 유지 1.47, 직선 1.04). 한 연구의 그래프 읽기 값이라 실차 검증이 아니며, 7개 중 6개 곡선은 이력 10분이 쌓일 때 이미 35 °C를 넘는다.
-
-<img src="docs/figures/paper/fig7_thermal_literature.png" width="100%" alt="Fig 7 thermal literature">
 
 PIR, SHT31, ESP32는 시간 기록이 있는 실측 로그가 아직 짧아(블록 A 시리얼 10줄) 통계 그림에서 뺐다.
 
@@ -148,15 +157,6 @@ MP4 (55초): [`SafeGuard_radar_dashboard_rx60.mp4`](docs/presentation/SafeGuard_
 |---|---|
 | <img src="docs/presentation/img/final/dash_test3.png" width="100%"> | <img src="docs/presentation/img/final/dash_rx60.png" width="100%"> |
 
-### 부록: Vital Signs 호흡수 (참고용)
-
-<img src="docs/presentation/img/final/fig_vital_breath.png" width="100%" alt="레이더 호흡수와 직접 센 값 비교">
-
-- **조건**: TI Vital Signs 펌웨어, 레이더 앞 약 0.95 m 착석, 거리 칸 11 고정, 안정 호흡(분당 12~13회), 친구가 날숨을 1분씩 직접 셈 (2026.10.24, Pi 5 수신)
-- **결과**: 1분 중앙값 기준 오차 0.4~1.4회/분 (3차). 거리 자동이던 2차는 40~47% 낮게 나옴
-- **한계**: 측정 2회뿐이고 거리와 호흡 속도가 함께 바뀌어 원인을 나눌 수 없음. 펌웨어 최대 출력 21.8회/분.
-  People Tracking과 다른 펌웨어라 잔류 감지와 동시에 쓰지 못함. 심박은 정답 미측정. **정확도는 주장하지 않는다.**
-
 ### 시스템 구성과 실물
 
 <img src="docs/presentation/img/final/system_diagram_crop.png" width="100%" alt="SafeGuard 시스템 구성도">
@@ -170,7 +170,7 @@ MP4 (55초): [`SafeGuard_radar_dashboard_rx60.mp4`](docs/presentation/SafeGuard_
 ### 60 GHz 레이더 측정 결과 (IWR6843ISK-ODS, TI 3D People Tracking)
 
 **1. 감지 영역을 차 실내 크기로 줄이자, 가만히 앉은 1명을 5분 동안 95.7% 정확히 1명으로 판정했다.**
-TI 원본 cfg(6 m 방 기준)에서는 같은 조건에서 0%였다 (벽 다중 반사로 유령 추적 2~5개).
+TI 원본 cfg(6 m 방 기준)에서는 같은 조건에서 0%였다 (벽 다중 반사로 유령 추적 2에서 5개).
 
 <img src="docs/presentation/img/final/fig_still_tests.png" width="100%" alt="정지 착석 시험 A/B/C">
 
@@ -201,9 +201,70 @@ TI 원본 cfg(6 m 방 기준)에서는 같은 조건에서 0%였다 (벽 다중 
 
 자세한 시험 기록: [`hardware/mmwave/people_tracking/README.md`](hardware/mmwave/people_tracking/README.md), [`hardware/HANDOFF_BLOCK_B.md`](hardware/HANDOFF_BLOCK_B.md)
 
----
+## 2.3 소비전력 추정
 
-## 목차
+전류계 실측은 아직 하지 못해, **데이터시트 대표값**에 실제 상태기계 설정(`configs/real.json`: 이탈 확인 10 s, 융합 창 2 s)을
+곱해 계산했다. 계산: [`docs/figures/power/build_power_estimate.py`](docs/figures/power/build_power_estimate.py)
+
+<img src="docs/figures/power/fig_power_estimate.png" width="100%" alt="결선 장비 소비전력 추정">
+
+| 항목 | 추정값 |
+|---|---|
+| 대기 (STANDBY: Pi 5, 레이더, UWB, ESP32) | 5.0 W |
+| 보호 (PROTECTION: + Pi 연산, 12V 팬, 부저) | 8.5 W |
+| 모든 부품 상시 ON (All-on) | 9.3 W |
+| 10분 시나리오 에너지 (이탈 → 잔류 → 온도 상승 → 보호) | All-on 1.55 Wh, SafeGuard 1.16 Wh (**25% 절감**) |
+| 주차 대기 1시간 | All-on 9.3 Wh, SafeGuard 5.0 Wh |
+
+현재 레이더는 한 번 멈추면 USB를 다시 꽂아야 켜지므로 계속 전원이 들어가 있다. 그래서 절감은 Pi 연산, 카메라, 구동부에서만
+생긴다. 레이더 전원 제어(저전력 모드)까지 넣으면 대기 전력을 더 줄일 수 있다. 측정 방법은 [`hardware/power/README.md`](hardware/power/README.md).
+
+
+
+# 3. 결론과 시사점
+
+**확인한 것**
+
+1. **단계적 활성화가 실제 장비에서 동작한다.** UWB 이탈 확인 → PIR, 카메라 → 레이더 → 온도 예측 → 팬, 부저까지
+   C++ 상태기계 하나로 이어지고, 각 단계는 앞 단계 이벤트가 있을 때만 다음 센서와 연산을 깨운다.
+2. **가만히 앉은 아이를 레이더가 잡는다.** 카메라는 정지한 사람을 7.4%만 잡았지만, 감지 영역을 차 실내 크기로 줄인 레이더는
+   정지 착석 1인을 5분 동안 95.7% 정확히 1명으로 판정했다 (TI 원본 설정은 0%).
+3. **수신이 안정적이다.** Raspberry Pi 5에서 레이더 8,363프레임을 누락 0, 깨짐 0으로 받았고, UWB 거리 잡음은 표준편차 3.5 cm였다.
+4. **센서끼리 약점을 메운다.** 카메라는 조명 변화에 오검출 0회, 레이더는 하차 후 남는 유령 추적을 점 근거 확인으로 걸러낼 수 있다.
+5. **전력**: 추정 기준 대기 5.0 W, 10분 시나리오에서 All-on 대비 25% 절감.
+
+**시사점**
+
+- **기존 차량에 붙이는 모듈**로 만들 수 있다. 차량 배선을 바꾸지 않고 12V 전원과 USB만으로 동작한다.
+- **규제와 평가에 맞는 방향**이다. Euro NCAP CPD처럼 "정지한 아이를 찾고 경고까지 이어지는가"를 보는 평가에 레이더 확인과
+  선제 보호가 바로 대응한다.
+- **센서 하나에 기대지 않는 설계**가 중요하다. 하나가 고장 나도(레이더 무응답) PIR과 카메라로 "의심" 상태를 유지해 보호가 끊기지 않는다.
+
+**향후 계획**
+
+- 실제 차량에서 UWB 5 m 이탈 시험, 상태별 전류 실측, 레이더 저전력 모드 적용
+- 하차 후 유령 추적: 정지 추적 소거 시간(`static2free`) 조정과 점 근거 확인을 메인 코드에 반영
+- 보호자 알림을 앱 푸시로, 팬 대신 차량 공조, 창문 제어(CAN)로 확장
+
+# 부록
+
+## 부록 A. Vital Signs 호흡수 측정 시도
+
+컨설팅에서 "먼저 레이더로 미세 움직임(재실)을 잡고, 호흡수와 심박수는 가능하면 해 보라"는 의견을 받아 TI Vital Signs 펌웨어로 시도했다.
+
+<img src="docs/presentation/img/final/fig_vital_breath.png" width="100%" alt="레이더 호흡수와 직접 센 값 비교">
+
+- **조건**: 레이더 앞 약 0.95 m 착석, 거리 칸 11 고정, 안정 호흡(분당 12에서 13회), 날숨을 1분씩 직접 세어 비교 (2026.10.24, Pi 5 수신)
+- **결과**: 거리 칸을 고정한 3차 시험에서 1분 중앙값이 직접 센 값과 분당 0.4에서 1.4회 차이로 따라왔다.
+  거리 칸을 자동으로 둔 2차 시험보다 크게 나아졌다.
+- **활용**: 잔류 감지에는 People Tracking 펌웨어를 쓰고, 호흡 측정은 차 안 아이의 상태를 더 알려 주는 확장 기능으로 남겨 둔다.
+
+## 부록 B. TwinLab 시뮬레이터 (예선 제출본)
+
+실제 장치로 만들기 어려운 상황(레이더 무응답, PIR 오탐, 센서 고장)을 반복해서 시험하려고 예선 때 만든 시뮬레이터다.
+같은 상태기계 규칙을 Python으로 옮겨, 시나리오별 상태 전이와 전력 비교를 확인한다.
+
+### 목차
 
 1. [프로젝트 개요](#1-프로젝트-개요)
 2. [시스템 구조](#2-시스템-구조)
@@ -213,12 +274,10 @@ TI 원본 cfg(6 m 방 기준)에서는 같은 조건에서 0%였다 (벽 다중 
 6. [Output-level Virtual Sensor Simulation](#6-output-level-virtual-sensor-simulation)
 7. [Estimated Power Model](#7-estimated-power-model)
 8. [Continuous vs Duty-cycle Actuator Policy](#8-continuous-vs-duty-cycle-actuator-policy)
-9. [Paper-ready Export](#9-paper-ready-export)
+9. [결과 자동 생성 (Export)](#9-결과-자동-생성-export)
 10. [Sample Data & Demo Mode](#10-sample-data--demo-mode)
 11. [테스트](#11-테스트)
 12. [한계와 향후 개선점](#12-한계와-향후-개선점)
-
----
 
 ## 1. 프로젝트 개요
 
@@ -261,8 +320,8 @@ engine(`src/`)을 통해 생성되며, pytest로 상태 전이·전력 계산의
 │   └── requirements-pi.txt     # 하드웨어 전용 의존성 (웹 배포 requirements.txt와 분리)
 ├── tests/                      # pytest 단위/통합 테스트
 ├── outputs/
-│   ├── csv/                    # 논문용 표
-│   ├── figures/                # 논문용 그림(PNG)
+│   ├── csv/                    # 결과 표
+│   ├── figures/                # 결과 그림(PNG)
 │   └── report/                 # 결과 해석문/캡션/한계/Q&A(TXT)
 ├── docs/                       # GitHub Pages 홈페이지 + paper-ready 샘플 산출물
 ├── .claude/agents/             # 커스텀 서브에이전트 7종 (역할 분리)
@@ -322,7 +381,7 @@ bash scripts/run_tests.sh
 python -m pytest tests/ -v
 ```
 
-### 3.4 CLI로 paper-ready export 생성 (대시보드 없이)
+### 3.4 CLI로 결과 자동 생성 (대시보드 없이)
 
 ```bash
 # 기본 시나리오
@@ -346,35 +405,13 @@ python scripts/generate_paper_outputs.py --list-demos
 python scripts/clean_outputs.py
 ```
 
-### 3.6 Streamlit Community Cloud 배포
+### 3.6 웹에서 바로 실행 (Streamlit Community Cloud)
 
-익명 사용자가 PowerShell이나 로컬 설치 없이 웹 링크만으로 접속할 수
-있도록 아래 순서로 배포한다 (GitHub push가 먼저 필요 — 자세한 절차는
-[DEPLOYMENT_CHECKLIST.md](DEPLOYMENT_CHECKLIST.md) 참고).
+설치 없이 아래 주소에서 바로 열린다 (예선 때 배포한 TwinLab 대시보드).
 
-1. [share.streamlit.io](https://share.streamlit.io) 접속 후 GitHub 계정으로 로그인
-2. **"New app"** 클릭
-3. **Repository**: 이 프로젝트를 push한 GitHub repo 선택
-4. **Branch**: `main` 선택
-5. **Main file path**: `app/streamlit_app.py` 입력 (entry point는 이
-   경로로 고정되어 있으며, 저장소에 다른 `streamlit_app.py`가 존재하지
-   않는다)
-6. **Deploy** 클릭 → 수 분 내 `https://<app-name>.streamlit.app` 형태의
-   공개 URL이 발급된다
-
-배포 환경 참고사항:
-
-- `requirements.txt`(저장소 루트)만 설치되며, `gpiozero`/`RPi.GPIO`/
-  `adafruit_dht`/`board` 등 Raspberry Pi 전용 패키지는 포함되어 있지
-  않다. 이 패키지들은 `hardware/pi_hardware_logger.py`에서만 사용되고
-  `hardware/requirements-pi.txt`로 별도 관리되므로 Cloud 환경에서
-  import 오류가 발생하지 않는다.
-- 업로드 없이도 dummy 데이터로 바로 실행되며, 사이드바에서
-  `sample_data/`의 예시 CSV를 선택하면 실제 파일 업로드 없이도 CSV 기반
-  결과를 볼 수 있다.
-- "Paper-ready 자동 생성" 버튼은 서버의 `outputs/`에도 저장하지만,
-  다운로드 버튼은 그 순간 메모리에 읽어들인 바이트를 서빙하므로 여러
-  익명 사용자가 동시에 접속해도 서로의 다운로드 내용이 섞이지 않는다.
+- https://safeguard-mmwave-simulator.streamlit.app/
+- 시작 파일: `app/streamlit_app.py`, 설치 목록: 저장소 루트 `requirements.txt` (Raspberry Pi 전용 패키지는 `hardware/requirements-pi.txt`로 분리)
+- 사이드바의 Demo Mode 버튼(Normal Risk, No Occupant, mmWave Timeout Fail-safe, Duty-cycle Optimized)으로 시나리오를 바로 볼 수 있다.
 
 ## 4. 입력 CSV 형식
 
@@ -394,9 +431,9 @@ python scripts/clean_outputs.py
 - 파일이 없으면 `src/data_loader.py`가 재현 가능한 dummy 데이터를 생성한다.
 - 결측치는 선형보간, DHT22 read failure는 자동 감지·보간되며
   `dht22_failure_flag`로 표시된다.
-- **주의**: UWB/mmWave/Camera virtual sensor는 hardware_log.csv가 아니라
-  대시보드 시나리오 설정(occupant_exists, mmwave_mode 등)에서 별도로
-  생성된다. 자세한 내용은 [10. Sample Data & Demo Mode](#10-sample-data--demo-mode) 참고.
+- hardware_log.csv에는 온도, PIR, 구동 출력만 들어 있다. UWB, 레이더, 카메라는 시뮬레이터에서 시나리오 설정
+  (occupant_exists, mmwave_mode 등)으로 만든다. 실제 센서 연동은 결선 장치 코드
+  [`prototype/SafeGuard_Main`](prototype/SafeGuard_Main/)가 맡는다 (아래 12장 참고).
 
 ### power_measure_log.csv (선택, 실측 검증용)
 
@@ -468,7 +505,7 @@ signal processing을 수행하지 않는 output-level simulation이며, 실제
 
 | Profile | Output fields | Confirmation rule |
 |---|---|---|
-| `C4001_24GHz_LOW_COST` (저가형 24GHz human presence radar) | response_ok, presence_flag, distance_m, velocity_mps, confidence_score | response_ok, presence=1, 0.2~3.0m, confidence≥0.6, 연속 5프레임 |
+| `C4001_24GHz_LOW_COST` (저가형 24GHz human presence radar) | response_ok, presence_flag, distance_m, velocity_mps, confidence_score | response_ok, presence=1, 0.2-3.0 m, confidence≥0.6, 연속 5프레임 |
 | `TI_IWR6843ISK_REFERENCE` (TI IWR6843ISK 기반 reference profile) | 위 필드 + point_count, angle_deg, micro_motion_score | 위 조건 + point_count≥3, confidence≥0.75(더 엄격), 연속 5프레임 |
 
 선택한 profile은 결과 해석문 "0) Evidence" 섹션과 model comparison 표
@@ -516,9 +553,9 @@ ACTUATOR_CONTROL 단계의 두 가지 제어 전략을 **항상 함께** 계산/
 FAIL_SAFE 상태에서는 안전을 위해 DC motor는 정책과 무관하게 항상 OFF다
 (occupant_confirmed 되지 않았기 때문).
 
-## 9. Paper-ready Export
+## 9. 결과 자동 생성 (Export)
 
-대시보드의 "Paper-ready 자동 생성" 버튼 또는
+대시보드의 결과 자동 생성 버튼 또는
 `scripts/generate_paper_outputs.py`를 실행하면 아래 11개 파일이
 `outputs/` 이하에 생성된다.
 
@@ -566,16 +603,12 @@ Wake-up 배타성, 모델 비교, 리포트 생성 문구까지 pytest로 검증
 
 ## 12. 한계와 향후 개선점
 
-- 공모전에 제출한 논문에는 실측 전력 값을 이 시뮬레이터에 넣어서 결과 분석 후 제출하였지만, 
-- 현재 이 시뮬레이터의 전력 값은 **추정 전력 모델**이며 실측이 아니다. 
-- `outputs/report/limitations_kr.txt`(자동 생성)에 최신 상세 내용이 저장된다.
-- UWB/mmWave는 **output-level virtual sensor simulation**이므로 실제
-  다중경로 반사, 노이즈 특성 등 raw signal 수준의 현상은 반영하지 않는다.
-- hardware_log.csv를 업로드해도 UWB/mmWave/Camera virtual sensor는 여전히
-  시나리오 설정에서 생성된다(하드웨어 CSV와 완전히 통합된 것은 아님).
-- 향후 개선점: 실제 전류 센서(INA219/INA226 등)를 이용한 estimated vs
-  measured 오차율 정량화, mmWave/UWB raw signal 기반 재현, 다양한
-  시나리오에 대한 민감도 분석, 실차 장기 운용 데이터 기반 FAIL_SAFE
-  오탐/미탐률 평가.
-
-
+- 이 시뮬레이터의 전력 값은 데이터시트 기반 **추정 전력 모델**이다. 결선 장비 기준 추정은 [2.3 소비전력 추정](#23-소비전력-추정)에 있다.
+- UWB, 레이더는 **출력 수준의 가상 센서**라서 다중 경로 반사, 잡음 같은 원신호 현상은 넣지 않았다.
+  원신호 수준의 동작은 결선 실측(2.2절)에서 실제 레이더, UWB, 카메라 기록으로 확인했다.
+- **하드웨어 기록과의 연동**: 시뮬레이터는 hardware_log.csv에서 온도와 PIR만 읽고, UWB, 레이더, 카메라는 시나리오로 만든다.
+  결선에서는 이 역할을 나눠, 실제 센서 다섯 가지(UWB, 레이더, 카메라, PIR, SHT31)는 장치 코드
+  [`prototype/SafeGuard_Main`](prototype/SafeGuard_Main/)의 센서 허브가 받아 C++ 상태기계에 넣고,
+  시뮬레이터는 실제로 만들기 어려운 고장 상황 시험에 쓴다.
+  다음 단계로, 장치가 남긴 실측 기록(UWB 거리, 레이더 추적 CSV, 카메라 판정 CSV)을 시뮬레이터에 그대로 다시 넣는 재생 모드를 추가할 계획이다.
+- 향후: 전류 센서(INA219, INA226)로 추정과 실측 전력 비교, 실제 차량 장기 운용 기록으로 FAIL_SAFE 오탐, 미탐률 평가.
