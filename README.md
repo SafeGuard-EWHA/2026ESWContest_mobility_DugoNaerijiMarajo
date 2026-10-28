@@ -68,7 +68,7 @@ power) 계산, 비교 모델 분석, 논문용 표/그림/해석문까지 자동
 (생성 스크립트: [`docs/presentation/`](docs/presentation/)). 움직이는 그림은 GIF라서 페이지를 열면 바로 재생되고,
 고화질 MP4는 각 그림 아래 링크로 받을 수 있다.
 
-### 논문용 그림 6장 (실측 원본 기반)
+### 주요 그래프 6장 (실측 원본 기반)
 
 생성: [`docs/figures/paper/build_paper_figures.py`](docs/figures/paper/build_paper_figures.py) · 각 그림은 PNG(300 dpi)와 PDF(벡터)로 저장.
 모두 한 사람, 한 번의 시험이라 프레임끼리 독립이 아니며, 일반화된 정확도로 쓰지 않는다.
