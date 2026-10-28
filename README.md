@@ -77,6 +77,23 @@
 
 사진 23장 (긴 변 2000 px로 줄이고 위치 정보 제거): [`pic_red_benz/`](pic_red_benz/)
 
+### 실제 차량 설치와 시연 (2026.10.28)
+
+전동차에서 만든 센서와 제어부를 실제 승용차 운전석 옆 센터 콘솔에 옮겨 달았다. Pi 5, 카메라, UWB 차량측, 레이더, ESP32 출력부를
+판 하나에 고정하고 12V 팬, 부저를 연결했다.
+
+<img src="docs/presentation/img/realcar/realcar_install_front.jpg" width="100%" alt="실제 차량 센터 콘솔에 설치한 SafeGuard">
+
+| 센터 콘솔 장착 | 장치 근접 (Pi 5, 카메라, UWB, 배선) |
+|---|---|
+| <img src="docs/presentation/img/realcar/realcar_console_mount.jpg" width="100%"> | <img src="docs/presentation/img/realcar/realcar_device_closeup.jpg" width="100%"> |
+
+<img src="docs/presentation/img/realcar/realcar_demo_dashboards.jpg" width="100%" alt="실차 시연 중 대시보드">
+
+시연 중 모습. 왼쪽 노트북은 SafeGuard 보호자 대시보드(UWB 거리, 실내 온도, 상태), 오른쪽 노트북은 10.27 레이더 시험 3 기록을 재생한 화면이다.
+현재 레이더는 USB 소켓 파손으로 실시간 입력을 쓰지 못해, 실차 시연은 레이더 없이 대체 판단 경로로 진행했다.
+사진은 긴 변 2000 px로 줄이고 위치 정보를 지웠으며, 차량 내비게이션 화면은 가렸다.
+
 ## 2.2 실측 결과
 
 제24회 임베디드SW경진대회 자동차/모빌리티 부문 결선 시제품(두고내리지말아조)의 실측 결과다.
