@@ -29,6 +29,19 @@
 [![Source Code](https://img.shields.io/badge/Source-GitHub-181717?logo=github)](https://github.com/SafeGuard-EWHA/2026ESWContest_mobility_DugoNaerijiMarajo)
 [![Sample Outputs](https://img.shields.io/badge/TwinLab-Sample%20Outputs-blue)](docs/sample_outputs/)
 
+## 팀 Pi 접속 · 2026-10-31 운영 갱신
+
+**[대시보드 열기](https://safeguard.local:9443/dashboard)** · **[휴대폰 위치 전송](https://safeguard.local:8443/)** · [시작 화면·연결 코드](https://safeguard.local:9443/)
+
+같은 네트워크의 팀 Pi에서 열리는 주소입니다. Pi 전원·네트워크 연결, 기기의 인증서 신뢰 및 로그인이 필요합니다. 위의 Streamlit 링크는 TwinLab 시뮬레이터입니다.
+
+- **현재 팀 Pi:** 접속 점검 모드. 웹·위치 서비스 자동 시작, 실제 휴대폰 위치와 기상 외기온 수신, 재부팅 및 위치 수신기 재시작 복구를 확인했습니다.
+- **열 예측 코드:** 실제 실내온도와 위치 기반 외기온을 함께 사용하도록 변경했습니다. 600초 이력, 35°C 도달 예상 60초 이내 선제 보호 정책을 유지합니다. 차량별 정확도는 미검증입니다.
+- **실물 제어:** 현재 ESP32·센서·출력 장치가 없는 구성으로 제어 메인은 비활성입니다. 처음 장치를 연결할 때 포트·펌웨어·정지 피드백을 확인하고 실제 제어 자동 시작을 설정해야 합니다.
+- **mmWave:** 10월 31일 사용자가 수리 완료를 보고했습니다. 새 운영본의 실제 입력 연결과 검증은 다음 장치 점검에서 확인합니다.
+
+[사용 순서·첫 센서 연결](prototype/docs/OPERATIONS.md) · [현재 상태와 확인 근거](prototype/docs/STATUS.md) · [실내·외기 열 예측 방법](prototype/docs/THERMAL_MODEL.md)
+
 ## 요약
 
 보호자가 차를 떠난 뒤 차 안에 남은 아이를 찾아, 실내 온도가 위험해지기 **전에** 팬과 부저를 켜는 장치다.
@@ -136,7 +149,7 @@
 
 <img src="docs/figures/paper/fig5_sensor_timing.png" width="100%" alt="Fig 5 timing">
 
-**Fig. 6 온도 판단 규칙 지도 (측정 아님).** `src/config.py` 규칙: 32 °C 이상 또는 35 °C 도달 예상 300 s 이하이면 PROTECT.
+**Fig. 6 TwinLab 시뮬레이터의 온도 판단 규칙 지도 (측정 아님).** `src/config.py` 규칙: 32 °C 이상 또는 35 °C 도달 예상 300 s 이하이면 PROTECT. Pi 장치 제어의 35°C 직접 보호·유효 ETA 60초 이내 선제 보호와 구분합니다.
 
 <img src="docs/figures/paper/fig6_thermal_rule_map.png" width="70%" alt="Fig 6 thermal rule">
 

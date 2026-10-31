@@ -331,7 +331,8 @@ class HubTests(unittest.TestCase):
                                                "distance_m": 1.0}) + "\n")
         child.poll.return_value = 0
         with mock.patch.object(hub_module.subprocess, "Popen", return_value=child) as popen:
-            hub.uwb_worker()
+            # The worker now retries forever; this test exercises one session.
+            hub.uwb_session()
         args = popen.call_args[0][0]
         self.assertIn("--json", args)
         self.assertIn("COM3", args)

@@ -2,7 +2,9 @@
 
 마지막 확인: 2026-10-16, ESP32 DevKitC(ESP-32D) on COM5, esp32 core 3.3.12
 
-## 지금 쓰는 코드
+> 이 문서는 10월 16일 블록 A 단독시험 기록입니다. 이후 통합 제어용 펌웨어는 [SafeGuard_Software_Stop-0.3.0](../../prototype/SafeGuard_Software_Stop_20261024/firmware/SafeGuard_Software_Stop/)와 [현재 운영 안내](../../prototype/docs/OPERATIONS.md)를 확인하세요. 아래 시험 코드와 배선 이력은 보존합니다.
+
+## 10월 16일 단독시험 코드
 
 | 폴더 | 용도 | 상태 |
 |---|---|---|

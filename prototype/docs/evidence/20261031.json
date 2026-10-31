@@ -1,0 +1,51 @@
+{
+  "phone_weather_acceptance": {
+    "checked_at_utc": "2026-10-31T12:04:33.086175+00:00",
+    "checks": {
+      "login_page": true,
+      "unauthenticated_state_rejected": true,
+      "dashboard_html": true,
+      "connection_mode": true,
+      "no_cabin_measurement": true,
+      "prediction_disabled": true,
+      "outputs_disabled": true,
+      "control_rejected": true,
+      "cross_origin_rejected": true,
+      "pairing_available": true,
+      "reconnect_same_run": true,
+      "no_hardware_main": true
+    },
+    "ambient_status": "api_sample_available",
+    "ambient": {
+      "valid": true,
+      "temp_c": 6.6,
+      "source": "REAL_AMBIENT"
+    },
+    "location_valid": true,
+    "temperature_valid": false
+  },
+  "receiver_recovery": {
+    "checked_at_utc": "2026-10-31T12:05:29.928381+00:00",
+    "checks": {
+      "pairing_memory_preserved": true,
+      "phone_still_paired": true,
+      "new_phone_sample_after_restart": true,
+      "location_valid": true,
+      "ambient_valid": true,
+      "portal_not_restarted": true,
+      "no_hardware_main": true
+    },
+    "ambient": {
+      "valid": true,
+      "temp_c": 6.6,
+      "source": "REAL_AMBIENT"
+    }
+  },
+  "scope": {
+    "hardware_controller_started": false,
+    "real_actuators_tested": false,
+    "new_vehicle_forecast_accuracy_tested": false,
+    "filming_inputs_preserved": true,
+    "mmwave_repair": "user_report_2026-10-31; integrated input check pending"
+  }
+}

@@ -79,3 +79,32 @@ assert.match(text("thermalReady"), /선제 보호 제어/);
 assert.match(text("thermalResearchNote"), /자동 출력/);
 assert.doesNotMatch(text("thermalResearchNote"), /자동 출력에 사용하지 않음/);
 console.log("PASS: enabled predictive control label");
+
+context.render({thermal_observer:{enabled:true,model:"ambient_heat_balance_observer_v2",control_enabled:true,valid:false,reason:"ambient_invalid",history_s:0}});
+assert.equal(nodes.get("thermalResearchNote").hidden,false);
+assert.match(text("thermalResearchNote"), /실내·외기온/);
+assert.match(text("thermalResearchNote"), /차량 정확도 미검증/);
+assert.match(text("t35"), /위치·외기온 입력 사용 불가/);
+context.render({thermal_observer:{enabled:true,model:"ambient_heat_balance_observer_v2",control_enabled:true,valid:false,reason:"warming_up",history_s:100}});
+assert.match(text("t35"), /100 \/ 600초/);
+console.log("PASS: ambient heat-balance model label, missing ambient and warmup");
+
+vm.runInContext('online=true',context);
+context.render({profile:'CONNECTION_CHECK',mode:'CONNECTION_CHECK',read_only:true,
+  manual_control:{enabled:true,resume_available:true},
+  thermal_observer:{enabled:true,model:'ambient_heat_balance_observer_v2',valid:false,reason:'hardware_not_connected'}});
+assert.match(text('profile'),/접속 점검/);
+assert.match(text('t35'),/실내 센서 미연결/);
+for(const id of ['stopButton','resumeButton','clearButton','rearmButton'])assert.equal(nodes.get(id).disabled,true);
+console.log('PASS: connection-only label and all hardware controls disabled');
+
+// A Pi-based update must retain the mmWave panel already published by the team.
+for(const id of ['mmwaveSource','mmwaveEvidence','mmwaveKind','mmwaveHealth','mmwaveProcessing'])
+  assert.ok(page.includes(`id="${id}"`), `Missing real HTML node: ${id}`);
+context.render({inputs:{mmwave:{valid:true,evidence:true,evidence_kind:'presence',source:'REAL_MMWAVE',health:'ok'}}});
+assert.equal(text('mmwaveEvidence'),'존재 증거 있음');
+context.render({inputs:{mmwave:{valid:true,evidence:false,evidence_kind:'presence',source:'REAL_MMWAVE',health:'ok'}}});
+assert.equal(text('mmwaveEvidence'),'존재 증거 없음');
+context.render({inputs:{mmwave:{valid:false,evidence:false,source:'MISSING'}}});
+assert.equal(text('mmwaveEvidence'),'WAITING');
+console.log('PASS: preserved mmWave panel distinguishes presence, absence and unavailable input');

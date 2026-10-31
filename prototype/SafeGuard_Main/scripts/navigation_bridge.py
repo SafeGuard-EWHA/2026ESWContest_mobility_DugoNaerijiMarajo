@@ -7,6 +7,8 @@ validated separately by the main-program adapter.
 """
 from __future__ import annotations
 
+from navigation_session import PairingMemory, atomic_json
+
 import argparse
 from datetime import datetime, timezone
 import hashlib
@@ -72,9 +74,10 @@ class BridgeError(Exception):
 
 
 class LocationStore:
-    """One pairing per receiver run; monotonic sequence and original phone time."""
+    """One active phone; optional expiring pairing persistence across restarts."""
     def __init__(self, path, *, max_accuracy_m=200.0, clock=time.monotonic,
-                 wall_clock=time.time, pairing_code=None):
+                 wall_clock=time.time, pairing_code=None, auth_file=None,
+                 pairing_info_file=None, rotation_file=None):
         if not finite(max_accuracy_m) or not 0 < max_accuracy_m <= 10000:
             raise ValueError("max_accuracy_m must be > 0 and <= 10000")
         self.path = Path(path)
@@ -99,7 +102,38 @@ class LocationStore:
         self.last_error = None
         self.accepted_count = 0
         self.state = {}
+        self.memory = PairingMemory(auth_file, wall_clock) if auth_file else None
+        self.pairing_info_file = Path(pairing_info_file) if pairing_info_file else None
+        self.rotation_file = Path(rotation_file) if rotation_file else None
         self.invalidate("receiver_started", seq=0)
+        self.publish_pairing()
+
+    def publish_pairing(self):
+        if self.pairing_info_file:
+            paired = self.memory.paired if self.memory else bool(self.token)
+            atomic_json(self.pairing_info_file, {"paired": paired,
+                "code": None if paired else self.pairing_code,
+                "expires_unix": self.wall_clock()+max(0,self.pairing_deadline-self.clock())})
+
+    def maintenance(self):
+        if self.memory and self.memory.digest and not self.memory.paired:
+            with self.lock:
+                self.memory.clear()
+                self.token = None
+                self.invalidate("pairing_expired")
+                self.publish_pairing()
+        if self.rotation_file and self.rotation_file.exists():
+            self.rotation_file.unlink()
+            with self.lock:
+                if self.memory: self.memory.clear()
+                self.token = None
+                self.last_seq = 0
+                self.last_position_ms = self.last_sample_age = self.last_sample_mono = None
+                self.pairing_code = f"{secrets.randbelow(100_000_000):08d}"
+                self.pairing_deadline = self.clock()+600
+                self.pair_attempts = 0
+                self.invalidate("pairing_reset")
+                self.publish_pairing()
 
     def _write(self, state):
         temporary = self.path.with_name(self.path.name + "." + secrets.token_hex(8) + ".tmp")
@@ -135,23 +169,28 @@ class LocationStore:
         with self.lock:
             if self.closed:
                 raise BridgeError(503, "Receiver stopped")
-            if self.token is not None:
-                raise BridgeError(409, "Already paired. Restart receiver to pair another phone.")
+            if (self.memory.paired if self.memory else self.token is not None):
+                raise BridgeError(409, "Already paired. Reset phone pairing in the portal.")
             if self.clock() >= self.pairing_deadline:
-                raise BridgeError(403, "Pairing code expired. Restart receiver.")
+                raise BridgeError(403, "Pairing code expired. Reset phone pairing in the portal.")
             if self.pair_attempts >= 10:
-                raise BridgeError(429, "Pairing locked. Restart receiver.")
+                raise BridgeError(429, "Pairing locked. Reset phone pairing in the portal.")
             self.pair_attempts += 1
             code = payload.get("code")
             if not isinstance(code, str) or not hmac.compare_digest(code.encode(), self.pairing_code.encode()):
                 raise BridgeError(403, "Incorrect pairing code")
             self.token = secrets.token_urlsafe(32)
             self.pairing_code = ""  # Code cannot authorize a second client.
+            if self.memory: self.memory.save(self.token)
+            self.publish_pairing()
             return {"token": self.token, "receiver_session": self.receiver_session,
                     "last_seq": self.last_seq, "max_accuracy_m": self.max_accuracy_m}
 
     def authorized(self, authorization):
         with self.lock:
+            if self.memory:
+                return (not self.closed and isinstance(authorization, str) and
+                        authorization.startswith("Bearer ") and self.memory.accept(authorization[7:]))
             return (not self.closed and isinstance(authorization, str) and self.token is not None and
                     hmac.compare_digest(authorization.encode(), ("Bearer " + self.token).encode()))
 
@@ -520,7 +559,10 @@ def main():
                 listener.allowed_peer_networks = networks
                 servers.append(listener)
                 listeners.append((listener, is_bootstrap))
-        store = LocationStore(args.state_file, max_accuracy_m=args.max_accuracy_m)
+        runtime = args.state_file.parent
+        store = LocationStore(args.state_file, max_accuracy_m=args.max_accuracy_m,
+            auth_file=runtime / "navigation_auth.json", pairing_info_file=runtime / "navigation_pairing.json",
+            rotation_file=runtime / "navigation_pairing_reset.json")
         for listener, is_bootstrap in listeners:
             listener.RequestHandlerClass = make_handler(store, host=args.host,
                 hostname=args.hostname, port=args.http_port if is_bootstrap else args.port,
@@ -543,10 +585,11 @@ def main():
         for ipv6, scope, networks in bindings:
             print(f"IPv6 listening: {ipv6} (same Wi-Fi network clients)", flush=True)
         print("CA SHA-256: " + ":".join(fingerprint[i:i+2] for i in range(0, len(fingerprint), 2)), flush=True)
-        print("PAIRING CODE (8 digits, one phone, 10 minutes): " + store.pairing_code, flush=True)
+        print("Pairing is managed in the authenticated SafeGuard portal.", flush=True)
         print("State file: " + str(args.state_file.resolve()), flush=True)
         print("Keep this window open. Ctrl+C stops and invalidates location.", flush=True)
         while True:
+            store.maintenance()
             time.sleep(0.5)
     except KeyboardInterrupt:
         print("Stopping navigation receiver.", flush=True)
