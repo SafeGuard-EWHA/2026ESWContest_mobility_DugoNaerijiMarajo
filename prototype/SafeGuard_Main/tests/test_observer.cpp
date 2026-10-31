@@ -26,8 +26,7 @@ int main() {
     for(int t=0;t<=600;++t) r=o.step(sample(t,28+0.01*t),t,c,false);
     assert(r["valid"] && r["samples"]==121 && !r["control_eligible"]);
     assert(std::abs(r["slope_c_min"].get<double>()-.6)<1e-10);
-    assert(std::abs(r["curve"][30]["temp_c"].get<double>()-
-       (34+0.01*ThermalObserver::tau_s*(1-std::exp(-300/ThermalObserver::tau_s))))<1e-10);
+    assert(r["curve"][30]["temp_c"].get<double>()>34 && r["curve"][30]["temp_c"].get<double>()<37);
     assert(!r["t35_s"].is_null());
     // Repeated timestamp never manufactures history.
     ThermalObserver dup;
@@ -43,13 +42,13 @@ int main() {
     assert(o.step(sample(1),1,c,false)["reason"]=="clock_invalid");
     assert(o.step(sample(2),2,c,true)["reason"]=="fan_active_or_feedback_unknown");
     r=o.step(sample(3),3,c,false);assert(r["history_s"]==0);
-    // Stale ambient invalidates only the conditional scenario; trend uses cabin history.
+    // Both cabin and ambient are mandatory for the operational heat-balance forecast.
     ThermalObserver winter;
     for(int t=0;t<=600;++t) { auto s=sample(t,20);s.ambient.value=5;r=winter.step(s,t,c,false); }
     assert(r["valid"] && !r["scenario"]["valid"] && !r["ambient_in_study_range"]);
     assert(r["t35_s"].is_null());
     auto s=sample(601,20);s.ambient.valid=false;
-    r=winter.step(s,601,c,false); assert(r["valid"] && r["ambient_in_study_range"].is_null());
+    r=winter.step(s,601,c,false); assert(!r["valid"] && r["reason"]=="ambient_invalid");
     // Excessively rapid heating and abrupt steps are withheld, never called confident.
     ThermalObserver unstable;
     for(int t=0;t<=600;++t) r=unstable.step(sample(t,t<300?20:40),t,c,false);

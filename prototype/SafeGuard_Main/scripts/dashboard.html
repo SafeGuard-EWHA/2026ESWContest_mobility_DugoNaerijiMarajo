@@ -165,17 +165,18 @@ function log(message) {
   li.append(time,text); $("log").prepend(li); while($("log").children.length>50) $("log").lastChild.remove();
 }
 let previousSignature=null, previousRun=null, online=false, sending=false;
-let manualState={};
+let manualState={}, viewReadOnly=false;
 function controls() {
-  $("clearButton").disabled=!online||sending||manualState.held===true;
-  $("rearmButton").disabled=!online||sending;
-  $("stopButton").disabled=!online||manualState.enabled!==true;
-  $("resumeButton").disabled=!online||sending||manualState.resume_available!==true;
+  $("clearButton").disabled=viewReadOnly||!online||sending||manualState.held===true;
+  $("rearmButton").disabled=viewReadOnly||!online||sending;
+  $("stopButton").disabled=viewReadOnly||!online||manualState.enabled!==true;
+  $("resumeButton").disabled=viewReadOnly||!online||sending||manualState.resume_available!==true;
 }
 function render(snapshot) {
   const s=object(snapshot), inputs=object(s.inputs), uwb=object(inputs.uwb), pir=object(inputs.pir), camera=object(inputs.camera), mmwave=object(inputs.mmwave);
   const temp=object(inputs.temperature), ambient=object(inputs.ambient), estop=object(inputs.estop), thermal=object(s.thermal_observer?.enabled===true ? s.thermal_observer : s.thermal), outputs=object(s.outputs), processing=object(s.processing), thresholds=object(s.thresholds);
   manualState=object(s.manual_control);
+  viewReadOnly=s.read_only===true;
   $("manualPanel").hidden=manualState.enabled!==true;
   $("rearmButton").hidden=manualState.enabled===true;
   if(manualState.enabled===true) {
@@ -189,6 +190,10 @@ function render(snapshot) {
   tag("profile",profile==="SIMULATION" ? "소프트웨어 모의시험" : profile==="HARDWARE_DEMO" ? "하드웨어 시연 · 시험 입력 포함" : profile==="REAL" ? "실제 입력 운용" : "시험 구분 WAITING",profile==="REAL" ? "real" : profile ? "demo" : "");
   tag("mode",mode ? mode+" 모드" : "모드 WAITING",mode.includes("DEMO") ? "demo" : mode==="REAL" ? "real" : "");
   put("state",friendlyState(s.state)); put("reason",friendlyReason(s.reason)); put("guardian",({NEAR:"근거리 조건 충족",AWAY:"이탈 조건 충족",UNKNOWN:"확인 불가"})[s.guardian] || display(s.guardian)); put("occupant",({CONFIRMED:"탑승 증거 확인",SUSPECTED:"탑승 의심",UNKNOWN:"확인 불가"})[s.occupant] || display(s.occupant));
+  if(profile==="CONNECTION_CHECK") {
+    tag("profile","접속 점검 · 장치 제어 비활성");tag("mode","위치·외기온 확인");
+    put("state","접속 점검");put("reason","실내 센서 미연결 · 예측과 장치 제어는 사용하지 않음");
+  }
   put("elapsed","경과 "+seconds(s.elapsed_s)); put("runId",s.run_id);
   const departure=finite(thresholds.departure_distance_m) ? thresholds.departure_distance_m.toFixed(1)+" m" : WAIT;
   put("thresholds","이탈 판단 기준 · 거리 "+departure+" / 유지 "+seconds(thresholds.departure_hold_s));
@@ -206,19 +211,20 @@ function render(snapshot) {
   const riskTemperature=finite(thresholds.risk_temp_c) ? thresholds.risk_temp_c : 35;
   put("riskThresholdTitle",riskTemperature+"°C 도달 예상 시간 · 모델 계산");
   put("t35",thermal.valid===true && finite(thermal.t35_s) && thermal.t35_s>=0 ? (thermal.t35_s===0 ? "0초 · 모델 계산" : seconds(thermal.t35_s)+" ("+(thermal.t35_s/60).toFixed(1)+"분)") : thermal.valid===true && thermal.t35_s===null ? "예측 범위 내 미도달" : WAIT);
-  const research=thermal.model==="literature_tau_observed_trend_v1";
+  const ambientModel=thermal.model==="ambient_heat_balance_observer_v2";
+  const research=ambientModel || thermal.model==="literature_tau_observed_trend_v1";
   $("thermalResearchNote").hidden=!research;
   if(research) {
-    const reasons={warming_up:"실측 이력 수집 중",temperature_invalid:"온도 입력 끊김 · 이력 초기화",
+    const reasons={hardware_not_connected:"실내 센서 미연결 · 예측 대기",warming_up:"실측 이력 수집 중",temperature_invalid:"온도 입력 끊김 · 이력 초기화",
       fan_active_or_feedback_unknown:"팬 작동 또는 출력 상태 확인 불가 · 예측 중단",
-      trend_unstable:"온도 추세 급변 · 예측 보류",forecast_out_of_range:"예측 범위 초과",
+      ambient_invalid:"위치·외기온 입력 사용 불가 · 예측 보류",heat_balance_unstable:"열수지 적합 불안정 · 예측 보류",trend_unstable:"온도 추세 급변 · 예측 보류",forecast_out_of_range:"예측 범위 초과",
       clock_invalid:"시각 오류",mode_invalid:"입력 모드 오류",history_invalid:"이력 부족"};
     const elapsed=finite(thermal.history_s)?Math.min(600,Math.floor(thermal.history_s)):0;
     tag("thermalReady",thermal.control_enabled===true ?
       (thermal.protection_active===true?"선제 보호 제어 · 보호 중":thermal.valid===true?"선제 보호 제어 · 예측 유효":"선제 보호 제어 · 예측 대기") :
       (thermal.valid===true?"연구용 추정 · 제어 미사용":"연구용 추정 대기"));
     put("riskThresholdTitle",riskTemperature+"°C 도달 추정 · 향후 5분");
-    put("thermalResearchNote","논문 기반 시간상수 + 최근 10분 실측 추세. 차량 정확도 미검증. "+
+    put("thermalResearchNote",(ambientModel ? "실내·외기온 이력 기반 열수지 예측. 문헌 적합 시간상수 사용 · 차량 정확도 미검증. " : "문헌 적합 시간상수 + 최근 10분 실내온도 추세. 차량 정확도 미검증. ")+
       (thermal.control_enabled===true?"60초 이내 기준 도달 추정 시 보호 조건을 확인해 자동 출력. 전체 정지 우선. ":"자동 출력에 사용하지 않음. ")+
       (thermal.ambient_in_study_range===false?"현재 외기는 원 연구 범위 밖입니다. ":"")+
       "미도달 표시는 안전 판정이 아닙니다.");
@@ -267,6 +273,7 @@ async function refresh() {
     const profile=typeof s.profile==="string" ? s.profile.toUpperCase() : "";
     $("banner").textContent=profile==="SIMULATION" ? "소프트웨어 모의시험 · 가상 입력으로 판단 흐름을 검증합니다. 실제 센서 측정이나 하드웨어 구동 확인이 아닙니다." : profile==="HARDWARE_DEMO" ? "하드웨어 시연 · 실제 센서와 시험 온도 입력이 함께 사용됩니다. 차내 온도 입력과 별도 실측 온도, 각 입력의 출처를 구분해 확인하세요." : profile==="REAL" ? "실제 입력 운용 · 현재 제어기 상태를 표시합니다. 각 입력의 유효성과 출력 요청·확인 상태를 함께 확인하세요." : mode.includes("DEMO") ? "DEMO · 시험 입력이 포함될 수 있습니다. 각 항목의 출처 표시를 함께 확인하세요." : "시험 구분 WAITING · 각 항목의 출처와 유효성을 확인하세요.";
     put("updated","마지막 수신 "+new Date().toLocaleTimeString("ko-KR",{hour12:false}));
+    if(profile==="CONNECTION_CHECK") $("banner").textContent="접속 점검 · 휴대폰 위치와 기상 외기온을 확인합니다. 실내온도·탑승자 판단·장치 제어는 실행하지 않습니다.";
     if(previousRun!==s.run_id && s.run_id!==undefined) { log("실행 시작 · "+display(s.run_id)); previousRun=s.run_id; previousSignature=null; }
     const signature=JSON.stringify([s.state,s.reason,s.guardian,s.occupant,s.faults,object(s.outputs).fan,object(s.outputs).buzzer,object(s.outputs).ack_status,object(s.outputs).actuation_enabled]);
     if(signature!==previousSignature) { log("상태 "+friendlyState(s.state)+" · "+friendlyReason(s.reason)); previousSignature=signature; }
@@ -274,7 +281,7 @@ async function refresh() {
   finally { clearTimeout(timeout); setTimeout(refresh,750); }
 }
 async function requestAction(action) {
-  if(!online || (sending && action!=="manual_stop")) return;
+  if(viewReadOnly || !online || (sending && action!=="manual_stop")) return;
   sending=true; controls(); put("controlResult","요청을 전달하고 있습니다…");
   const abort=new AbortController(), timeout=setTimeout(()=>abort.abort(),4000);
   try {

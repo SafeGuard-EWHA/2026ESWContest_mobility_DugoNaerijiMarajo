@@ -17,7 +17,7 @@ void ready(Core& c){c.step(sample(0,30,3),0);c.step(sample(.1),.1);c.step(sample
  s=sample(1.5);s.mmwave.evidence=true;auto o=c.step(s,1.5);assert(o.state==State::THERMAL&&!o.demand_fan);}
 int main(){
  auto c=cfg(); ThermalObserver observer;nlohmann::json r;
- for(int t=0;t<=600;++t) r=observer.step(sample(t,28.5+.01*t),t,c,false);
+ for(int t=0;t<=600;++t) r=observer.step(sample(t,50+(34.5-50)*std::exp((600-t)/ThermalObserver::tau_s)),t,c,false);
  assert(r["valid"] && r["t35_s"].get<double>()<60);
  LivePrediction p;p.timestamp_s=600;p.temperature_c=34.5;p.result.valid=true;
  p.result.t35_s=r["t35_s"].get<double>();p.result.reason="estimated_crossing";
@@ -43,5 +43,5 @@ int main(){
  assert(!off.step(sample(600),600,false,false,&p).demand_fan);
  Core boundary(c);ready(boundary);p.result.t35_s=60;
  assert(boundary.step(sample(600),600,false,false,&p).demand_fan);
- std::cout<<"PASS: live 34.5C/51s -> protection, 60s boundary, >60 withheld, invalid/stale/mismatch/NaN rejected, hot fallback, near withheld, disabled withheld, latch and estop\n";
+ std::cout<<"PASS: live 34.5C/analytic ETA -> protection, 60s boundary, >60 withheld, invalid/stale/mismatch/NaN rejected, hot fallback, near withheld, disabled withheld, latch and estop\n";
 }
