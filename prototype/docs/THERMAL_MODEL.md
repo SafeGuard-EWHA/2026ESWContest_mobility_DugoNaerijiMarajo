@@ -16,8 +16,8 @@
 
 ## 검증과 한계
 
-수학적 해석해 비교, 외기 변화에 따른 ETA 변화, 결측/가상 출처 거부, 기존 선제 보호·직접 보호 회귀를 시험했습니다. 실제 차량의 예측 오차는 미검증입니다. 겨울 외기와 차량 일사·환기 변화에 대한 정확도를 이 시험으로 보장하지 않습니다.
+수학적 해석해 비교, 외기 변화에 따른 ETA 변화, 결측/가상 출처 거부, 기존 선제 보호·직접 보호 회귀를 시험했습니다. 실제 차량의 예측 오차는 미검증입니다. 차량 일사·환기 변화의 영향은 차량별 온도 기록과 비교해 평가해야 합니다.
 
 실내 이력이 같고 전체 외기 이력에 일정한 편차가 생기면 q가 이를 흡수할 수 있습니다. 별도 일사/열유입 계측이 없는 모델의 식별 한계이며 R, C, 일사 유입을 각각 추정했다고 주장하지 않습니다.
 
-기존 `thermal.enabled=false / calibrated=false`는 과거 RC 경로입니다. 새 모델은 `literature_observer_enabled / predictive_control_enabled` 진입점을 사용합니다. [이전 방법·문헌](../maintenance/SafeGuard_Thermal_20261028/METHOD.md)은 당시 실내 추세 기반 모델의 기록으로 보존합니다. 과거 촬영 결과를 새 모델의 실물 검증으로 재분류하지 않습니다.
+`thermal.enabled=false / calibrated=false`는 호환용 RC 경로 설정입니다. 활성 관측기는 `literature_observer_enabled / predictive_control_enabled` 진입점을 사용합니다. 시간상수와 비교 모델의 출처는 [방법·참고 문헌](../maintenance/SafeGuard_Thermal_20261028/METHOD.md)에 있습니다.

@@ -44,8 +44,6 @@
   "scope": {
     "hardware_controller_started": false,
     "real_actuators_tested": false,
-    "new_vehicle_forecast_accuracy_tested": false,
-    "filming_inputs_preserved": true,
-    "mmwave_repair": "user_report_2026-10-31; integrated input check pending"
+    "new_vehicle_forecast_accuracy_tested": false
   }
 }
